@@ -10,4 +10,5 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>grupo2.citasmedicas.Principal</exec.mainClass>
     </properties>
+    <name>gestorHotel</name>
 </project>

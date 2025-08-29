@@ -1,5 +1,5 @@
 
-package grupo2.citasmedicas;
+package logica;
 
 //@author David Rolando
  
