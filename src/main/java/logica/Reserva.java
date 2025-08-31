@@ -4,10 +4,6 @@
  */
 package logica;
 
-/**
- *
- * @author extru
- */
 public class Reserva {
     
 }

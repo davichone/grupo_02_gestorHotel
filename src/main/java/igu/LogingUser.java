@@ -164,9 +164,7 @@ public class LogingUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        
-        String usuario;
+         String usuario;
            String contraseña;
            int intentos=3;
            
@@ -176,7 +174,8 @@ public class LogingUser extends javax.swing.JFrame {
            while (intentos > 0) {
             
             if (contraseña.equals("miclave") && usuario.equals("u23241215")) {
-                JOptionPane.showMessageDialog(null, "¡Bienvenido!");
+                 java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
+                 this.setVisible(false);
                 break; 
             } else {
                 intentos--;
@@ -188,7 +187,7 @@ public class LogingUser extends javax.swing.JFrame {
                 System.exit(0); 
             }
             }
-        }
+           }
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -213,9 +212,9 @@ public class LogingUser extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+                    java.awt.EventQueue.invokeLater(() -> new LogingUser().setVisible(true));
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LogingUser().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
