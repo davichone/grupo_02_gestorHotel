@@ -180,7 +180,7 @@ public class RegistroCliente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
-         System.exit(0);
+         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

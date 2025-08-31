@@ -158,7 +158,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonAtrasActionPerformed
 
     private void BotonReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReservaActionPerformed
-        // TODO add your handling code here:
+        /*llamar reservar*/   java.awt.EventQueue.invokeLater(() -> new ReservaCliente().setVisible(true));
+        this.setVisible(false);
     }//GEN-LAST:event_BotonReservaActionPerformed
 
     /**
