@@ -173,7 +173,7 @@ public class LogingUser extends javax.swing.JFrame {
          
            while (intentos > 0) {
             
-            if (contraseña.equals("miclave") && usuario.equals("u23241215")) {
+            if (contraseña.equals("miclave") && usuario.equals("123")) {
                  java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
                  this.setVisible(false);
                 break; 

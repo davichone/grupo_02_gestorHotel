@@ -11,4 +11,11 @@
         <exec.mainClass>poo.grupo02.Principal</exec.mainClass>
     </properties>
     <name>proyectGestorHotel</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE260</version>
+        </dependency>
+    </dependencies>
 </project>

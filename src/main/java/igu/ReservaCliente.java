@@ -8,14 +8,14 @@ package igu;
  *
  * @author extru
  */
-public class RegistroClientes extends javax.swing.JFrame {
+public class ReservaCliente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroClientes.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReservaCliente.class.getName());
 
     /**
      * Creates new form RegistroClientes
      */
-    public RegistroClientes() {
+    public ReservaCliente() {
         initComponents();
     }
 
@@ -66,7 +66,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RegistroClientes().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new ReservaCliente().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
