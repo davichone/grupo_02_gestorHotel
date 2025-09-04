@@ -17,6 +17,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -146,6 +148,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void BotonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistroActionPerformed
         java.awt.EventQueue.invokeLater(() -> new RegistroCliente().setVisible(true));
+        this.setVisible(false);
         
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
