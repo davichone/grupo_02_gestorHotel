@@ -4,6 +4,6 @@
  */
 package logica;
 
-public class Cliente {
+public class Cliente extends igu.RegistroCliente {
     
 }
