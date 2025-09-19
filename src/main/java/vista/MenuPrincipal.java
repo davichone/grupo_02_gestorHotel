@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package igu;
+package vista;
 
 /**
  *
@@ -18,8 +18,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,7 +154,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void BotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAtrasActionPerformed
        // pantalla.opcionInterfaz(2);
-       java.awt.EventQueue.invokeLater(() -> new LogingUser().setVisible(true));
+       java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true));
        this.setVisible(false);
         //this.setVisible(false);
         

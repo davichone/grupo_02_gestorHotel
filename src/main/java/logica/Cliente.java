@@ -4,6 +4,27 @@
  */
 package logica;
 
-public class Cliente extends igu.RegistroCliente {
+public class Cliente {
+    
+    /*ATRIBUTOS*/
+    
+    private int DNI;
+    private String nombre;
+    private String telefono;
+    
+    
+     public Cliente(int DNI, String nombre,String telefono){
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.telefono=telefono;
+    }
+     
+     /*METODO*/
+     public void RegisterCliente(){
+         
+        
+        
+     
+     }
     
 }
