@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
-
+import logica.Costumer;
 /**
  *
  * @author extru
@@ -47,7 +47,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        elegirTipoHabitacion = new javax.swing.JComboBox<>();
         BotonSauna = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         BotonAguaCaliente = new javax.swing.JRadioButton();
@@ -161,6 +161,11 @@ public class CustomerRegistration extends javax.swing.JFrame {
         BotonRegistro.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         BotonRegistro.setForeground(new java.awt.Color(51, 51, 51));
         BotonRegistro.setText("Register");
+        BotonRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonRegistroActionPerformed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Extra");
@@ -175,8 +180,13 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Room type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "single room", "double room(separate)", "triple room(separate)" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        elegirTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "single room", "double room(separate)", "triple room(separate)" }));
+        elegirTipoHabitacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        elegirTipoHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elegirTipoHabitacionActionPerformed(evt);
+            }
+        });
 
         BotonSauna.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         BotonSauna.setText("  sauna");
@@ -226,7 +236,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ingresoDNI)
                                     .addComponent(jSeparator1)
-                                    .addComponent(jComboBox1, 0, 172, Short.MAX_VALUE)
+                                    .addComponent(elegirTipoHabitacion, 0, 172, Short.MAX_VALUE)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,7 +283,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(elegirTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -325,6 +335,22 @@ public class CustomerRegistration extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BotonSaunaActionPerformed
 
+    private void BotonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistroActionPerformed
+        String nombre = ingresoName.getText();
+        String dni = ingresoDNI.getText();
+        String   telefono = ingresoTelefono.getText();
+        String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
+        
+        Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
+        
+        System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
+        
+    }//GEN-LAST:event_BotonRegistroActionPerformed
+
+    private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,7 +373,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        /* java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); */
+         java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -357,10 +383,10 @@ public class CustomerRegistration extends javax.swing.JFrame {
     private javax.swing.JButton BotonRegistro;
     private javax.swing.JButton BotonReservas;
     private javax.swing.JRadioButton BotonSauna;
+    private javax.swing.JComboBox<String> elegirTipoHabitacion;
     private javax.swing.JTextField ingresoDNI;
     private javax.swing.JTextField ingresoName;
     private javax.swing.JTextField ingresoTelefono;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

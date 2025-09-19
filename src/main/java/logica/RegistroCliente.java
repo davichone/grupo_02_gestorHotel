@@ -8,27 +8,27 @@ package logica;
  *
  * @author extru
  */
-public class RegistroCliente extends Cliente{
-    
-    /* ATRIBUTO */
-    private String tipoHabitacion;
-    private double precio;
-    public RegistroCliente(int DNI, String nombre, String telefono,String tipoHabitacion,double precio) {
-        super(DNI, nombre, telefono);
-        this.tipoHabitacion=tipoHabitacion;
-
-    }
-    /* METODO */
-    public void Extras(){
-        if (BotonSauna.isSelected) {
-            
-        }
-        
-        
-        
-        
-        
-        
-    }
- 
-}
+//public class RegistroCliente extends Costumer{
+//    
+//    /* ATRIBUTO */
+//    private String tipoHabitacion;
+//    private double precio;
+//    public RegistroCliente(int DNI, String nombre, String telefono,String tipoHabitacion,double precio) {
+//        super(DNI, nombre, telefono);
+//        this.tipoHabitacion=tipoHabitacion;
+////
+////    }
+////    /* METODO */
+////    public void Extras(){
+////        if (BotonSauna.isSelected) {
+////            
+////        }
+////        
+//        
+//        
+//        
+//        
+//        
+//    }
+// 
+//}
