@@ -20,4 +20,5 @@ public class Boleta {
     }
     
     //crear metodo salida boleta en html
+    
 }
