@@ -6,13 +6,36 @@ package logica;
 
 public class Costumer {
   
-    private String nombre, telefono, dni;
+    private String nombre, telefono, dni, email;
+    private int edad;
     
      public Costumer(String nombre,String telefono, String dni){
         this.dni = dni;
         this.nombre = nombre;
         this.telefono=telefono;
+ 
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+     
      
      //metodo para visualizar todos los datos del cliente (prueba en consola)
      @Override

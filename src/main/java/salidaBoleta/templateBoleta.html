@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factura de Venta</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2, p { text-align: center; }
+        .total { font-size: 1.2em; font-weight: bold; margin-top: 20px; text-align: right; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Factura de Venta</h2>
+    <hr>
+    <p><strong>Fecha:</strong> {{fechaBoleta}}</p>
+    <p><strong>Cliente:</strong> {{clienteNombre}}</p>
+    <p><strong>Email:</strong> {{clienteEmail}}</p>
+    <hr>
+    <h3>Detalle de Productos</h3>
+    <div id="productos">{{productosList}}</div>
+    <hr>
+    <p class="total">Total a Pagar: S/.{{totalPagar}}</p>
+</div>
+
+</body>
+</html>

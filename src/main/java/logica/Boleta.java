@@ -19,6 +19,20 @@ public class Boleta {
         //agregar calculo total de precio
     }
     
+    
+    
     //crear metodo salida boleta en html
+
+    public Costumer getCliente() {
+        return cliente;
+    }
+
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public double getPrecioFinal() {
+        return precioFinal;
+    }
     
 }

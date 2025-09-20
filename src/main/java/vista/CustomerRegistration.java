@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package vista;
 import logica.Costumer;
-/**
- *
- * @author extru
- */
+import logica.Boleta;
+import logica.generadorHtmlBoleta;
+
 public class CustomerRegistration extends javax.swing.JFrame {
-    
+    //atributos::
+    Costumer nuevoClienteAtri = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CustomerRegistration.class.getName());
 
     /**
@@ -77,6 +74,11 @@ public class CustomerRegistration extends javax.swing.JFrame {
         BotonBoletas.setForeground(new java.awt.Color(51, 51, 51));
         BotonBoletas.setText("Ticket");
         BotonBoletas.setBorder(null);
+        BotonBoletas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBoletasActionPerformed(evt);
+            }
+        });
 
         BotonReservas.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         BotonReservas.setForeground(new java.awt.Color(51, 51, 51));
@@ -342,7 +344,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
         
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
-        
+        this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
         
     }//GEN-LAST:event_BotonRegistroActionPerformed
@@ -350,6 +352,12 @@ public class CustomerRegistration extends javax.swing.JFrame {
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
+
+    private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
+        Boleta nuevaBoleta = new Boleta(nuevoClienteAtri);
+        System.out.println(nuevoClienteAtri.getNombre());
+        generadorHtmlBoleta.generarFactura(nuevaBoleta);
+    }//GEN-LAST:event_BotonBoletasActionPerformed
 
     /**
      * @param args the command line arguments
