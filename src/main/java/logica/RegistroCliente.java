@@ -21,8 +21,21 @@ public class RegistroCliente{
         this.garaje = garaje;
         this.aguaCaliente = aguaCaliente;
         this.habitacion=habitacion;
+        
+        String tipoHabitacionLimpio = habitacion.trim(); 
 
-        switch (habitacion) {
+        
+        if (habitacion.equals("single room")){
+            this.precioHabitacion = 30.0;
+        }else if (tipoHabitacionLimpio.equalsIgnoreCase("double room (separate)")) {
+        this.precioHabitacion = 60.0;
+        }else if (tipoHabitacionLimpio.equalsIgnoreCase("triple room (separate)")) {
+        this.precioHabitacion = 90.0;
+    } else {
+        this.precioHabitacion = 0.0;
+    }
+
+        /* switch (habitacion) {
             case "single room":
                 this.precioHabitacion=30.0;
                 break;
@@ -35,7 +48,9 @@ public class RegistroCliente{
             default:
              this.precioHabitacion=0.0;
         }
-    }
+*/
+        
+  }
    
     public double calcularTotal() {
         double total= precioHabitacion;

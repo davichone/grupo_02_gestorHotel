@@ -348,6 +348,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
         
+        //precioHabitacion(Aunfalta) y precio de los extras:
         String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
          
        RegistroCliente op = new RegistroCliente(
@@ -364,15 +365,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
 
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
         // TODO add your handling code here:
-        
-        String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
-        RegistroCliente op = new RegistroCliente(
-      BotonSauna.isSelected(),
-      BotonEstacionamiento.isSelected(),
-      BotonAguaCaliente.isSelected(),
-       habitacionSeleccionada
-);
-       double total = op.calcularTotal();
+       
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
