@@ -2,6 +2,7 @@
 package vista;
 import logica.Costumer;
 import logica.Boleta;
+import logica.RegistroCliente;
 import logica.generadorHtmlBoleta;
 import logica.ReservaService;
 public class CustomerRegistration extends javax.swing.JFrame {
@@ -342,20 +343,49 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String nombre = ingresoName.getText();
         String dni = ingresoDNI.getText();
         String   telefono = ingresoTelefono.getText();
+<<<<<<< HEAD
         String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
           //obtener la opcion
         String roomType =(String) elegirTipoHabitacion.getSelectedItem();
         ReservaService reservaActual = new ReservaService(roomType, null, null);
         System.out.println("reserva exitosa = " + reservaActual); //prueba para ver datos de reserva  en consolita
+=======
+        //String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
+        
+          //Validacion
+        if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos Vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Detiene la ejecución del método si algo falta
+        }
+        
+>>>>>>> 6a65808af114247e7ff4831e3893431a3a244ff2
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
         this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
         
+        //precioHabitacion(Aunfalta) y precio de los extras:
+        String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
+         
+       RegistroCliente op = new RegistroCliente(
+      BotonSauna.isSelected(),
+      BotonEstacionamiento.isSelected(),
+      BotonAguaCaliente.isSelected(),
+       habitacionSeleccionada
+);
+       double total = op.calcularTotal();
+       
+        System.out.println("Habitación: " + op.getHabitacion() + " - Total: " + total);
+   
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
+<<<<<<< HEAD
       
         
+=======
+        // TODO add your handling code here:
+       
+>>>>>>> 6a65808af114247e7ff4831e3893431a3a244ff2
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
@@ -388,6 +418,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         /* Create and display the form */
          java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
     }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BotonAguaCaliente;
