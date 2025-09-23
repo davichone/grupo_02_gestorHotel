@@ -3,10 +3,11 @@ package vista;
 import logica.Costumer;
 import logica.Boleta;
 import logica.generadorHtmlBoleta;
-
+import logica.ReservaService;
 public class CustomerRegistration extends javax.swing.JFrame {
     //atributos::
     Costumer nuevoClienteAtri = null;
+    ReservaService nuevaReservaServiceAtri =null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CustomerRegistration.class.getName());
 
     /**
@@ -284,7 +285,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(elegirTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,7 +343,10 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String dni = ingresoDNI.getText();
         String   telefono = ingresoTelefono.getText();
         String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
-        
+          //obtener la opcion
+        String roomType =(String) elegirTipoHabitacion.getSelectedItem();
+        ReservaService reservaActual = new ReservaService(roomType, null, null);
+        System.out.println("reserva exitosa = " + reservaActual); //prueba para ver datos de reserva  en consolita
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
         this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
@@ -350,7 +354,8 @@ public class CustomerRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
-        // TODO add your handling code here:
+      
+        
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed

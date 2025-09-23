@@ -23,8 +23,9 @@ public class generadorHtmlBoleta {
             // Reemplaza los marcadores de posición con los datos reales
             String htmlFinal = template
                 .replace("{{fechaBoleta}}", boleta.getFechaEmision().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-                .replace("{{clienteNombre}}", boleta.getCliente().getNombre());
-              //  .replace("{{clienteEmail}}", boleta.getCliente().getEmail());
+                .replace("{{clienteNombre}}", boleta.getCliente().getNombre())
+                .replace("{{clienteEmail}}", boleta.getCliente().getEmail())
+                .replace("{{habitacionesReservadas}}", boleta.getReserva().getRoomType());
               //  .replace("{{productosList}}", productosHtml.toString())
                 //.replace("{{totalPagar}}", String.format("%.2f", boleta.getTotalPagar()));
 

@@ -1,7 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+
 package vista;
 
 import logica.Login;
@@ -207,7 +205,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        /* java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true)); */ 
+         java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true)); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

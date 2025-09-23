@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package logica;
 import java.time.LocalDate;
 /**
@@ -12,6 +9,7 @@ public class Boleta {
     private Costumer cliente;
     private LocalDate fechaEmision;
     private double precioFinal;
+    private ReservaService reserva;
     
     public Boleta (Costumer cliente){
         this.cliente=cliente;
@@ -19,9 +17,16 @@ public class Boleta {
         //agregar calculo total de precio
     }
     
+    public Boleta(ReservaService reserva){
+        this.reserva=reserva;
+    }
+    
     
     
     //crear metodo salida boleta en html
+    public ReservaService getReserva (){
+        return reserva;
+    }
 
     public Costumer getCliente() {
         return cliente;

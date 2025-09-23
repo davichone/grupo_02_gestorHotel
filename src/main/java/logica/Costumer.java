@@ -13,6 +13,7 @@ public class Costumer {
         this.dni = dni;
         this.nombre = nombre;
         this.telefono=telefono;
+        this.email=email; //añadir formulario
  
     }
 
