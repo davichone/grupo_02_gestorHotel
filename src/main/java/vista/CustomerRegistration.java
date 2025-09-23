@@ -2,6 +2,7 @@
 package vista;
 import logica.Costumer;
 import logica.Boleta;
+import logica.RegistroCliente;
 import logica.generadorHtmlBoleta;
 
 public class CustomerRegistration extends javax.swing.JFrame {
@@ -341,16 +342,37 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String nombre = ingresoName.getText();
         String dni = ingresoDNI.getText();
         String   telefono = ingresoTelefono.getText();
-        String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
+        //String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
         
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
         this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
         
+        String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
+         
+       RegistroCliente op = new RegistroCliente(
+      BotonSauna.isSelected(),
+      BotonEstacionamiento.isSelected(),
+      BotonAguaCaliente.isSelected(),
+       habitacionSeleccionada
+);
+       double total = op.calcularTotal();
+       
+        System.out.println("Habitación: " + op.getHabitacion() + " - Total: " + total);
+   
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
         // TODO add your handling code here:
+        
+        String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
+        RegistroCliente op = new RegistroCliente(
+      BotonSauna.isSelected(),
+      BotonEstacionamiento.isSelected(),
+      BotonAguaCaliente.isSelected(),
+       habitacionSeleccionada
+);
+       double total = op.calcularTotal();
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
@@ -383,6 +405,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         /* Create and display the form */
          java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
     }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BotonAguaCaliente;

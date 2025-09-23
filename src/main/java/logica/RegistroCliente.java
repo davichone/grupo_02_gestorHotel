@@ -8,27 +8,49 @@ package logica;
  *
  * @author extru
  */
-//public class RegistroCliente extends Costumer{
-//    
-//    /* ATRIBUTO */
-//    private String tipoHabitacion;
-//    private double precio;
-//    public RegistroCliente(int DNI, String nombre, String telefono,String tipoHabitacion,double precio) {
-//        super(DNI, nombre, telefono);
-//        this.tipoHabitacion=tipoHabitacion;
-////
-////    }
-////    /* METODO */
-////    public void Extras(){
-////        if (BotonSauna.isSelected) {
-////            
-////        }
-////        
-//        
-//        
-//        
-//        
-//        
-//    }
-// 
-//}
+public class RegistroCliente{
+    
+    private boolean sauna;
+    private boolean garaje;
+    private boolean aguaCaliente;
+    private String habitacion;
+    private double precioHabitacion;
+    
+    public RegistroCliente(boolean sauna, boolean garaje, boolean aguaCaliente,String habitacion) {
+        this.sauna = sauna;
+        this.garaje = garaje;
+        this.aguaCaliente = aguaCaliente;
+        this.habitacion=habitacion;
+
+        switch (habitacion) {
+            case "single room":
+                this.precioHabitacion=30.0;
+                break;
+            case "double room (separate)":
+                this.precioHabitacion=60.0;
+                break;
+            case "triple room (separate)":
+             this.precioHabitacion=90.0;
+             break;
+            default:
+             this.precioHabitacion=0.0;
+        }
+    }
+   
+    public double calcularTotal() {
+        double total= precioHabitacion;
+        if (sauna) total += 30;
+        if (garaje) total += 20;
+        if (aguaCaliente) total += 10;
+        return total;
+        
+}
+    public String getHabitacion() {
+        return habitacion;
+        
+}
+    }
+
+
+
+
