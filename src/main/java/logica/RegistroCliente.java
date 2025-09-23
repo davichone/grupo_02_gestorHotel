@@ -16,55 +16,38 @@ public class RegistroCliente{
     private String habitacion;
     private double precioHabitacion;
     
-    public RegistroCliente(boolean sauna, boolean garaje, boolean aguaCaliente,String habitacion) {
-        this.sauna = sauna;
-        this.garaje = garaje;
-        this.aguaCaliente = aguaCaliente;
-        this.habitacion=habitacion;
-        
-        String tipoHabitacionLimpio = habitacion.trim(); 
-
-        
-        if (habitacion.equals("single room")){
+public RegistroCliente(boolean sauna, boolean garaje, boolean aguaCaliente, String habitacion) {
+    this.sauna = sauna;
+    this.garaje = garaje;
+    this.aguaCaliente = aguaCaliente;
+    this.habitacion = habitacion;
+    
+    // Limpiamos el texto que llega, sin importar de dónde venga (consola o JComboBox)
+    String tipoHabitacionLimpio = habitacion.trim(); 
+        if (tipoHabitacionLimpio.equalsIgnoreCase("single room")) {
             this.precioHabitacion = 30.0;
-        }else if (tipoHabitacionLimpio.equalsIgnoreCase("double room (separate)")) {
-        this.precioHabitacion = 60.0;
-        }else if (tipoHabitacionLimpio.equalsIgnoreCase("triple room (separate)")) {
-        this.precioHabitacion = 90.0;
-    } else {
-        this.precioHabitacion = 0.0;
-    }
-
-        /* switch (habitacion) {
-            case "single room":
-                this.precioHabitacion=30.0;
-                break;
-            case "double room (separate)":
-                this.precioHabitacion=60.0;
-                break;
-            case "triple room (separate)":
-             this.precioHabitacion=90.0;
-             break;
-            default:
-             this.precioHabitacion=0.0;
+        } else if (tipoHabitacionLimpio.equalsIgnoreCase("double room(separate)") || tipoHabitacionLimpio.equalsIgnoreCase("double room (separate)")) {
+            this.precioHabitacion = 60.0;
+        } else if (tipoHabitacionLimpio.equalsIgnoreCase("triple room(separate)") || tipoHabitacionLimpio.equalsIgnoreCase("triple room (separate)")) {
+            this.precioHabitacion = 90.0;
+        } else {
+            this.precioHabitacion = 0.0;
         }
-*/
-        
-  }
+    }
    
     public double calcularTotal() {
-        double total= precioHabitacion;
+        double total = precioHabitacion;
         if (sauna) total += 30;
         if (garaje) total += 20;
         if (aguaCaliente) total += 10;
         return total;
-        
-}
-    public String getHabitacion() {
-        return habitacion;
-        
-}
     }
+    
+    public String getHabitacion() {
+            return habitacion;  
+    }
+
+ }
 
 
 

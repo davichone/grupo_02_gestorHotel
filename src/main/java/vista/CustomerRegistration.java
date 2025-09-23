@@ -344,6 +344,12 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String   telefono = ingresoTelefono.getText();
         //String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
         
+          //Validacion
+        if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos Vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return; // Detiene la ejecución del método si algo falta
+        }
+        
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
         this.nuevoClienteAtri =nuevoCliente;
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
