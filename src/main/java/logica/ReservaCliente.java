@@ -8,17 +8,17 @@ package logica;
  *
  * @author extru
  */
-public class RegistroCliente{
+public class ReservaCliente{
     
     private boolean sauna;
-    private boolean garaje;
+    private boolean estacionamiento;
     private boolean aguaCaliente;
-    private String habitacion;
+   final private String habitacion;
     private double precioHabitacion;
     
-public RegistroCliente(boolean sauna, boolean garaje, boolean aguaCaliente, String habitacion) {
+public ReservaCliente(boolean sauna, boolean estacionamiento, boolean aguaCaliente, String habitacion) {
     this.sauna = sauna;
-    this.garaje = garaje;
+    this.estacionamiento = estacionamiento;
     this.aguaCaliente = aguaCaliente;
     this.habitacion = habitacion;
     
@@ -35,10 +35,10 @@ public RegistroCliente(boolean sauna, boolean garaje, boolean aguaCaliente, Stri
         }
     }
    
-    public double calcularTotal() {
+    public double getCalculoImporte() {
         double total = precioHabitacion;
         if (sauna) total += 30;
-        if (garaje) total += 20;
+        if (estacionamiento) total += 20;
         if (aguaCaliente) total += 10;
         return total;
     }

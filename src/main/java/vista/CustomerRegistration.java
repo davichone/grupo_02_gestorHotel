@@ -2,13 +2,12 @@
 package vista;
 import logica.Costumer;
 import logica.Boleta;
-import logica.RegistroCliente;
-import logica.generadorHtmlBoleta;
-import logica.ReservaService;
+import logica.GeneradorHtmlBoleta;
+import logica.ReservaCliente;
 public class CustomerRegistration extends javax.swing.JFrame {
     //atributos::
     Costumer nuevoClienteAtri = null;
-    ReservaService nuevaReservaServiceAtri =null;
+    ReservaCliente nuevaReservaActualAtri =null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CustomerRegistration.class.getName());
 
     /**
@@ -343,55 +342,43 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String nombre = ingresoName.getText();
         String dni = ingresoDNI.getText();
         String   telefono = ingresoTelefono.getText();
-<<<<<<< HEAD
+        boolean btnSauna = BotonSauna.isSelected();
+        boolean btnAguaCaliente = BotonAguaCaliente.isSelected();
+        boolean btnEstacionamiento=BotonEstacionamiento.isSelected();
         String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
           //obtener la opcion
-        String roomType =(String) elegirTipoHabitacion.getSelectedItem();
-        ReservaService reservaActual = new ReservaService(roomType, null, null);
-        System.out.println("reserva exitosa = " + reservaActual); //prueba para ver datos de reserva  en consolita
-=======
-        //String  tipoHabitacion = (String) elegirTipoHabitacion.getSelectedItem();  // cast de objeto a String
+        ReservaCliente reservaActual = new ReservaCliente(btnSauna,btnEstacionamiento, btnAguaCaliente, tipoHabitacion);
         
-          //Validacion
+        System.out.println("reserva exitosa = " + reservaActual.toString()); //prueba para ver datos de reserva  en consolita
+        
+        this.nuevaReservaActualAtri =reservaActual; //inicializacion objeto local
+        
+          //Validacion de campos
         if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Campos Vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
             return; // Detiene la ejecución del método si algo falta
         }
         
->>>>>>> 6a65808af114247e7ff4831e3893431a3a244ff2
         Costumer nuevoCliente =new Costumer(nombre, telefono, dni); // nuevo objeto cliente, inicializado con los argumentos obetenidos de C:registration.
-        this.nuevoClienteAtri =nuevoCliente;
+        this.nuevoClienteAtri =nuevoCliente; //inicializacion objeto local
         System.out.println(nuevoCliente); //prueba para ver datos de cliente registrado en consolita
         
         //precioHabitacion(Aunfalta) y precio de los extras:
-        String habitacionSeleccionada = elegirTipoHabitacion.getSelectedItem().toString();
          
-       RegistroCliente op = new RegistroCliente(
-      BotonSauna.isSelected(),
-      BotonEstacionamiento.isSelected(),
-      BotonAguaCaliente.isSelected(),
-       habitacionSeleccionada
-);
-       double total = op.calcularTotal();
+       double precioFinal = reservaActual.getCalculoImporte();
        
-        System.out.println("Habitación: " + op.getHabitacion() + " - Total: " + total);
+        System.out.println("Habitación: " + reservaActual.getHabitacion() + " - Total: " + precioFinal); // info en consolita para verificacion :)
    
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
     private void elegirTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirTipoHabitacionActionPerformed
-<<<<<<< HEAD
-      
-        
-=======
-        // TODO add your handling code here:
-       
->>>>>>> 6a65808af114247e7ff4831e3893431a3a244ff2
+        //ypur code here
     }//GEN-LAST:event_elegirTipoHabitacionActionPerformed
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
-        Boleta nuevaBoleta = new Boleta(nuevoClienteAtri);
+        Boleta nuevaBoleta = new Boleta(nuevoClienteAtri, nuevaReservaActualAtri);
         System.out.println(nuevoClienteAtri.getNombre());
-        generadorHtmlBoleta.generarFactura(nuevaBoleta);
+        GeneradorHtmlBoleta.generarFactura(nuevaBoleta);
     }//GEN-LAST:event_BotonBoletasActionPerformed
 
     /**

@@ -9,22 +9,17 @@ public class Boleta {
     private Costumer cliente;
     private LocalDate fechaEmision;
     private double precioFinal;
-    private ReservaService reserva;
+    private ReservaCliente reserva;
     
-    public Boleta (Costumer cliente){
+    public Boleta (Costumer cliente, ReservaCliente reserva){
         this.cliente=cliente;
+        this.reserva=reserva;
         this.fechaEmision=LocalDate.now();
         //agregar calculo total de precio
     }
     
-    public Boleta(ReservaService reserva){
-        this.reserva=reserva;
-    }
-    
-    
-    
     //crear metodo salida boleta en html
-    public ReservaService getReserva (){
+    public ReservaCliente getReserva (){
         return reserva;
     }
 
