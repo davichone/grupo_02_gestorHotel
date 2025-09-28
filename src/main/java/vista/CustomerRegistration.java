@@ -20,11 +20,17 @@ public class CustomerRegistration extends javax.swing.JFrame {
     public CustomerRegistration() {
         initComponents();
         this.gestor = new GestorHotel();
+        String[] tipos = gestor.getTiposDeHabitacionDisponibles();
+        elegirTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(tipos));
         //aca se cargaran las habitaciones disponibles
     }
     public CustomerRegistration(GestorHotel gestor) {
         initComponents(); // Este método dibuja la ventana
         this.gestor = gestor; // Guardamos la referencia al gestor que nos pasaron
+        
+        // 1. Le pedimos al gestor la lista de tipos de habitación disponibles.
+        String[] tipos = gestor.getTiposDeHabitacionDisponibles();
+        elegirTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(tipos));
     }
 
     /**
@@ -195,7 +201,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Room type");
 
-        elegirTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "single room", "double room(separate)", "triple room(separate)" }));
+        elegirTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "Doble", "Triple" }));
         elegirTipoHabitacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         elegirTipoHabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

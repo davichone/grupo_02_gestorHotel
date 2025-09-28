@@ -2,6 +2,8 @@ package logica;
 
 import modelo.*; // Importa todas las clases del modelo de una vez
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GestorHotel {
     // Atributos: Las listas que actúan como nuestra "base de datos" en memoria
@@ -32,7 +34,7 @@ public class GestorHotel {
     }
 
     /**
-     * Recibe datos de un cliente desde la vista, crea un objeto Cliente,
+    * Recibe datos de un cliente desde la vista, crea un objeto Cliente,
     * lo guarda en la lista y lo devuelve.
     * @param nombre El nombre del cliente.
     * @param dni El DNI del cliente.
@@ -81,5 +83,22 @@ public class GestorHotel {
             }
         }
         return null; // Si el bucle termina, es que no encontró ninguna
+    }
+    /**
+     * Devuelve un arreglo de strings con los tipos de habitación ÚNICOS que
+     * tienen al menos una habitación disponible.
+     * @return Un arreglo de Strings para usar en un JComboBox.
+     */
+    public String[] getTiposDeHabitacionDisponibles() {
+        // Usamos un 'Set' para evitar tipos duplicados (ej: "Simple", "Simple", "Doble" -> "Simple", "Doble")
+        Set<String> tiposDisponibles = new HashSet<>();
+        
+        for (Habitacion habitacion : this.listaHabitaciones) {
+            if (habitacion.isDisponible()) {
+                tiposDisponibles.add(habitacion.getTipo());
+            }
+        }
+        // Convertimos el Set a un arreglo de Strings y lo devolvemos
+        return tiposDisponibles.toArray(new String[0]);
     }
 }

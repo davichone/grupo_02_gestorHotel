@@ -414,9 +414,9 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
-                    <StringItem index="0" value="single room"/>
-                    <StringItem index="1" value="double room(separate)"/>
-                    <StringItem index="2" value="triple room(separate)"/>
+                    <StringItem index="0" value="Simple"/>
+                    <StringItem index="1" value="Doble"/>
+                    <StringItem index="2" value="Triple"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
