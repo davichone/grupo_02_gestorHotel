@@ -13,12 +13,11 @@ public class GestorHotel {
 
     // Constructor: Se ejecuta al crear un objeto GestorHotel
     public GestorHotel() {
-        // 1. Inicializamos las listas para que no estén vacías (null)
+        
         this.listaClientes = new ArrayList<>();
         this.listaHabitaciones = new ArrayList<>();
         this.listaReservas = new ArrayList<>();
 
-        // 2. Cargamos datos de prueba para no empezar de cero
         System.out.println("Gestor de Hotel inicializado. Cargando habitaciones de prueba...");
         cargarHabitacionesIniciales();
     }
