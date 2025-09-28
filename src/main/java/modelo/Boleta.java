@@ -1,29 +1,26 @@
+package modelo;
 
-package logica;
 import java.time.LocalDate;
-/**
- *
- * @author David Rolando
- */
+
 public class Boleta {
-    private Costumer cliente;
+    private Cliente cliente;
     private LocalDate fechaEmision;
     private double precioFinal;
-    private ReservaCliente reserva;
+    private Reserva reserva;
     
-    public Boleta (Costumer cliente, ReservaCliente reserva){
-        this.cliente=cliente;
-        this.reserva=reserva;
-        this.fechaEmision=LocalDate.now();
+    public Boleta (Cliente cliente, Reserva reserva){
+        this.cliente = cliente;
+        this.reserva = reserva;
+        this.fechaEmision = LocalDate.now();
         //agregar calculo total de precio
     }
     
     //crear metodo salida boleta en html
-    public ReservaCliente getReserva (){
+    public Reserva getReserva (){
         return reserva;
     }
 
-    public Costumer getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
@@ -34,5 +31,4 @@ public class Boleta {
     public double getPrecioFinal() {
         return precioFinal;
     }
-    
 }

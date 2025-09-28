@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo;
 
 /**
- *
  * @author extru
  */
 public class Cliente {
@@ -31,6 +26,5 @@ public class Cliente {
     }
     public void setDni(String dni){
         this.dni = dni;
-    }
-    
+    } 
 }
