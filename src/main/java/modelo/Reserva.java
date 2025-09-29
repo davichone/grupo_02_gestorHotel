@@ -47,12 +47,43 @@ public class Reserva {
 
         return total;
     }
-
-    // --- Getters y Setters (sin cambios, pero puedes añadirlos para los extras si los necesitas) ---
+    
+    // --- Getters y Setters (sin cambios, pero puedes añadirlos para los extras si los necesitas) ---  
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public Habitacion getHabitacion() { return habitacion; }
     public void setHabitacion(Habitacion habitacion) { this.habitacion = habitacion; }
     public int getDias() { return dias; }
     public void setDias(int dias) { this.dias = dias; }
+
+    public String getSauna() {
+        if(this.conSauna){
+          String s = "Sauna";
+            return  s;
+         }else{
+            String s = "-";
+            return s;
+        }
+    }
+
+     public String getAguaCaliente() {
+        if(this.conAguaCaliente){
+          String s = "Agua caliente";
+            return  s;
+        }else{
+            String s = "-";
+            return s;
+        }
+        
+    }
+     
+      public String getEstacionamiento() {
+        if(this.conEstacionamiento){
+          String s = "Estacionamiento";
+            return  s;
+        }else{
+            String s = "-";
+            return s;
+        }
+    }
 }

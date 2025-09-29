@@ -18,7 +18,7 @@ public class GeneradorHtmlBoleta {
     public static void generarFactura(Boleta boleta) {
         try {
 
-            String template = new String(Files.readAllBytes(Paths.get("src/main/java/salidaBoleta/templateBoleta.html")));
+            String template = new String(Files.readAllBytes(Paths.get("src/main/java/salidaBoleta/boletaPrueba.html")));
 
             Cliente cliente = boleta.getCliente();
             Reserva reserva = boleta.getReserva();
@@ -31,13 +31,16 @@ public class GeneradorHtmlBoleta {
             String htmlFinal = template
                 .replace("{{fechaBoleta}}", boleta.getFechaEmision().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .replace("{{clienteNombre}}", cliente.getNombre())
-                .replace("{{clienteDni}}", cliente.getDni())
+                .replace("{{clienteDni}}", boleta.getCliente().getDni())
                 .replace("{{numeroHabitacion}}", String.valueOf(habitacion.getNumero()))
                 .replace("{{tipoHabitacion}}", habitacion.getTipo())
-                .replace("{{numeroNoches}}", String.valueOf(reserva.getDias()))
-                .replace("{{subtotal}}", String.format("%.2f", subtotal))
+                .replace("{{cantNoches}}", String.valueOf(reserva.getDias()))
+                .replace("{{subTotal}}", String.format("%.2f", subtotal))
                 .replace("{{igv}}", String.format("%.2f", igv))
-                .replace("{{importeTotal}}", String.format("%.2f", total));
+                .replace("{{importeTotal}}", String.format("%.2f", total))
+                .replace("{{aguaCaliente}}", boleta.getReserva().getAguaCaliente())
+                .replace("{{sauna}}", boleta.getReserva().getSauna())
+                .replace("{{estacionamiento}}", boleta.getReserva().getEstacionamiento());
 
             String nombreArchivo = "boleta_" + cliente.getNombre().replace(" ", "_") + ".html";
             File archivoBoleta = new File(nombreArchivo);

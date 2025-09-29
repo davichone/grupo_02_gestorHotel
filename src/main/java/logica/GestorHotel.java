@@ -69,6 +69,8 @@ public class GestorHotel {
         System.out.println("Reserva creada para " + cliente.getNombre() + " con extras.");
         return nuevaReserva;  
     }
+    
+    
     /**
      * Busca la primera habitación disponible que coincida con un tipo específico.
      * @param tipo El tipo de habitación a buscar (ej. "single room").
