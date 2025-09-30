@@ -8,9 +8,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>poo.grupo02.Principal</exec.mainClass>
+        <exec.mainClass>main.Principal</exec.mainClass>
     </properties>
-    <name>proyectGestorHotel</name>
+    <name>proyectGestorHotel</name>                                                             
     <build>
         <plugins>
             <plugin>

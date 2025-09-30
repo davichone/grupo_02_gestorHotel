@@ -1,4 +1,4 @@
-package principall;
+package main;
 
 import vista.LoginUsuario;
 
@@ -6,7 +6,8 @@ public class Principal {
 
     public static void main(String[] args) {
         
-     java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true));
+
+         java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true)); 
     
     }
 }
