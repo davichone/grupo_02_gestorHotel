@@ -4,13 +4,13 @@ public class Habitacion {
     private int numero;
     private String tipo;
     private double precio; // Atributo añadido
-    private boolean disponible;
+    private boolean estaOcupada;
 
-    public Habitacion(int numero, String tipo, double precio, boolean disponible){
+    public Habitacion(int numero, String tipo, double precio, boolean ocupadaInicial){
         this.numero = numero;
         this.tipo = tipo;
         this.precio = precio; // Asignación añadida
-        this.disponible = disponible;
+        this.estaOcupada = ocupadaInicial;
     }
 
     // --- Getters y Setters ---
@@ -32,10 +32,19 @@ public class Habitacion {
     public void setTipo(String tipo){ // Método corregido
         this.tipo = tipo;
     }
-    public boolean isDisponible(){
-        return disponible;
+   public void cambiarEstado() {
+        this.estaOcupada = !this.estaOcupada; 
     }
-    public void setDisponible(boolean disponible){
-        this.disponible = disponible;
+   
+ public boolean estaOcupada() {
+        return estaOcupada;
+    }
+
+    public String getEstadoTexto() {
+        return estaOcupada ? "OCUPADA" : "DISPONIBLE";
+    }
+
+    public void estaOcupada(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -103,6 +103,11 @@ public class CustomerRegistration extends javax.swing.JFrame {
         BotonReservas.setForeground(new java.awt.Color(51, 51, 51));
         BotonReservas.setText("Booking");
         BotonReservas.setBorder(null);
+        BotonReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonReservasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -245,7 +250,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(18, 18, 18)
-                            .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BotonSauna, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,7 +381,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         boolean extraEstacionamiento = BotonEstacionamiento.isSelected();
         
         //Validacion entradas
-        if (nombre.isEmpty() || dni.isEmpty() || diasEstanciaStr.isEmpty()) {
+        if (nombre.isEmpty() || dni.isEmpty() || diasEstanciaStr.isEmpty() || telefono.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -395,7 +400,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             return;
         }
         
-        this.clienteActual = gestor.registrarNuevoCliente(nombre, dni);
+        this.clienteActual = gestor.registrarNuevoCliente(nombre, dni,telefono);
         
         Habitacion habitacionSeleccionada = gestor.buscarHabitacionPorTipo(tipoHabitacionSeleccionada);
 
@@ -433,12 +438,26 @@ public class CustomerRegistration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_estanciaActionPerformed
 
+    private void BotonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReservasActionPerformed
+        // TODO add your handling code here:
+        
+        TablaRegistro ventanaTabla = new TablaRegistro(this.gestor);
+
+        ventanaTabla.setVisible(true);
+        
+    }//GEN-LAST:event_BotonReservasActionPerformed
+
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    
+    
+    
+  public static void main(String args[]) {
+      java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
+  }
+        /* Set the Nimbus look and feel */
+       //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
 //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 //         */
