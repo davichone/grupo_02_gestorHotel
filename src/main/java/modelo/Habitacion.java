@@ -3,13 +3,13 @@ package modelo;
 public class Habitacion {
     private int numero;
     private String tipo;
-    private double precio; // Atributo añadido
+    private double precio; 
     private boolean estaOcupada;
 
     public Habitacion(int numero, String tipo, double precio, boolean ocupadaInicial){
         this.numero = numero;
         this.tipo = tipo;
-        this.precio = precio; // Asignación añadida
+        this.precio = precio; 
         this.estaOcupada = ocupadaInicial;
     }
 
@@ -29,14 +29,14 @@ public class Habitacion {
     public String getTipo(){
         return tipo;
     }
-    public void setTipo(String tipo){ // Método corregido
+    public void setTipo(String tipo){
         this.tipo = tipo;
     }
-   public void cambiarEstado() {
+    public void cambiarEstado() {
         this.estaOcupada = !this.estaOcupada; 
     }
    
- public boolean estaOcupada() {
+    public boolean estaOcupada() {
         return estaOcupada;
     }
 
@@ -45,6 +45,14 @@ public class Habitacion {
     }
 
     public void estaOcupada(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isOcupada() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setOcupada(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

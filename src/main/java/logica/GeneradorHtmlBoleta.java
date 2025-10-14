@@ -1,5 +1,6 @@
 package logica;
 
+import interfaces.ServicioAdicional;
 import modelo.Boleta;
 import modelo.Cliente;
 import modelo.Reserva;
@@ -27,6 +28,14 @@ public class GeneradorHtmlBoleta {
             double subtotal = reserva.calcularImporteTotal();
             double igv = subtotal * 0.18;
             double total = subtotal + igv;
+            
+            StringBuilder serviciosHtml = new StringBuilder();
+            for (ServicioAdicional servicio : reserva.getServiciosAdicionales()) {
+                serviciosHtml.append("<tr>")
+                             .append("<td>").append(servicio.getNombre()).append("</td>")
+                             .append("<td>S/ ").append(String.format("%.2f", servicio.getPrecio())).append("</td>")
+                             .append("</tr>");
+            }
 
             String htmlFinal = template
                 .replace("{{fechaBoleta}}", boleta.getFechaEmision().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
@@ -38,9 +47,8 @@ public class GeneradorHtmlBoleta {
                 .replace("{{subTotal}}", String.format("%.2f", subtotal))
                 .replace("{{igv}}", String.format("%.2f", igv))
                 .replace("{{importeTotal}}", String.format("%.2f", total))
-                .replace("{{aguaCaliente}}", boleta.getReserva().getAguaCaliente())
-                .replace("{{sauna}}", boleta.getReserva().getSauna())
-                .replace("{{estacionamiento}}", boleta.getReserva().getEstacionamiento());
+                .replace("{{serviciosAdicionales}}", serviciosHtml.toString());
+                
 
             String nombreArchivo = "boleta_" + cliente.getNombre().replace(" ", "_") + ".html";
             File archivoBoleta = new File(nombreArchivo);
@@ -60,10 +68,7 @@ public class GeneradorHtmlBoleta {
             }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, 
-                "Error al leer la plantilla HTML. Asegúrate de que el archivo exista en la ruta correcta.\n" + e.getMessage(),
-                "Error de Archivo",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al generar la boleta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }

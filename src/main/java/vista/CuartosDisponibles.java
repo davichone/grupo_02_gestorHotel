@@ -1,69 +1,81 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
 import logica.GestorHotel;
 import modelo.Habitacion;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
-/**
- *
- * @author extru
- */
-public class CuartosDisponibles extends javax.swing.JFrame implements ActionListener {
+public class CuartosDisponibles extends javax.swing.JFrame {
     
-      private GestorHotel gestorCentral;
-    
-    // 2. Mapa para asociar los botones con su número de Habitacion
-    // Esto es necesario para usar el actionListener en todos los botones
-    private Map<JButton, Integer> botonesHabitaciones; 
-    
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CuartosDisponibles.class.getName());
+    private GestorHotel gestor;
+    private CustomerRegistration ventanaPrincipal; // Para comunicarnos de vuelta
 
-    /**
-     * Creates new form CuartosDisponibles
-     */
-    public CuartosDisponibles() {
+    public CuartosDisponibles(GestorHotel gestor, CustomerRegistration ventanaPrincipal) {
+        initComponents();
+        this.gestor = gestor;
+        this.ventanaPrincipal = ventanaPrincipal;
         
-         this.gestorCentral = new GestorHotel();
-        this.botonesHabitaciones = new HashMap<>();
-        
+        this.setTitle("Seleccionar Habitación");
+        this.setLocationRelativeTo(ventanaPrincipal);
+
+        // Llamamos al método que configura y actualiza nuestros botones
+        configurarYActualizarBotones();
+    }
+    
+    private CuartosDisponibles() {
         initComponents();
     }
     
-    private void configurarBotonesIniciales() {
-    
-    // Ejemplo de configuración para el botón HabitacionSimple1
-    JButton b101 = HabitacionSimple1;
-    b101.setActionCommand("101"); 
-    b101.addActionListener(this);
-    
-    JButton b102 = HabitacionSimple2;
-    b102.setActionCommand("102"); 
-    b102.addActionListener(this);  
-    
-    JButton b201 = HabitacionDoble1;
-    b201.setActionCommand("201"); 
-    b201.addActionListener(this);  
-    
-    JButton b202 = HabitacionDoble2;
-    b202.setActionCommand("202"); 
-    b202.addActionListener(this);  
-    
-    JButton b301 = HabitacionTriple1;
-    b301.setActionCommand("301"); 
-    b301.addActionListener(this);
-}
+    private void configurarYActualizarBotones() {
+        // Obtenemos la lista de todas las habitaciones del gestor
+        ArrayList<Habitacion> habitaciones = gestor.getListaHabitaciones();
 
+        for (Habitacion habitacion : habitaciones) {
+            JButton botonCorrespondiente = null;
+
+            // Buscamos el botón que corresponde a la habitación actual
+            switch (habitacion.getNumero()) {
+                case 101: botonCorrespondiente = HbtSimple01; break;
+                case 102: botonCorrespondiente = HbtSimple02; break;
+                case 103: botonCorrespondiente = HbtSimple03; break;
+                case 201: botonCorrespondiente = HbtDoble01; break;
+                case 202: botonCorrespondiente = HbtDoble02; break;
+                case 203: botonCorrespondiente = HbtDoble03; break;
+                case 301: botonCorrespondiente = HbtTriple01; break;
+                case 302: botonCorrespondiente = HbtTriple02; break;
+            }
+
+            if (botonCorrespondiente != null) {
+                // ¡LÓGICA CORREGIDA!
+                if (!habitacion.isOcupada()) { // Si NO está ocupada -> DISPONIBLE
+                    botonCorrespondiente.setBackground(new Color(0, 153, 0)); // Verde
+                    botonCorrespondiente.setEnabled(true); // Se puede hacer clic
+                    
+                    // Añadimos el listener SOLO a los botones disponibles
+                    // Removemos listeners antiguos para evitar duplicados si se llama a este método varias veces
+                    for(ActionListener al : botonCorrespondiente.getActionListeners()) {
+                        botonCorrespondiente.removeActionListener(al);
+                    }
+                    botonCorrespondiente.addActionListener(e -> {
+                        ventanaPrincipal.setHabitacionSeleccionada(habitacion);
+                        dispose(); // Cierra esta ventana
+                    });
+
+                } else { // Si SÍ está ocupada -> NO DISPONIBLE
+                    botonCorrespondiente.setBackground(Color.RED);
+                    botonCorrespondiente.setEnabled(false); // No se puede hacer clic
+                }
+                
+                botonCorrespondiente.setText("Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
+                botonCorrespondiente.setForeground(Color.WHITE); // Texto blanco para mejor contraste
+                botonCorrespondiente.setOpaque(true);
+                botonCorrespondiente.setBorderPainted(false);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,22 +86,38 @@ public class CuartosDisponibles extends javax.swing.JFrame implements ActionList
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        BtnAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        HabitacionSimple1 = new javax.swing.JButton();
+        HbtSimple01 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        HabitacionSimple2 = new javax.swing.JButton();
+        HbtSimple02 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        HabitacionDoble1 = new javax.swing.JButton();
+        HbtDoble01 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        HabitacionDoble2 = new javax.swing.JButton();
+        HbtDoble02 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        HabitacionTriple1 = new javax.swing.JButton();
+        HbtTriple01 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        HbtSimple03 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        HbtDoble03 = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        HbtTriple02 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BtnAceptar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BtnAceptar.setText("Aceptar -.-");
+        BtnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAceptarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 140, 40));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 153));
@@ -99,12 +127,12 @@ public class CuartosDisponibles extends javax.swing.JFrame implements ActionList
         jPanel2.setBackground(new java.awt.Color(0, 102, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        HabitacionSimple1.setBackground(new java.awt.Color(0, 102, 0));
-        HabitacionSimple1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        HabitacionSimple1.setText("Habitacion Simple - 101");
-        HabitacionSimple1.addActionListener(new java.awt.event.ActionListener() {
+        HbtSimple01.setBackground(new java.awt.Color(0, 102, 0));
+        HbtSimple01.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        HbtSimple01.setText("Habitacion Simple - 101");
+        HbtSimple01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HabitacionSimple1ActionPerformed(evt);
+                HbtSimple01ActionPerformed(evt);
             }
         });
 
@@ -113,97 +141,184 @@ public class CuartosDisponibles extends javax.swing.JFrame implements ActionList
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(HabitacionSimple1)
+                .addComponent(HbtSimple01)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionSimple1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(HbtSimple01, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 180, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 70));
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 0));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        HabitacionSimple2.setBackground(new java.awt.Color(0, 102, 0));
-        HabitacionSimple2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        HabitacionSimple2.setText("Habitacion Simple - 102");
+        HbtSimple02.setBackground(new java.awt.Color(0, 102, 0));
+        HbtSimple02.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        HbtSimple02.setText("Habitacion Simple - 102");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(HabitacionSimple2)
+                .addComponent(HbtSimple02)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionSimple2, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(HbtSimple02, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 180, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 180, 70));
 
         jPanel5.setBackground(new java.awt.Color(204, 102, 0));
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        HabitacionDoble1.setBackground(new java.awt.Color(204, 102, 0));
-        HabitacionDoble1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        HabitacionDoble1.setText("Habitacion Doble - 201");
+        HbtDoble01.setBackground(new java.awt.Color(204, 102, 0));
+        HbtDoble01.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        HbtDoble01.setText("Habitacion Doble - 201");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionDoble1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addComponent(HbtDoble01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionDoble1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(HbtDoble01, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 180, 70));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 180, 70));
 
         jPanel6.setBackground(new java.awt.Color(255, 102, 0));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        HabitacionDoble2.setBackground(new java.awt.Color(204, 102, 0));
-        HabitacionDoble2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        HabitacionDoble2.setText("Habitacion Doble - 202");
+        HbtDoble02.setBackground(new java.awt.Color(204, 102, 0));
+        HbtDoble02.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        HbtDoble02.setText("Habitacion Doble - 202");
+        HbtDoble02.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtDoble02ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionDoble2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(HbtDoble02, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionDoble2, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(HbtDoble02, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 170, 70));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 180, 70));
 
         jPanel8.setBackground(new java.awt.Color(0, 153, 153));
         jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        HabitacionTriple1.setBackground(new java.awt.Color(0, 153, 153));
-        HabitacionTriple1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        HabitacionTriple1.setText("Habitacion Triple - 301");
+        HbtTriple01.setBackground(new java.awt.Color(0, 153, 153));
+        HbtTriple01.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        HbtTriple01.setText("Habitacion Triple - 301");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionTriple1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(HbtTriple01, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HabitacionTriple1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(HbtTriple01, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 180, 70));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 180, 70));
+
+        jPanel4.setBackground(new java.awt.Color(0, 102, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        HbtSimple03.setText("Habitacion Simple -103");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(HbtSimple03, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(HbtSimple03, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
+
+        jPanel7.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        HbtDoble03.setText("Habitacion Doble - 203");
+        HbtDoble03.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtDoble03ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HbtDoble03, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HbtDoble03, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
+
+        jPanel9.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        HbtTriple02.setText("Habitacion Triple - 302");
+        HbtTriple02.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtTriple02ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HbtTriple02, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(HbtTriple02, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,20 +328,31 @@ public class CuartosDisponibles extends javax.swing.JFrame implements ActionList
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void HabitacionSimple1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabitacionSimple1ActionPerformed
+    private void HbtSimple01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtSimple01ActionPerformed
         // TODO add your handling code here:
-        
-        
-        
-        
-       
-    }//GEN-LAST:event_HabitacionSimple1ActionPerformed
+    }//GEN-LAST:event_HbtSimple01ActionPerformed
+
+    private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnAceptarActionPerformed
+
+    private void HbtDoble02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtDoble02ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HbtDoble02ActionPerformed
+
+    private void HbtTriple02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtTriple02ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HbtTriple02ActionPerformed
+
+    private void HbtDoble03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtDoble03ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HbtDoble03ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,52 +380,49 @@ public class CuartosDisponibles extends javax.swing.JFrame implements ActionList
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton HabitacionDoble1;
-    private javax.swing.JButton HabitacionDoble2;
-    private javax.swing.JButton HabitacionSimple1;
-    private javax.swing.JButton HabitacionSimple2;
-    private javax.swing.JButton HabitacionTriple1;
+    private javax.swing.JButton BtnAceptar;
+    private javax.swing.JButton HbtDoble01;
+    private javax.swing.JButton HbtDoble02;
+    private javax.swing.JButton HbtDoble03;
+    private javax.swing.JButton HbtSimple01;
+    private javax.swing.JButton HbtSimple02;
+    private javax.swing.JButton HbtSimple03;
+    private javax.swing.JButton HbtTriple01;
+    private javax.swing.JButton HbtTriple02;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    
-    
 
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+        private void actualizarAspectoBoton(JButton boton, Habitacion h) {
+        String nombreBase = "Habitacion-" + h.getNumero(); 
+        String estadoTexto = h.getEstadoTexto(); 
 
+        // NOTA: El diseñador ha puesto los botones dentro de JPanels de color.
+
+        if (h.estaOcupada()) {
+            boton.setBackground(Color.RED);
+            boton.setForeground(Color.WHITE);
+        } else {
+            boton.setBackground(Color.GREEN);
+            boton.setForeground(Color.BLACK);
+        }
+
+        // Mantiene el nombre base y añade el estado actualizado
+        boton.setText(nombreBase + " (" + estadoTexto + ")");
+
+        // Estas líneas son cruciales cuando usas diseñadores
+        boton.setOpaque(true); 
+        boton.setBorderPainted(false);
     }
-   
-    
-    private void actualizarAspectoBoton(JButton boton, Habitacion h) {
-    String nombreBase = "Habitacion-" + h.getNumero(); 
-    String estadoTexto = h.getEstadoTexto(); 
-    
-    // NOTA: El diseñador ha puesto los botones dentro de JPanels de color.
-    
-    if (h.estaOcupada()) {
-        boton.setBackground(Color.RED);
-        boton.setForeground(Color.WHITE);
-    } else {
-        boton.setBackground(Color.GREEN);
-        boton.setForeground(Color.BLACK);
-    }
-    
-    // Mantiene el nombre base y añade el estado actualizado
-    boton.setText(nombreBase + " (" + estadoTexto + ")");
-    
-    // Estas líneas son cruciales cuando usas diseñadores
-    boton.setOpaque(true); 
-    boton.setBorderPainted(false);
-    
-}
-    
-    
 }
