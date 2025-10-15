@@ -398,6 +398,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String dni = ingresoDNI.getText();
         String telefono = ingresoTelefono.getText();
         String diasEstanciaStr = estancia.getText();
+        int diasDeEstancia;
         
         if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty() || diasEstanciaStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos de datos personales son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
@@ -409,7 +410,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             return;
         }
 
-        int diasDeEstancia;
+       
         try {
             diasDeEstancia = Integer.parseInt(diasEstanciaStr);
             if (diasDeEstancia <= 0) {
@@ -426,7 +427,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
             return;
         }
 
-        int diasDeEstancia;
+       
         try {
             diasDeEstancia = Integer.parseInt(diasEstanciaStr);
             if (diasDeEstancia <= 0) {
@@ -437,13 +438,10 @@ public class CustomerRegistration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para los días de estancia.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (clienteActual != null) {
-            this.reservaActual = gestor.crearNuevaReserva(
-                clienteActual,
-                this.habitacionSeleccionada, // Usamos la habitación guardada
-                diasDeEstancia,
-                serviciosSeleccionados
-            );
+                                                                                                                    
+                                                                                                                                                    
+        if (clienteActual != null) {                                                                                //CORREGIR
+            this.reservaActual = gestor.crearNuevaReserva(clienteActual, this.habitacionSeleccionada, diasDeEstancia, servicios);
             
             // 4. Feedback al usuario
             if (reservaActual != null) {

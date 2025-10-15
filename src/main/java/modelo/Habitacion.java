@@ -49,7 +49,7 @@ public class Habitacion {
     }
 
     public boolean isOcupada() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return estaOcupada;
     }
 
     public void setOcupada(boolean b) {
