@@ -410,13 +410,13 @@ public class CuartosDisponibles extends javax.swing.JFrame {
 
         // NOTA: El diseñador ha puesto los botones dentro de JPanels de color.
 
-        if (h.estaOcupada()) {
-            boton.setBackground(Color.RED);
-            boton.setForeground(Color.WHITE);
-        } else {
-            boton.setBackground(Color.GREEN);
-            boton.setForeground(Color.BLACK);
-        }
+//        if (h.estaOcupada()) {
+//            boton.setBackground(Color.RED);
+//            boton.setForeground(Color.WHITE);
+//        } else {
+//            boton.setBackground(Color.GREEN);
+//            boton.setForeground(Color.BLACK);
+//        }
 
         // Mantiene el nombre base y añade el estado actualizado
         boton.setText(nombreBase + " (" + estadoTexto + ")");

@@ -12,11 +12,24 @@
         th { background-color: #f2f2f2; }
         .total-row td { font-weight: bold; background-color: #e0e0e0; }
         .right-align { text-align: right; }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 100px;
+            color: rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            pointer-events: none;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
 
     <div class="boleta-container">
+        <div class="watermark">Hoteles Eclipse</div>
         
         <h1>Hoteles Eclipse S.A.C.</h1>
         <p>RUC: 20567890123</p>
@@ -26,9 +39,9 @@
         <p>N° B001 - 00012345</p>
         <hr>
 
-        <p class="right-align">Fecha de Emisión: 30/09/2025</p>
-        <p>Cliente: <strong>David</strong></p>
-        <p>DNI/RUC: <strong>60467257</strong></p>
+        <p class="right-align">Fecha de Emisión: 15/10/2025</p>
+        <p>Cliente: <strong>david</strong></p>
+        <p>DNI/RUC: <strong>6066060</strong></p>
         <hr>
 
         <table>
@@ -42,47 +55,41 @@
             </thead>
             <tbody>
                 <tr> 
-                    <td>4</td>
-                    <td>Doble - 201</td>
+                    <td>11</td>
+                    <td>Doble - 202</td>
                     <td class="right-align">120.00</td>
                     <td class="right-align">120.00</td>
                 </tr>
-                <tr>
-                    <td>-----</td>
-                    <td>Agua caliente</td>
-                    <td class="right-align">----</td>
-                    <td class="right-align">----</td>
-                </tr>
-                <tr>
-                    <td>-----</td>
-                    <td>Sauna</td>
-                    <td class="right-align">----</td>
-                    <td class="right-align">----</td>
-                </tr>
-                <tr>
-                    <td>--</td>
-                    <td>Estacionamiento</td>
-                    <td class="right-align">----</td>
-                    <td class="right-align">----</td>
-                </tr>
+                <tr><td>Servicio de Sauna</td><td>S/ 30.00</td></tr><tr><td>Servicio de Estacionamiento</td><td>S/ 20.00</td></tr><tr><td>Servicio de Agua Caliente</td><td>S/ 10.00</td></tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3" class="right-align">SUBTOTAL:</td>
-                    <td class="right-align">860.00</td>
+                    <td class="right-align">2260.00</td>
                 </tr>
                 <tr>
                     <td colspan="3" class="right-align">IGV (18%):</td>
-                    <td class="right-align">154.80</td>
+                    <td class="right-align">406.80</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="3" class="right-align">TOTAL A PAGAR (S/.):</td>
-                    <td class="right-align">1014.80</td> 
+                    <td class="right-align">2666.80</td> 
                 </tr>
             </tfoot>
         </table>
 
-        <p style="margin-top: 20px;">*pto el que lo lea*</p>
+        <p style="margin-top: 20px;">GRACIAS POR SU PREFERENCIA</p>
+
+        <div class="legal-notes">
+            <hr>
+            <h4>Notas Legales y Términos de Servicio</h4>
+            <p style="font-size: 10px; text-align: justify;">
+                1. El cliente se compromete a cuidar las instalaciones y el mobiliario de la habitación. Cualquier daño, rotura o pérdida causada por el cliente o sus acompañantes deberá ser cubierta por el cliente, valorizada según el inventario del hotel.<br>
+                2. El hotel no se hace responsable por la pérdida de objetos de valor no declarados y dejados en la habitación.<br>
+                3. El horario de check-out es a las 12:00 p.m. Cualquier salida posterior a esta hora puede estar sujeta a cargos adicionales.<br>
+                4. Esta boleta es un comprobante de pago. Consérvela para cualquier consulta o reclamo.
+            </p>
+        </div>
 
     </div>
 

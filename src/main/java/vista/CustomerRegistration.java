@@ -450,7 +450,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         // 4. Feedback al usuario
         if (reservaActual != null) {
             JOptionPane.showMessageDialog(this, "Reserva creada con éxito para " + clienteActual.getNombre());
-            limpiarFormulario(); // Limpiamos para la siguiente reserva
+            //limpiarFormulario(); // Limpiamos para la siguiente reserva
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo crear la reserva. La habitación ya no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }

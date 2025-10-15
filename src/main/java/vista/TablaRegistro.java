@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import logica.GestorHotel;
 import modelo.Reserva;
+import logica.GeneradorHtmlReporte;
 
-/**
- *
- * @author extru
- */
 public class TablaRegistro extends javax.swing.JFrame {
     
     private GestorHotel gestor;
+    private javax.swing.JButton generarDoc;
 
     public TablaRegistro(GestorHotel gestor) {
         initComponents();
@@ -24,7 +18,7 @@ public class TablaRegistro extends javax.swing.JFrame {
     }
 
     private TablaRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private void cargarReservasEnTabla() {
@@ -45,13 +39,13 @@ public class TablaRegistro extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaReserva = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        generarDoc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,11 +65,19 @@ public class TablaRegistro extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TablaReserva);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 724, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 724, 300));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("TABLA DE REGISTRO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 170, -1));
+
+        generarDoc.setText("Generar Documento");
+        generarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarDocActionPerformed(evt);
+            }
+        });
+        jPanel1.add(generarDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 170, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,28 +87,24 @@ public class TablaRegistro extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    /**
-     * @param args the command line arguments
-     */
+    private void generarDocActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        GeneradorHtmlReporte.generarReporte(gestor.getListaReservas());
+    }                                          
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(() -> new TablaRegistro().setVisible(true));
         
-        //</editor-fold>
-
-        /* Create and display the form */
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaReserva;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    // End of variables declaration//GEN-END:variables
 }

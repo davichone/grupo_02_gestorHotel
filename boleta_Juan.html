@@ -39,9 +39,9 @@
         <p>N° B001 - 00012345</p>
         <hr>
 
-        <p class="right-align">Fecha de Emisión: {{fechaBoleta}}</p>
-        <p>Cliente: <strong>{{clienteNombre}}</strong></p>
-        <p>DNI/RUC: <strong>{{clienteDni}}</strong></p>
+        <p class="right-align">Fecha de Emisión: 15/10/2025</p>
+        <p>Cliente: <strong>Juan</strong></p>
+        <p>DNI/RUC: <strong>31231</strong></p>
         <hr>
 
         <table>
@@ -55,25 +55,25 @@
             </thead>
             <tbody>
                 <tr> 
-                    <td>{{cantNoches}}</td>
-                    <td>{{tipoHabitacion}} - {{numeroHabitacion}}</td>
+                    <td>2</td>
+                    <td>Doble - 201</td>
                     <td class="right-align">120.00</td>
                     <td class="right-align">120.00</td>
                 </tr>
-                {{serviciosAdicionales}}
+                <tr><td>Servicio de Agua Caliente</td><td>S/ 10.00</td></tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="3" class="right-align">SUBTOTAL:</td>
-                    <td class="right-align">{{subTotal}}</td>
+                    <td class="right-align">410.00</td>
                 </tr>
                 <tr>
                     <td colspan="3" class="right-align">IGV (18%):</td>
-                    <td class="right-align">{{igv}}</td>
+                    <td class="right-align">73.80</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="3" class="right-align">TOTAL A PAGAR (S/.):</td>
-                    <td class="right-align">{{importeTotal}}</td> 
+                    <td class="right-align">483.80</td> 
                 </tr>
             </tfoot>
         </table>
