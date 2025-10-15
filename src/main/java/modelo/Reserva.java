@@ -51,11 +51,7 @@ public class Reserva {
         this.dias = dias; 
     }
 
-    public List<ServicioAdicional> getServicios(){
+    public List<ServicioAdicional> getServiciosAdicionales(){
         return servicios;
-    }
-
-    public Iterable<ServicioAdicional> getServiciosAdicionales() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

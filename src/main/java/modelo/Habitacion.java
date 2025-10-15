@@ -13,46 +13,27 @@ public class Habitacion {
         this.estaOcupada = ocupadaInicial;
     }
 
-    // --- Getters y Setters ---
-    public double getPrecio() {
-        return precio;
+    // --- Getters ---
+    public int getNumero() { 
+        return numero; 
     }
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public String getTipo() { 
+        return tipo; 
     }
-    public int getNumero(){
-        return numero;
+    public double getPrecio() { 
+        return precio; 
     }
-    public void setNumero(int numero){
-        this.numero = numero;
-    }
-    public String getTipo(){
-        return tipo;
-    }
-    public void setTipo(String tipo){
-        this.tipo = tipo;
-    }
-    public void cambiarEstado() {
-        this.estaOcupada = !this.estaOcupada; 
-    }
-   
-    public boolean estaOcupada() {
-        return estaOcupada;
+    public boolean isOcupada() { 
+        return estaOcupada; 
     }
 
+    // --- Setters ---
+    public void setOcupada(boolean estado) {
+        this.estaOcupada = estado;
+    }
+
+    // --- Métodos de utilidad ---
     public String getEstadoTexto() {
         return estaOcupada ? "OCUPADA" : "DISPONIBLE";
-    }
-
-    public void estaOcupada(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean isOcupada() {
-        return estaOcupada;
-    }
-
-    public void setOcupada(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

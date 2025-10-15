@@ -3,38 +3,15 @@ package modelo;
 /**
  * @author extru
  */
-public class Cliente {
-    private String nombre;
-    private String dni;
-   private String telefono;
-    
-    public Cliente(String nombre, String dni,String telefono){
-        this.nombre = nombre;
-        this.dni = dni;
-        this.telefono=telefono;
+public class Cliente extends Persona {
+
+    public Cliente(String nombre, String dni, String telefono) {
+        // Llama al constructor de la clase padre (Persona)
+        super(nombre, dni, telefono);
     }
-    
-    /**ACA SOLO CLASES DE DATOS DEL CLIENTE**/
-    //Getters y Setters
-    
-    public String getNombre(){
-        return nombre;
+
+    @Override
+    public String getRol() {
+        return "Cliente";
     }
-    public void setNombre(String nombre){
-        this.nombre = nombre;
-    }
-    public String getDni(){
-        return dni;
-    }
-    public void setDni(String dni){
-        this.dni = dni;
-    } 
-    
-    public String getTelefono(){
-        return telefono;
-    }
-    public void setTelefono(String telefono){
-        this.telefono = telefono;
-    }
-    
 }

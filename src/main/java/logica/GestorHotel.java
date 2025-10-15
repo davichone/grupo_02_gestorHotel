@@ -35,6 +35,10 @@ public class GestorHotel {
         System.out.println("Se cargaron " + listaHabitaciones.size() + " habitaciones.");
     }
    
+    public Cliente registrarNuevoCliente(String nombre, String dni) {
+        return this.registrarNuevoCliente(nombre, dni, "No especificado");
+    }
+   
     public Cliente registrarNuevoCliente(String nombre, String dni, String telefono) {
         // Validar si el cliente ya existe podría ser una buena mejora aquí
         Cliente nuevoCliente = new Cliente(nombre, dni, telefono);

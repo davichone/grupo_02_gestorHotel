@@ -400,6 +400,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         String diasEstanciaStr = estancia.getText();
         int diasDeEstancia;
         
+        //Validacion de entrada
         if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty() || diasEstanciaStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos de datos personales son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return;
@@ -410,7 +411,6 @@ public class CustomerRegistration extends javax.swing.JFrame {
             return;
         }
 
-       
         try {
             diasDeEstancia = Integer.parseInt(diasEstanciaStr);
             if (diasDeEstancia <= 0) {
@@ -422,35 +422,37 @@ public class CustomerRegistration extends javax.swing.JFrame {
             return;
         }
         
-        if (this.habitacionSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una habitación antes de registrar.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        //Logica de negocio
+        this.clienteActual = gestor.registrarNuevoCliente(nombre, dni, telefono);
 
        
-        try {
-            diasDeEstancia = Integer.parseInt(diasEstanciaStr);
-            if (diasDeEstancia <= 0) {
-                JOptionPane.showMessageDialog(this, "El número de días debe ser un entero positivo.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para los días de estancia.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
-            return;
+        List<ServicioAdicional> serviciosSeleccionados = new ArrayList<>();
+        if (BotonSauna.isSelected()) {
+            serviciosSeleccionados.add(new ServicioSauna());
         }
-                                                                                                                    
-                                                                                                                                                    
-        if (clienteActual != null) {                                                                                //CORREGIR
-            this.reservaActual = gestor.crearNuevaReserva(clienteActual, this.habitacionSeleccionada, diasDeEstancia, servicios);
-            
-            // 4. Feedback al usuario
-            if (reservaActual != null) {
-                JOptionPane.showMessageDialog(this, "Reserva creada con éxito para " + clienteActual.getNombre() + " en la habitación " + habitacionSeleccionada.getNumero());
-                limpiarFormulario(); // Limpiamos para la siguiente reserva
-            } else {
-                // Esto puede pasar si justo en ese momento alguien más tomó la habitación (en un sistema real)
-                JOptionPane.showMessageDialog(this, "No se pudo crear la reserva. La habitación seleccionada ya no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        
+        if (BotonEstacionamiento.isSelected()) {
+            serviciosSeleccionados.add(new ServicioEstacionamiento());
+        }
+        
+        if (BotonAguaCaliente.isSelected()) {
+            serviciosSeleccionados.add(new ServicioAguaCaliente());
+        }
+
+        // Creamos la reserva con servicios
+        this.reservaActual = gestor.crearNuevaReserva(
+            clienteActual,
+            this.habitacionSeleccionada,
+            diasDeEstancia,
+            serviciosSeleccionados // <-- ¡LA LÍNEA QUE FALTABA!
+        );
+
+        // 4. Feedback al usuario
+        if (reservaActual != null) {
+            JOptionPane.showMessageDialog(this, "Reserva creada con éxito para " + clienteActual.getNombre());
+            limpiarFormulario(); // Limpiamos para la siguiente reserva
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo crear la reserva. La habitación ya no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
