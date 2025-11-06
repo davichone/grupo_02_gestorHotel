@@ -15,6 +15,6 @@ public class Login {
     }
     
     public boolean validarCredenciales() {
-        return this.userName.equals("cliente") && this.userPass.equals("123");
+        return this.userName.equals("123") && this.userPass.equals("123");
     }
 }
