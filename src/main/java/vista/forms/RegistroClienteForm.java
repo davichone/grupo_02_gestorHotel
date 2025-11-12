@@ -36,33 +36,30 @@ public class RegistroClienteForm extends javax.swing.JFrame {
  
     public RegistroClienteForm() {
         initComponents();
+        this.setTitle("Menu Principal");
         this.gestor = new GestorHotel();
         lblHabitacionInfo.setText("Ninguna habitación seleccionada");
+        this.setLocationRelativeTo(null);
         
-        
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-    @Override
-    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-        // Al cerrarse la Ventana A, se ejecuta esta lógica:
-        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
-    }
-});
+
     }
     
     
     
     public RegistroClienteForm(GestorHotel gestor) {
         initComponents();
+          this.setTitle("Menu Principal");
         this.gestor = gestor;
         lblHabitacionInfo.setText("Ninguna habitación seleccionada");
-        
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-    @Override
-    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-        // Al cerrarse la Ventana A, se ejecuta esta lógica:
-        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
-    }
-});
+        this.setLocationRelativeTo(null);
+        // escuchar al momento de cerrar la ventana
+//        this.addWindowListener(new java.awt.event.WindowAdapter() {
+//    @Override
+//    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//        // Al cerrarse la Ventana A, se ejecuta esta lógica:
+//        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
+//    }
+//});
     }
     
     public void setHabitacionSeleccionada(HabitacionDTO habitacion) {
@@ -88,6 +85,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         BotonBoletas = new javax.swing.JButton();
         BotonReservas = new javax.swing.JButton();
+        btnStock = new javax.swing.JButton();
+        btnStock1 = new javax.swing.JButton();
+        btnStock2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        btnStock3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -110,6 +112,8 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         estancia = new javax.swing.JTextField();
         BtnHabitaciones = new javax.swing.JButton();
         lblHabitacionInfo = new javax.swing.JLabel();
+        BtnHabitaciones1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -151,6 +155,50 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             }
         });
 
+        btnStock.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnStock.setForeground(new java.awt.Color(51, 51, 51));
+        btnStock.setText("Stock");
+        btnStock.setBorder(null);
+        btnStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStockActionPerformed(evt);
+            }
+        });
+
+        btnStock1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnStock1.setForeground(new java.awt.Color(51, 51, 51));
+        btnStock1.setText("Operarios");
+        btnStock1.setBorder(null);
+        btnStock1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStock1ActionPerformed(evt);
+            }
+        });
+
+        btnStock2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnStock2.setForeground(new java.awt.Color(51, 51, 51));
+        btnStock2.setText("Finanzas");
+        btnStock2.setBorder(null);
+        btnStock2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStock2ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Cambria", 0, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("@Software beta");
+
+        btnStock3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btnStock3.setForeground(new java.awt.Color(51, 51, 51));
+        btnStock3.setText("agregar otra idea de form");
+        btnStock3.setBorder(null);
+        btnStock3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStock3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,46 +207,65 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(574, 574, 574))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BotonReservas, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                    .addComponent(BotonBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BotonReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BotonBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStock1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStock2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStock3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(btnStock3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnStock1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnStock2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(BotonBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BotonReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel8)
+                .addContainerGap())
         );
 
-        wp.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 490));
+        wp.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 520));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setText("Registro del Cliente");
+        jLabel7.setText("Registrar  Cliente");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(16, 16, 16))
+                .addGap(27, 27, 27))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         wp.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 220, 60));
@@ -246,7 +313,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         });
 
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Room type");
+        jLabel5.setText("TIpo de Habitacion");
 
         BotonSauna.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         BotonSauna.setText("  Sauna");
@@ -300,13 +367,6 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonSauna, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -346,7 +406,17 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(lblHabitacionInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                                .addContainerGap())))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonSauna, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,16 +452,30 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                     .addComponent(BotonSauna)
                     .addComponent(BotonAguaCaliente)
                     .addComponent(BotonEstacionamiento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(26, 26, 26)
                 .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(18, 18, 18))
         );
 
         wp.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 470, 360));
+
+        BtnHabitaciones1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        BtnHabitaciones1.setText("Cerrar sesion");
+        BtnHabitaciones1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnHabitaciones1ActionPerformed(evt);
+            }
+        });
+        wp.add(BtnHabitaciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 490, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Cambria", 0, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Operador : David Rolando");
+        wp.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -523,6 +607,33 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         ventanaHabitaciones.setVisible(true);
     }//GEN-LAST:event_BtnHabitacionesActionPerformed
 
+    private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
+        StockForm ventanaStock = new StockForm();
+        ventanaStock.setLocationRelativeTo(null);
+        ventanaStock.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_btnStockActionPerformed
+
+    private void btnStock1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStock1ActionPerformed
+
+    private void btnStock2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStock2ActionPerformed
+
+    private void BtnHabitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitaciones1ActionPerformed
+        LoginForm ventana = new LoginForm();
+        this.dispose();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_BtnHabitaciones1ActionPerformed
+
+    private void btnStock3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStock3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -556,6 +667,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JButton BotonReservas;
     private javax.swing.JRadioButton BotonSauna;
     private javax.swing.JButton BtnHabitaciones;
+    private javax.swing.JButton BtnHabitaciones1;
+    private javax.swing.JButton btnStock;
+    private javax.swing.JButton btnStock1;
+    private javax.swing.JButton btnStock2;
+    private javax.swing.JButton btnStock3;
     private javax.swing.JTextField estancia;
     private javax.swing.JTextField ingresoDNI;
     private javax.swing.JTextField ingresoName;
@@ -567,6 +683,8 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

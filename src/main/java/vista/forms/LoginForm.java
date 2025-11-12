@@ -10,6 +10,8 @@ public class LoginForm extends javax.swing.JFrame {
         
         this.getRootPane().setDefaultButton(BotonLogin);
         initComponents();
+        this.setTitle("iniciar Sesion - Admin or User");
+        this.setLocationRelativeTo(null);
     }
      public  void goLogin(){
         this.setVisible(true);
@@ -28,7 +30,6 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         TextoTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        SeparadorContraseña = new javax.swing.JSeparator();
         TextoContraseña = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         TextoUsuario = new javax.swing.JTextField();
@@ -37,6 +38,8 @@ public class LoginForm extends javax.swing.JFrame {
         BotonLogin = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         BotonExit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,27 +49,23 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        TextoTitulo.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 24)); // NOI18N
+        TextoTitulo.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 14)); // NOI18N
         TextoTitulo.setForeground(new java.awt.Color(51, 51, 51));
         TextoTitulo.setText("Welcome!");
         jPanel1.add(TextoTitulo);
-        TextoTitulo.setBounds(100, 40, 104, 28);
+        TextoTitulo.setBounds(120, 50, 80, 28);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Password");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(30, 170, 90, 18);
-
-        SeparadorContraseña.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel1.add(SeparadorContraseña);
-        SeparadorContraseña.setBounds(30, 220, 247, 10);
+        jLabel1.setBounds(30, 180, 90, 18);
         jPanel1.add(TextoContraseña);
-        TextoContraseña.setBounds(30, 190, 250, 26);
+        TextoContraseña.setBounds(30, 200, 250, 26);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Username");
+        jLabel3.setText("Username ");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(30, 100, 90, 18);
 
@@ -136,13 +135,23 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(30, 270, 100, 40);
 
-        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 310, 350));
+        jLabel2.setFont(new java.awt.Font("Franklin Gothic Medium", 0, 24)); // NOI18N
+        jLabel2.setText("Hoteles Eclipse");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(80, 20, 170, 28);
+
+        bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 310, 350));
+
+        jLabel8.setFont(new java.awt.Font("Cambria", 0, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("@Software beta");
+        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,32 +165,32 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextoUsuarioActionPerformed
 
-    private void BotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLoginActionPerformed
-        String user = TextoUsuario.getText();
-        String pass = new String(TextoContraseña.getPassword()); // Para producción se usa JPasswordField
-        
-        Login gestorLogin = new Login(user, pass); // Creamos el objeto de lógica
-        // La VISTA pregunta a la LOGICA!!!!
-        if(gestorLogin.validarCredenciales()){
-            
-            modelo.logica.GestorHotel gestorPrincipal = new modelo.logica.GestorHotel();
-            RegistroClienteForm formPrincipal = new RegistroClienteForm(gestorPrincipal);
-           formPrincipal.setVisible(true);
-            this.dispose();
-           // java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true)); 
-        }else{
-            // Si no es válido, la VISTA muestra un error.
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos",
-                    "Error de Acceso",
-                    javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_BotonLoginActionPerformed
-
     private void BotonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonExitActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_BotonExitActionPerformed
+
+    private void BotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLoginActionPerformed
+        String user = TextoUsuario.getText();
+        String pass = new String(TextoContraseña.getPassword()); // Para producción se usa JPasswordField
+
+        Login gestorLogin = new Login(user, pass); // Creamos el objeto de lógica
+        // La VISTA pregunta a la LOGICA!!!!
+        if(gestorLogin.validarCredenciales()){
+
+            modelo.logica.GestorHotel gestorPrincipal = new modelo.logica.GestorHotel();
+            RegistroClienteForm formPrincipal = new RegistroClienteForm(gestorPrincipal);
+            formPrincipal.setVisible(true);
+            this.dispose();
+            // java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true));
+        }else{
+            // Si no es válido, la VISTA muestra un error.
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Usuario o contraseña incorrectos",
+                "Error de Acceso",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BotonLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,14 +220,15 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonExit;
     private javax.swing.JButton BotonLogin;
-    private javax.swing.JSeparator SeparadorContraseña;
     private javax.swing.JSeparator SeparadorUsuario;
     private javax.swing.JPasswordField TextoContraseña;
     private javax.swing.JLabel TextoTitulo;
     private javax.swing.JTextField TextoUsuario;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
