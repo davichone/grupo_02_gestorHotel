@@ -1,19 +1,27 @@
-package modelo;
+package modelo.dto;
 
-public class Habitacion {
+public class HabitacionDTO {
     private int numero;
     private String tipo;
     private double precio; 
     private boolean estaOcupada;
+    private int idTipoHabitacion;
 
-    public Habitacion(int numero, String tipo, double precio, boolean ocupadaInicial){
+    public HabitacionDTO(int numero, String tipo, double precio, boolean ocupadaInicial){
         this.numero = numero;
         this.tipo = tipo;
         this.precio = precio; 
         this.estaOcupada = ocupadaInicial;
     }
+    
+    public HabitacionDTO(int numero, String tipo, double precio, boolean ocupadaInicial, int idTipoHabitacion){
+        this.numero = numero;
+        this.tipo = tipo;
+        this.precio = precio; 
+        this.estaOcupada = ocupadaInicial;
+        this.idTipoHabitacion = idTipoHabitacion;
+    }
 
-    // --- Getters ---
     public int getNumero() { 
         return numero; 
     }
@@ -26,13 +34,17 @@ public class Habitacion {
     public boolean isOcupada() { 
         return estaOcupada; 
     }
+    public int getIdTipoHabitacion() {
+        return idTipoHabitacion;
+    }
 
-    // --- Setters ---
     public void setOcupada(boolean estado) {
         this.estaOcupada = estado;
     }
+    public void setIdTipoHabitacion(int idTipoHabitacion) {
+        this.idTipoHabitacion = idTipoHabitacion;
+    }
 
-    // --- Métodos de utilidad ---
     public String getEstadoTexto() {
         return estaOcupada ? "OCUPADA" : "DISPONIBLE";
     }

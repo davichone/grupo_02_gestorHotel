@@ -1,6 +1,4 @@
-package modelo;
-
-import interfaces.ServicioAdicional;
+package modelo.entidades;
 
 /**
  *

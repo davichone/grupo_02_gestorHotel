@@ -1,43 +1,73 @@
-package vista;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package vista.forms;
 
+/**
+ *
+ * @author drola
+ */
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Boleta;
-import logica.GeneradorHtmlBoleta;
-import modelo.Reserva;
-import modelo.Cliente;
-import logica.GestorHotel;
-import modelo.Habitacion;
-import javax.swing.JLabel; 
+import modelo.dto.BoletaDTO;
+import modelo.dto.ReservaDTO;
+import modelo.dto.ClienteDTO;
+import modelo.logica.GestorHotel;
+import modelo.dto.HabitacionDTO;
 import javax.swing.JOptionPane;
-import interfaces.ServicioAdicional; 
-import modelo.ServicioAguaCaliente;
-import modelo.ServicioEstacionamiento;
-import modelo.ServicioSauna;
+import modelo.entidades.ServicioAdicional;
+import modelo.entidades.ServicioAguaCaliente;
+import modelo.entidades.ServicioEstacionamiento;
+import modelo.entidades.ServicioSauna;
+import modelo.logica.GenerarBoleta;
 
-public class CustomerRegistration extends javax.swing.JFrame {
+public class RegistroClienteForm extends javax.swing.JFrame {
     
     private GestorHotel gestor;
-    private Cliente clienteActual;
-    private Reserva reservaActual;
-    private Habitacion habitacionSeleccionada;
+    private ClienteDTO clienteActual;
+    private ReservaDTO reservaActual;
+    private HabitacionDTO habitacionSeleccionada;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroClienteForm.class.getName());
 
-    public CustomerRegistration() {
+    /**
+     * Creates new form RegistroClienteForm
+     */
+ 
+    public RegistroClienteForm() {
         initComponents();
         this.gestor = new GestorHotel();
         lblHabitacionInfo.setText("Ninguna habitación seleccionada");
+        
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+        // Al cerrarse la Ventana A, se ejecuta esta lógica:
+        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
+    }
+});
     }
     
-    public CustomerRegistration(GestorHotel gestor) {
+    
+    
+    public RegistroClienteForm(GestorHotel gestor) {
         initComponents();
         this.gestor = gestor;
         lblHabitacionInfo.setText("Ninguna habitación seleccionada");
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+    @Override
+    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+        // Al cerrarse la Ventana A, se ejecuta esta lógica:
+        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
+    }
+});
     }
     
-    public void setHabitacionSeleccionada(Habitacion habitacion) {
+    public void setHabitacionSeleccionada(HabitacionDTO habitacion) {
         this.habitacionSeleccionada = habitacion;
         if (habitacion != null) {
-            // Damos feedback visual al usuario.
             lblHabitacionInfo.setText("Seleccionada: Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
         } else {
             lblHabitacionInfo.setText("Ninguna habitación seleccionada");
@@ -81,7 +111,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         BtnHabitaciones = new javax.swing.JButton();
         lblHabitacionInfo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         wp.setBackground(new java.awt.Color(249, 250, 255));
         wp.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,7 +189,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(16, 16, 16))
         );
@@ -285,17 +315,18 @@ public class CustomerRegistration extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(BotonAguaCaliente)
+                                .addGap(3, 3, 3))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(ingresoName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
-                                    .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(58, 58, 58))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(BotonAguaCaliente)
-                                .addGap(3, 3, 3)))
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(ingresoName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(52, 52, 52)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +339,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
                                             .addGroup(jPanel4Layout.createSequentialGroup()
                                                 .addGap(11, 11, 11)
                                                 .addComponent(BotonEstacionamiento)))
-                                        .addGap(0, 32, Short.MAX_VALUE)))
+                                        .addGap(0, 38, Short.MAX_VALUE)))
                                 .addGap(41, 41, 41))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,36 +407,50 @@ public class CustomerRegistration extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
+        if (this.reservaActual != null && this.clienteActual != null) {
+            // Generamos la factura y la guardamos en la base de datos
+            BoletaDTO facturaGuardada = gestor.generarFactura(this.reservaActual);
+            GenerarBoleta.generarFactura(facturaGuardada);
+            if (facturaGuardada != null) {
+                JOptionPane.showMessageDialog(this, "Factura generada y guardada en la base de datos con ID: " + facturaGuardada.getFacturaID(), "Factura Generada", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al generar y guardar la factura en la base de datos.", "Error de Facturación", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe completar una reserva antes de generar una boleta.", "Acción Requerida", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_BotonBoletasActionPerformed
+
+    private void BotonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReservasActionPerformed
+
+        BookingForm ventanaTabla = new BookingForm(this.gestor);
+
+        ventanaTabla.setVisible(true);
+
+    }//GEN-LAST:event_BotonReservasActionPerformed
+
     private void ingresoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoDNIActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ingresoDNIActionPerformed
 
     private void ingresoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoTelefonoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ingresoTelefonoActionPerformed
 
-    private void ingresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ingresoNameActionPerformed
-
-    private void BotonSaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSaunaActionPerformed
-        // TODO add your handling code here:  
-    }//GEN-LAST:event_BotonSaunaActionPerformed
-
     private void BotonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistroActionPerformed
-        //Recoleccion de datos
         String nombre = ingresoName.getText();
         String dni = ingresoDNI.getText();
         String telefono = ingresoTelefono.getText();
         String diasEstanciaStr = estancia.getText();
         int diasDeEstancia;
-        
-        //Validacion de entrada
+
+        // validacion; ingreso de datos
         if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty() || diasEstanciaStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos de datos personales son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         if (this.habitacionSeleccionada == null) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione una habitación antes de registrar.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return;
@@ -421,117 +466,88 @@ public class CustomerRegistration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para los días de estancia.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        //Logica de negocio
+        //iniciar nuevo cliente con argumentos ingresados por usuario
         this.clienteActual = gestor.registrarNuevoCliente(nombre, dni, telefono);
 
-       
+        //add servicios
         List<ServicioAdicional> serviciosSeleccionados = new ArrayList<>();
         if (BotonSauna.isSelected()) {
             serviciosSeleccionados.add(new ServicioSauna());
         }
-        
+
         if (BotonEstacionamiento.isSelected()) {
             serviciosSeleccionados.add(new ServicioEstacionamiento());
         }
-        
+
         if (BotonAguaCaliente.isSelected()) {
             serviciosSeleccionados.add(new ServicioAguaCaliente());
         }
 
         // Creamos la reserva con servicios
-        this.reservaActual = gestor.crearNuevaReserva(
+        this.reservaActual = gestor.crearReserva(
             clienteActual,
             this.habitacionSeleccionada,
             diasDeEstancia,
-            serviciosSeleccionados // <-- ¡LA LÍNEA QUE FALTABA!
+            serviciosSeleccionados
         );
 
-        // 4. Feedback al usuario
         if (reservaActual != null) {
             JOptionPane.showMessageDialog(this, "Reserva creada con éxito para " + clienteActual.getNombre());
-            //limpiarFormulario(); // Limpiamos para la siguiente reserva
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo crear la reserva. La habitación ya no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
-    private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
-        if (this.reservaActual != null && this.clienteActual != null) {
-            Boleta nuevaBoleta = new Boleta(this.clienteActual, this.reservaActual);
-            GeneradorHtmlBoleta.generarFactura(nuevaBoleta);
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe completar una reserva antes de generar una boleta.", "Acción Requerida", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_BotonBoletasActionPerformed
+    private void ingresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoNameActionPerformed
 
-    private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_estanciaActionPerformed
+    }//GEN-LAST:event_ingresoNameActionPerformed
 
-    private void BotonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReservasActionPerformed
-        // TODO add your handling code here:
-        
-        TablaRegistro ventanaTabla = new TablaRegistro(this.gestor);
+    private void BotonSaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSaunaActionPerformed
 
-        ventanaTabla.setVisible(true);
-        
-    }//GEN-LAST:event_BotonReservasActionPerformed
-
-    private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
-        CuartosDisponibles ventanaHabitaciones = new CuartosDisponibles(this.gestor, this);
-        ventanaHabitaciones.setVisible(true);
-    }//GEN-LAST:event_BtnHabitacionesActionPerformed
+    }//GEN-LAST:event_BotonSaunaActionPerformed
 
     private void BotonAguaCalienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAguaCalienteActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_BotonAguaCalienteActionPerformed
 
     private void BotonEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstacionamientoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_BotonEstacionamientoActionPerformed
 
-    private void limpiarFormulario() {
-        ingresoName.setText("");
-        ingresoDNI.setText("");
-        ingresoTelefono.setText("");
-        estancia.setText("");
-        BotonSauna.setSelected(false);
-        BotonAguaCaliente.setSelected(false);
-        BotonEstacionamiento.setSelected(false);
-        this.habitacionSeleccionada = null;
-        this.clienteActual = null;
-        this.reservaActual = null;
-        lblHabitacionInfo.setText("Ninguna habitación seleccionada");
-    }
-    
-    
-    
-  public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true));
-    }
-  
+    private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
+
+    }//GEN-LAST:event_estanciaActionPerformed
+
+    private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
+        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this.gestor, this);
+        ventanaHabitaciones.setVisible(true);
+    }//GEN-LAST:event_BtnHabitacionesActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-       //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>     
-//
-//        /* Create and display the form */
-//         java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
-//    }
-// 
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BotonAguaCaliente;
     private javax.swing.JButton BotonBoletas;
@@ -561,5 +577,4 @@ public class CustomerRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel lblHabitacionInfo;
     private javax.swing.JPanel wp;
     // End of variables declaration//GEN-END:variables
-
 }

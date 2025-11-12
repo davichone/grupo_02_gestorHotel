@@ -1,19 +1,19 @@
-package vista;
+package vista.forms;
 
-import logica.GestorHotel;
-import modelo.Habitacion;
+import modelo.logica.GestorHotel;
+import modelo.dto.HabitacionDTO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CuartosDisponibles extends javax.swing.JFrame {
+public class HabitacionesForm extends javax.swing.JFrame {
     
     private GestorHotel gestor;
-    private CustomerRegistration ventanaPrincipal; // Para comunicarnos de vuelta
+    private RegistroClienteForm ventanaPrincipal; // Para comunicarnos de vuelta
 
-    public CuartosDisponibles(GestorHotel gestor, CustomerRegistration ventanaPrincipal) {
+    public HabitacionesForm(GestorHotel gestor, RegistroClienteForm ventanaPrincipal) {
         initComponents();
         this.gestor = gestor;
         this.ventanaPrincipal = ventanaPrincipal;
@@ -25,15 +25,15 @@ public class CuartosDisponibles extends javax.swing.JFrame {
         configurarYActualizarBotones();
     }
     
-    private CuartosDisponibles() {
+    private HabitacionesForm() {
         initComponents();
     }
     
     private void configurarYActualizarBotones() {
         // Obtenemos la lista de todas las habitaciones del gestor
-        ArrayList<Habitacion> habitaciones = gestor.getListaHabitaciones();
+        ArrayList<HabitacionDTO> habitaciones = gestor.getListaHabitaciones();
 
-        for (Habitacion habitacion : habitaciones) {
+        for (HabitacionDTO habitacion : habitaciones) {
             JButton botonCorrespondiente = null;
 
             // Buscamos el botón que corresponde a la habitación actual
@@ -376,7 +376,7 @@ public class CuartosDisponibles extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CuartosDisponibles().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HabitacionesForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -404,7 +404,7 @@ public class CuartosDisponibles extends javax.swing.JFrame {
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-        private void actualizarAspectoBoton(JButton boton, Habitacion h) {
+        private void actualizarAspectoBoton(JButton boton, HabitacionDTO h) {
         String nombreBase = "Habitacion-" + h.getNumero(); 
         String estadoTexto = h.getEstadoTexto(); 
 

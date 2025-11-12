@@ -1,10 +1,10 @@
-package logica;
+package modelo.logica;
 
-import interfaces.ServicioAdicional;
-import modelo.Boleta;
-import modelo.Cliente;
-import modelo.Reserva;
-import modelo.Habitacion;
+import modelo.entidades.ServicioAdicional;
+import modelo.dto.BoletaDTO;
+import modelo.dto.ClienteDTO;
+import modelo.dto.ReservaDTO;
+import modelo.dto.HabitacionDTO;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,16 +14,17 @@ import java.time.format.DateTimeFormatter;
 import java.awt.Desktop;
 import javax.swing.JOptionPane;
 
-public class GeneradorHtmlBoleta {
+public class GenerarBoleta {
+    public GenerarBoleta(){}
 
-    public static void generarFactura(Boleta boleta) {
+    public static void generarFactura(BoletaDTO boleta) {
         try {
 
-            String template = new String(Files.readAllBytes(Paths.get("src/main/java/salidaBoleta/boletaPrueba.html")));
+            String template = new String(Files.readAllBytes(Paths.get("src/main/java/vista/templates/Boleta.html")));
 
-            Cliente cliente = boleta.getCliente();
-            Reserva reserva = boleta.getReserva();
-            Habitacion habitacion = reserva.getHabitacion();
+            ClienteDTO cliente = boleta.getCliente();
+            ReservaDTO reserva = boleta.getReserva();
+            HabitacionDTO habitacion = reserva.getHabitacion();
 
             double subtotal = reserva.calcularImporteTotal();
             double igv = subtotal * 0.18;

@@ -1,6 +1,6 @@
-package logica;
+package modelo.logica;
 
-import modelo.Reserva;
+import modelo.dto.ReservaDTO;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.awt.Desktop;
 import javax.swing.JOptionPane;
 
-public class GeneradorHtmlReporte {
+public class GenerarBooking {
 
-    public static void generarReporte(ArrayList<Reserva> reservas) {
+    public static void generarReporte(ArrayList<ReservaDTO> reservas) {
         try {
-            String template = new String(Files.readAllBytes(Paths.get("src/main/java/salidaBoleta/reporteClientes.html")));
+            String template = new String(Files.readAllBytes(Paths.get("src/main/java/vista/templates/Booking.html")));
 
             StringBuilder filasClientes = new StringBuilder();
-            for (Reserva reserva : reservas) {
+            for (ReservaDTO reserva : reservas) {
                 filasClientes.append("<tr>")
                              .append("<td>").append(reserva.getCliente().getNombre()).append("</td>")
                              .append("<td>").append(reserva.getCliente().getDni()).append("</td>")

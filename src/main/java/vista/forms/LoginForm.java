@@ -1,15 +1,18 @@
-package vista;
+package vista.forms;
 
-import logica.Login;
+import modelo.logica.Login;
 
-public class LoginUsuario extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginUsuario.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
 
-    public LoginUsuario() {
+    public LoginForm() {
         
         this.getRootPane().setDefaultButton(BotonLogin);
         initComponents();
+    }
+     public  void goLogin(){
+        this.setVisible(true);
     }
 
     /**
@@ -161,11 +164,11 @@ public class LoginUsuario extends javax.swing.JFrame {
         // La VISTA pregunta a la LOGICA!!!!
         if(gestorLogin.validarCredenciales()){
             
-            logica.GestorHotel gestorPrincipal = new logica.GestorHotel();
-            CustomerRegistration formPrincipal = new CustomerRegistration(gestorPrincipal);
+            modelo.logica.GestorHotel gestorPrincipal = new modelo.logica.GestorHotel();
+            RegistroClienteForm formPrincipal = new RegistroClienteForm(gestorPrincipal);
            formPrincipal.setVisible(true);
             this.dispose();
-           // java.awt.EventQueue.invokeLater(() -> new CustomerRegistration().setVisible(true)); 
+           // java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true)); 
         }else{
             // Si no es válido, la VISTA muestra un error.
             javax.swing.JOptionPane.showMessageDialog(this,
@@ -202,7 +205,7 @@ public class LoginUsuario extends javax.swing.JFrame {
 //        //</editor-fold>
 //
 //        /* Create and display the form */
-//         java.awt.EventQueue.invokeLater(() -> new LoginUsuario().setVisible(true)); 
+//         java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
