@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Compra de Activos - {{fecha_solicitud}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        .header { background-color: #555555; color: white; padding: 15px; text-align: center; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .details { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .details p { margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total-row td { font-weight: bold; background-color: #e9ecef; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ddd; text-align: center; font-size: 0.9em; }
+        .footer p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SOLICITUD DE COMPRA DE ACTIVOS</h1>
+            <p>Hoteles Eclipsel</p>
+        </div>
+
+        <div class="details">
+            <p><strong>Número de Solicitud:</strong> SL-{{id_solicitud}}</p>
+            <p><strong>Fecha de Emisión:</strong> {{fecha_solicitud}}</p>
+            <p><strong>Solicitante:</strong> {{nombre_solicitante}} ID: {{id_operario}}</p>
+            <p><strong>ID Hotel:</strong> {{idHotel}}</p>
+            <p><strong>Grado de urgencia:</strong> {{gradoUrgencia}}</p>
+        </div>
+
+        <h2>Detalle de Activos Solicitados</h2>
+                
+                <div style="white-space: pre-wrap;">{{detalles}}</div>
+            
+
+        <div class="details" style="margin-top: 30px;">
+            <h3>Justificación:</h3>
+            <p>{{justificacion}}</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Aprobación Gerencial:</strong> _________________________</p>
+            <p style="margin-top: 20px;">*Esta solicitud está sujeta a la revisión y aprobación de Gerencia. En caso de tener una respuesta, usted sera notificado. </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -608,7 +608,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnHabitacionesActionPerformed
 
     private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
-        StockForm ventanaStock = new StockForm();
+        ActivosForm ventanaStock = new ActivosForm();
         ventanaStock.setLocationRelativeTo(null);
         ventanaStock.setVisible(true);
         
