@@ -7,6 +7,7 @@ package vista.forms;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
+import modelo.dao.SolicitudDAOImpl;
 import modelo.dto.SolicitudDTO;
 import modelo.logica.GenerarSolicitud;
 
@@ -61,7 +62,7 @@ public class ActivosForm extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtJustificacion = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
@@ -264,7 +265,12 @@ public class ActivosForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jButton4.setText("Historial solicitudes");
+        btnHistorial.setText("Historial solicitudes");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Estado de Solicitud");
 
@@ -290,7 +296,7 @@ public class ActivosForm extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)
-                        .addComponent(jButton4)
+                        .addComponent(btnHistorial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -308,7 +314,7 @@ public class ActivosForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton4)
+                    .addComponent(btnHistorial)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -386,12 +392,25 @@ public class ActivosForm extends javax.swing.JFrame {
                 "David Rolando", "HE-359","Medio");
         solicitudLocal =nuevaSolicitud;
         JOptionPane.showMessageDialog(null, "Solicitud enviada");
-        
+        SolicitudDAOImpl object = new SolicitudDAOImpl();
+        try {
+            object.addSolicitud(nuevaSolicitud);
+        } catch (Exception ex) {
+            System.getLogger(ActivosForm.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnEnviarSolicitudActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
          GenerarSolicitud.generarSolicitud(solicitudLocal);
     }//GEN-LAST:event_btnPDFActionPerformed
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        HistorialSolicitudForm ventanaTabla = new HistorialSolicitudForm();
+        this.dispose();
+        ventanaTabla.setLocationRelativeTo(null);
+       
+        ventanaTabla.setVisible(true);
+    }//GEN-LAST:event_btnHistorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,9 +440,9 @@ public class ActivosForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnEnviarSolicitud;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

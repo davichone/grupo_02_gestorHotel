@@ -84,7 +84,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         BotonBoletas = new javax.swing.JButton();
-        BotonReservas = new javax.swing.JButton();
+        btnBooking = new javax.swing.JButton();
         btnStock = new javax.swing.JButton();
         btnStock1 = new javax.swing.JButton();
         btnStock2 = new javax.swing.JButton();
@@ -145,19 +145,19 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             }
         });
 
-        BotonReservas.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        BotonReservas.setForeground(new java.awt.Color(51, 51, 51));
-        BotonReservas.setText("Booking");
-        BotonReservas.setBorder(null);
-        BotonReservas.addActionListener(new java.awt.event.ActionListener() {
+        btnBooking.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnBooking.setForeground(new java.awt.Color(51, 51, 51));
+        btnBooking.setText("Booking");
+        btnBooking.setBorder(null);
+        btnBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonReservasActionPerformed(evt);
+                btnBookingActionPerformed(evt);
             }
         });
 
         btnStock.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnStock.setForeground(new java.awt.Color(51, 51, 51));
-        btnStock.setText("Stock");
+        btnStock.setText("Activos");
         btnStock.setBorder(null);
         btnStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +211,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BotonReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BotonBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnStock1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnStock2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +237,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(BotonBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BotonReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel8)
                 .addContainerGap())
@@ -506,13 +506,13 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonBoletasActionPerformed
 
-    private void BotonReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReservasActionPerformed
+    private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
 
         BookingForm ventanaTabla = new BookingForm(this.gestor);
-
+        this.dispose();
         ventanaTabla.setVisible(true);
 
-    }//GEN-LAST:event_BotonReservasActionPerformed
+    }//GEN-LAST:event_btnBookingActionPerformed
 
     private void ingresoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoDNIActionPerformed
 
@@ -664,10 +664,10 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JButton BotonBoletas;
     private javax.swing.JRadioButton BotonEstacionamiento;
     private javax.swing.JButton BotonRegistro;
-    private javax.swing.JButton BotonReservas;
     private javax.swing.JRadioButton BotonSauna;
     private javax.swing.JButton BtnHabitaciones;
     private javax.swing.JButton BtnHabitaciones1;
+    private javax.swing.JButton btnBooking;
     private javax.swing.JButton btnStock;
     private javax.swing.JButton btnStock1;
     private javax.swing.JButton btnStock2;
