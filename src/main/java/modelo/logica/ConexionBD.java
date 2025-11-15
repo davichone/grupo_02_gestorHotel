@@ -1,5 +1,5 @@
-
 package modelo.logica;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,6 +21,10 @@ public class ConexionBD {
             System.out.println(" ");
         }
         return con;
+    }
+
+    public static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
     

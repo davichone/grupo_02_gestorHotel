@@ -8,12 +8,12 @@ import modelo.entidades.Persona;
 public class ClienteDTO extends Persona {
     private int clienteID;
 
-    public ClienteDTO(String nombre, String dni, String telefono) {
-        super(nombre, dni, telefono);
+    public ClienteDTO(String nombre, String numeroDocumento, String telefono) {
+        super(nombre, numeroDocumento, telefono);
     }
 
-    public ClienteDTO(int clienteID, String nombre, String dni, String telefono) {
-        super(nombre, dni, telefono);
+    public ClienteDTO(int clienteID, String nombre, String numeroDocumento, String telefono) {
+        super(nombre, numeroDocumento, telefono);
         this.clienteID = clienteID;
     }
 

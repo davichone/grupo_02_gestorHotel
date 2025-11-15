@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista.forms;
 
-/**
- *
- * @author drola
- */
 import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.BoletaDTO;
@@ -30,10 +22,6 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private HabitacionDTO habitacionSeleccionada;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroClienteForm.class.getName());
 
-    /**
-     * Creates new form RegistroClienteForm
-     */
- 
     public RegistroClienteForm() {
         initComponents();
         this.setTitle("Menu Principal");
@@ -86,23 +74,19 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         BotonBoletas = new javax.swing.JButton();
         btnBooking = new javax.swing.JButton();
         btnStock = new javax.swing.JButton();
-        btnStock1 = new javax.swing.JButton();
-        btnStock2 = new javax.swing.JButton();
+        btnOperarios = new javax.swing.JButton();
+        btnFinanzas = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        btnStock3 = new javax.swing.JButton();
+        btnLimpieza = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         ingresoDNI = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         ingresoTelefono = new javax.swing.JTextField();
         BotonRegistro = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         ingresoName = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         BotonSauna = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
@@ -112,6 +96,9 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         estancia = new javax.swing.JTextField();
         BtnHabitaciones = new javax.swing.JButton();
         lblHabitacionInfo = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        ingresoEmail = new javax.swing.JTextField();
         BtnHabitaciones1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
@@ -165,23 +152,23 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             }
         });
 
-        btnStock1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        btnStock1.setForeground(new java.awt.Color(51, 51, 51));
-        btnStock1.setText("Operarios");
-        btnStock1.setBorder(null);
-        btnStock1.addActionListener(new java.awt.event.ActionListener() {
+        btnOperarios.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnOperarios.setForeground(new java.awt.Color(51, 51, 51));
+        btnOperarios.setText("Operarios");
+        btnOperarios.setBorder(null);
+        btnOperarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStock1ActionPerformed(evt);
+                btnOperariosActionPerformed(evt);
             }
         });
 
-        btnStock2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        btnStock2.setForeground(new java.awt.Color(51, 51, 51));
-        btnStock2.setText("Finanzas");
-        btnStock2.setBorder(null);
-        btnStock2.addActionListener(new java.awt.event.ActionListener() {
+        btnFinanzas.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnFinanzas.setForeground(new java.awt.Color(51, 51, 51));
+        btnFinanzas.setText("Finanzas");
+        btnFinanzas.setBorder(null);
+        btnFinanzas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStock2ActionPerformed(evt);
+                btnFinanzasActionPerformed(evt);
             }
         });
 
@@ -189,13 +176,13 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("@Software beta");
 
-        btnStock3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        btnStock3.setForeground(new java.awt.Color(51, 51, 51));
-        btnStock3.setText("agregar otra idea de form");
-        btnStock3.setBorder(null);
-        btnStock3.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpieza.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        btnLimpieza.setForeground(new java.awt.Color(51, 51, 51));
+        btnLimpieza.setText("Limpieza");
+        btnLimpieza.setBorder(null);
+        btnLimpieza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStock3ActionPerformed(evt);
+                btnLimpiezaActionPerformed(evt);
             }
         });
 
@@ -207,19 +194,19 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(574, 574, 574))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BotonBoletas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnStock1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnStock2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnStock3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFinanzas, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOperarios, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(btnLimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel8))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,11 +214,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(btnStock3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnStock1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOperarios, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnStock2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFinanzas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -256,7 +243,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(27, 27, 27))
         );
@@ -271,9 +258,6 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         wp.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 220, 60));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("DNI");
 
         ingresoDNI.setBorder(null);
         ingresoDNI.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +297,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         });
 
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("TIpo de Habitacion");
+        jLabel5.setText("Tipo de Habitacion");
 
         BotonSauna.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         BotonSauna.setText("  Sauna");
@@ -359,92 +343,92 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
         lblHabitacionInfo.setText("Habitacion elejida");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "Carnet de extrangeria", "Pasaporte" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(30, 30, 30));
+        jLabel1.setText("E-mail");
+
+        ingresoEmail.setMinimumSize(new java.awt.Dimension(64, 16));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(121, 121, 121))
-                                .addGroup(jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(ingresoName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(52, 52, 52))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(BotonAguaCaliente)
-                                .addGap(3, 3, 3)))
+                                .addComponent(BotonSauna, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BotonAguaCaliente))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ingresoDNI)
-                                    .addComponent(jSeparator1)
-                                    .addComponent(BtnHabitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGap(11, 11, 11)
-                                                .addComponent(BotonEstacionamiento)))
-                                        .addGap(0, 38, Short.MAX_VALUE)))
-                                .addGap(41, 41, 41))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(lblHabitacionInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonSauna, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(BotonEstacionamiento)
+                                .addGap(0, 58, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnHabitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblHabitacionInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addComponent(ingresoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(18, 18, 18)
+                            .addComponent(estancia, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(ingresoName, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(63, 63, 63)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ingresoDNI)
+                                .addComponent(jComboBox1, 0, 187, Short.MAX_VALUE)))))
+                .addGap(41, 41, 41))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ingresoName, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                    .addComponent(ingresoDNI))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnHabitaciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHabitacionInfo))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ingresoName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ingresoDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ingresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(BtnHabitaciones)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblHabitacionInfo)
+                        .addGap(18, 18, 18)))
+                .addComponent(ingresoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -461,7 +445,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        wp.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 470, 360));
+        wp.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 470, 360));
 
         BtnHabitaciones1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         BtnHabitaciones1.setText("Cerrar sesion");
@@ -481,7 +465,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(wp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(wp, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -514,13 +498,61 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnBookingActionPerformed
 
-    private void ingresoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoDNIActionPerformed
+    private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
+        ActivosForm ventanaStock = new ActivosForm();
+        ventanaStock.setLocationRelativeTo(null);
+        ventanaStock.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_btnStockActionPerformed
 
-    }//GEN-LAST:event_ingresoDNIActionPerformed
+    private void btnOperariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOperariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOperariosActionPerformed
 
-    private void ingresoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoTelefonoActionPerformed
+    private void btnFinanzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanzasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFinanzasActionPerformed
 
-    }//GEN-LAST:event_ingresoTelefonoActionPerformed
+    private void BtnHabitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitaciones1ActionPerformed
+        LoginForm ventana = new LoginForm();
+        this.dispose();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_BtnHabitaciones1ActionPerformed
+
+    private void btnLimpiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiezaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiezaActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
+        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this.gestor, this);
+        ventanaHabitaciones.setVisible(true);
+    }//GEN-LAST:event_BtnHabitacionesActionPerformed
+
+    private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
+
+    }//GEN-LAST:event_estanciaActionPerformed
+
+    private void BotonEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstacionamientoActionPerformed
+
+    }//GEN-LAST:event_BotonEstacionamientoActionPerformed
+
+    private void BotonAguaCalienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAguaCalienteActionPerformed
+
+    }//GEN-LAST:event_BotonAguaCalienteActionPerformed
+
+    private void BotonSaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSaunaActionPerformed
+
+    }//GEN-LAST:event_BotonSaunaActionPerformed
+
+    private void ingresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoNameActionPerformed
+
+    }//GEN-LAST:event_ingresoNameActionPerformed
 
     private void BotonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistroActionPerformed
         String nombre = ingresoName.getText();
@@ -582,57 +614,13 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonRegistroActionPerformed
 
-    private void ingresoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoNameActionPerformed
+    private void ingresoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoTelefonoActionPerformed
 
-    }//GEN-LAST:event_ingresoNameActionPerformed
+    }//GEN-LAST:event_ingresoTelefonoActionPerformed
 
-    private void BotonSaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSaunaActionPerformed
+    private void ingresoDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoDNIActionPerformed
 
-    }//GEN-LAST:event_BotonSaunaActionPerformed
-
-    private void BotonAguaCalienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAguaCalienteActionPerformed
-
-    }//GEN-LAST:event_BotonAguaCalienteActionPerformed
-
-    private void BotonEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEstacionamientoActionPerformed
-
-    }//GEN-LAST:event_BotonEstacionamientoActionPerformed
-
-    private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
-
-    }//GEN-LAST:event_estanciaActionPerformed
-
-    private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
-        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this.gestor, this);
-        ventanaHabitaciones.setVisible(true);
-    }//GEN-LAST:event_BtnHabitacionesActionPerformed
-
-    private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
-        ActivosForm ventanaStock = new ActivosForm();
-        ventanaStock.setLocationRelativeTo(null);
-        ventanaStock.setVisible(true);
-        
-        this.dispose();
-    }//GEN-LAST:event_btnStockActionPerformed
-
-    private void btnStock1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStock1ActionPerformed
-
-    private void btnStock2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStock2ActionPerformed
-
-    private void BtnHabitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitaciones1ActionPerformed
-        LoginForm ventana = new LoginForm();
-        this.dispose();
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-    }//GEN-LAST:event_BtnHabitaciones1ActionPerformed
-
-    private void btnStock3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStock3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStock3ActionPerformed
+    }//GEN-LAST:event_ingresoDNIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -668,14 +656,16 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JButton BtnHabitaciones;
     private javax.swing.JButton BtnHabitaciones1;
     private javax.swing.JButton btnBooking;
+    private javax.swing.JButton btnFinanzas;
+    private javax.swing.JButton btnLimpieza;
+    private javax.swing.JButton btnOperarios;
     private javax.swing.JButton btnStock;
-    private javax.swing.JButton btnStock1;
-    private javax.swing.JButton btnStock2;
-    private javax.swing.JButton btnStock3;
     private javax.swing.JTextField estancia;
     private javax.swing.JTextField ingresoDNI;
+    private javax.swing.JTextField ingresoEmail;
     private javax.swing.JTextField ingresoName;
     private javax.swing.JTextField ingresoTelefono;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -689,9 +679,6 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblHabitacionInfo;
     private javax.swing.JPanel wp;
     // End of variables declaration//GEN-END:variables

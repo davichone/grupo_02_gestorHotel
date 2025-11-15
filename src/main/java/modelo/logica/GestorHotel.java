@@ -1,9 +1,8 @@
 package modelo.logica;
 
-import modelo.dto.ClienteDTO;
-import modelo.dto.HabitacionDTO;
-import modelo.dto.ReservaDTO;
-import modelo.dto.BoletaDTO;
+import modelo.dto.*;
+import modelo.dao.*;
+import modelo.entidades.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;      
@@ -15,6 +14,72 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GestorHotel {
+    
+    private final PersonaDAO personaDAO = new PersonaDAO();
+    private final EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final RolDAO rolDAO = new RolDAO();
+    
+    public boolean registrarEmpleado(Empleado empleado, String password, String nombreRol) {
+        Connection conn = null;
+        boolean exito = false;
+        
+        try {
+            // 1. Obtener la conexión y DESACTIVAR el auto-commit para iniciar la transacción
+            conn = ConexionBD.getConnection();
+            if (conn == null) throw new SQLException("No se pudo establecer la conexión.");
+            
+            conn.setAutoCommit(false); 
+
+            // --- 2. Preparar datos de Rol ---
+            int rolID = rolDAO.obtenerRolIdPorNombre(nombreRol);
+            if (rolID == -1) {
+                throw new Exception("El rol '" + nombreRol + "' no fue encontrado en la BD.");
+            }
+
+            // --- 3. Paso 1: Insertar en Personas y obtener personaID ---
+            int personaID = personaDAO.insertar(conn, empleado); 
+            if (personaID <= 0) {
+                throw new SQLException("Fallo al insertar Persona. ID no generado.");
+            }
+            empleado.setPersonaID(personaID); // Asignar el ID a la entidad Empleado
+
+            // --- 4. Paso 2: Insertar en Empleados ---
+            empleadoDAO.insertar(conn, empleado); 
+
+            // --- 5. Paso 3: Insertar en Usuarios ---
+            // Usamos el DNI (NumeroDocumento) como nombre de usuario para el login
+            String usuarioLogin = empleado.getNumeroDocumento();
+            Usuario usuario = new Usuario(personaID, usuarioLogin, password, rolID);
+            usuarioDAO.insertar(conn, usuario);
+            
+            // --- 6. Si todos los pasos fueron exitosos, CONFIRMAR la transacción ---
+            conn.commit();
+            exito = true;
+            
+        } catch (Exception e) {
+            System.err.println("Error en la transacción de registro de empleado: " + e.getMessage());
+            // --- 7. Si hay un error, REVERTIR la transacción ---
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    System.err.println("Error al realizar rollback: " + ex.getMessage());
+                }
+            }
+        } finally {
+            // --- 8. RESTAURAR el auto-commit y cerrar la conexión ---
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println("Error al cerrar la conexión: " + ex.getMessage());
+                }
+            }
+        }
+        return exito;
+    }
 
     private ArrayList<ClienteDTO> listaClientes;
     private ArrayList<HabitacionDTO> listaHabitaciones;
