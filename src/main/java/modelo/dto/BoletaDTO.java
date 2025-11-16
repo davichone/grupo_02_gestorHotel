@@ -10,7 +10,7 @@ public class BoletaDTO {
     private double subTotal;
     private double igv;
     private double total;
-    private String estado; // Por ejemplo: "Emitida", "Pagada", "Anulada"
+    private String estado; // ejemplo: "Emitida", "Pagada", "Anulada"
     
     public BoletaDTO (ClienteDTO cliente, ReservaDTO reserva){
         this.cliente = cliente;

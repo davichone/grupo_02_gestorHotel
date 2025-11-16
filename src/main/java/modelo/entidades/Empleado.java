@@ -45,7 +45,7 @@ public class Empleado extends Persona {
     
     // Para registro inicial
     public Empleado(String nombre, String numeroDocumento, String telefono, String email, String tipoDocumento) {
-        super(nombre, numeroDocumento, telefono, email, tipoDocumento);
+        //super(nombre, numeroDocumento, telefono, email, tipoDocumento);
         // Valores por defecto
         this.salario = 0.00; 
         this.fechaContratacion = LocalDate.now();
