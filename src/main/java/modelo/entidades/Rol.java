@@ -2,7 +2,7 @@ package modelo.entidades;
 
 /**
  *
- * @author alexg
+ * @author nicol
  */
 public class Rol {
     private int rolID;

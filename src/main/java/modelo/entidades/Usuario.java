@@ -2,11 +2,11 @@ package modelo.entidades;
 
 /**
  *
- * @author alexg
+ * @author 
  */
 public class Usuario {
     private int usuarioID;
-    private String usuario; // Usualmente el DNI o Email
+    private int DNI; // Usualmente el DNI o Email
     private int personaID;
     // Campos para seguridad (mantener, aunque usemos plano)
     private byte[] password_salt; 
@@ -24,12 +24,12 @@ public class Usuario {
         this.usuarioID = usuarioID;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public int getDNI() {
+        return DNI;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuario(int DNI) {
+        this.DNI = DNI;
     }
 
     public int getPersonaID() {

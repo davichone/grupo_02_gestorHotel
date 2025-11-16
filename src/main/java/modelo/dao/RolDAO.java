@@ -5,7 +5,7 @@ import modelo.entidades.Rol;
 import java.sql.*;
 /**
  *
- * @author alexg
+ * @author nicol
  */
 public class RolDAO {
     public int obtenerRolIdPorNombre(String nombreRol) throws SQLException {

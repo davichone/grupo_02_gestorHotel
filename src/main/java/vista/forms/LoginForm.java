@@ -39,6 +39,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         BotonExit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,8 +61,10 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1.setText("Password");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(30, 180, 90, 18);
+
+        TextoContraseña.setBorder(null);
         jPanel1.add(TextoContraseña);
-        TextoContraseña.setBounds(30, 200, 250, 26);
+        TextoContraseña.setBounds(30, 200, 250, 20);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
@@ -140,10 +143,13 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(80, 20, 170, 28);
 
+        jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel1.add(jSeparator1);
+        jSeparator1.setBounds(30, 223, 250, 10);
+
         bg.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 310, 350));
 
         jLabel8.setFont(new java.awt.Font("Cambria", 0, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("@Software beta");
         bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 80, -1));
 
@@ -232,5 +238,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

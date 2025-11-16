@@ -81,9 +81,13 @@ public class GestorHotel {
         return exito;
     }
 
+    private ArrayList<Rol> listaRoles;
+    private ArrayList<Usuario> listaPersonal;
+    
     private ArrayList<ClienteDTO> listaClientes;
     private ArrayList<HabitacionDTO> listaHabitaciones;
     private ArrayList<ReservaDTO> listaReservas;
+    
     private Connection con;
 
     public GestorHotel() {
