@@ -119,4 +119,28 @@ public class HabitacionDAO {
         }
         return lista;
     }
+    
+    public void marcarOcupada(int numero, Connection conn) throws SQLException {
+        String sql = "UPDATE Habitaciones SET estaOcupada = TRUE WHERE numero = ? AND estaOcupada = FALSE";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numero);
+            int filas = ps.executeUpdate();
+            if (filas == 0) {
+                throw new SQLException("Habitación no disponible: " + numero);
+            }
+        }
+    }
+
+    public void marcarDisponible(int numero, Connection conn) throws SQLException {
+        String sql = "UPDATE Habitaciones SET estaOcupada = FALSE WHERE numero = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numero);
+            ps.executeUpdate();
+        }
+    }
+
+    HabitacionDTO buscarPorNumero(int aInt, Connection conn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
