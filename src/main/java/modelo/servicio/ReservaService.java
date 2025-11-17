@@ -19,7 +19,7 @@ public class ReservaService {
             conn = ConexionBD.conectar();
 
             // 1. Verificar habitación disponible
-            if (habitacionDAO.buscarPorNumero(reserva.getHabitacion().getNumero(), conn).isOcupada()) {
+            if (habitacionDAO.buscarPorNumero(reserva.getHabitacion().getNumero()).isOcupada()) {
                 throw new SQLException("Habitación ya ocupada");
             }
 

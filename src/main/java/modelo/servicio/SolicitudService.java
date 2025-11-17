@@ -6,6 +6,7 @@ import modelo.logica.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import modelo.dao.SolicitudDAOImpl;
 
 public class SolicitudService {
     private SolicitudDAO solicitudDAO = new SolicitudDAOImpl();

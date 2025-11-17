@@ -18,7 +18,7 @@ public class BoletaService {
         Connection conn = null;
         try {
             conn = ConexionBD.conectar();
-            int id = boletaDAO.insertar(boleta, conn);
+            int id = boletaDAO.insertar(boleta);
             ConexionBD.commit(conn);
             return id;
         } catch (SQLException e) {
