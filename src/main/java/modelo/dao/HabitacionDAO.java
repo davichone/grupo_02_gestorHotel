@@ -1,26 +1,122 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo.dao;
 
+import modelo.dto.HabitacionDTO;
+import modelo.logica.ConexionBD;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
- * @author drola
+ * DAO para manejar operaciones CRUD en la tabla Habitaciones.
  */
 public class HabitacionDAO {
-    
-     /* Se nesesita SEPARAR LAS RESPONSABILIDADES del GestorHotel.java para CADA CLASE(entidad)
-     EJEMPLO : BoletaDAO solo tendria que tener el codigo que interactua con BoletaDTO y la logica para 
-    conectarse a la BASEdeDATOS.
-    
-      en pocas palabras, a partir de GestorHotel.java crear : 
-    
-                    BoletaDAO.java - ClienteDAO.java - HabitacionDAO.java - ReservaDAO.java
-                                                                                            
-   finalmente eliminar GestorHotel.java  =)       
-    
-    
-    
-    */
+
+    /**
+     * Inserta una nueva habitación en la base de datos.
+     * @param habitacion La habitación a insertar.
+     * @return El ID generado (si aplica).
+     * @throws SQLException Si ocurre un error en la BD.
+     */
+    public int insertar(HabitacionDTO habitacion) throws SQLException {
+        String sql = "INSERT INTO Habitaciones (numero, tipo, precio, estaOcupada, idTipoHabitacion) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, habitacion.getNumero());
+            ps.setString(2, habitacion.getTipo());
+            ps.setDouble(3, habitacion.getPrecio());
+            ps.setBoolean(4, habitacion.isOcupada());
+            ps.setInt(5, habitacion.getIdTipoHabitacion());
+            int filasAfectadas = ps.executeUpdate();
+            if (filasAfectadas > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
+            return -1;
+        }
+    }
+
+    /**
+     * Actualiza una habitación existente.
+     * @param habitacion La habitación actualizada.
+     * @throws SQLException Si ocurre un error en la BD.
+     */
+    public void actualizar(HabitacionDTO habitacion) throws SQLException {
+        String sql = "UPDATE Habitaciones SET tipo = ?, precio = ?, estaOcupada = ?, idTipoHabitacion = ? WHERE numero = ?";
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, habitacion.getTipo());
+            ps.setDouble(2, habitacion.getPrecio());
+            ps.setBoolean(3, habitacion.isOcupada());
+            ps.setInt(4, habitacion.getIdTipoHabitacion());
+            ps.setInt(5, habitacion.getNumero());
+            ps.executeUpdate();
+        }
+    }
+
+    /**
+     * Elimina una habitación por número.
+     * @param numero El número de la habitación a eliminar.
+     * @throws SQLException Si ocurre un error en la BD.
+     */
+    public void eliminar(int numero) throws SQLException {
+        String sql = "DELETE FROM Habitaciones WHERE numero = ?";
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numero);
+            ps.executeUpdate();
+        }
+    }
+
+    /**
+     * Busca una habitación por número.
+     * @param numero El número de la habitación.
+     * @return La habitación encontrada o null si no existe.
+     * @throws SQLException Si ocurre un error en la BD.
+     */
+    public HabitacionDTO buscarPorNumero(int numero) throws SQLException {
+        String sql = "SELECT * FROM Habitaciones WHERE numero = ?";
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numero);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new HabitacionDTO(
+                        rs.getInt("numero"),
+                        rs.getString("tipo"),
+                        rs.getDouble("precio"),
+                        rs.getBoolean("estaOcupada"),
+                        rs.getInt("idTipoHabitacion")
+                    );
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Lista todas las habitaciones.
+     * @return Lista de habitaciones.
+     * @throws SQLException Si ocurre un error en la BD.
+     */
+    public List<HabitacionDTO> listarTodas() throws SQLException {
+        List<HabitacionDTO> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Habitaciones";
+        try (Connection conn = ConexionBD.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new HabitacionDTO(
+                    rs.getInt("numero"),
+                    rs.getString("tipo"),
+                    rs.getDouble("precio"),
+                    rs.getBoolean("estaOcupada"),
+                    rs.getInt("idTipoHabitacion")
+                ));
+            }
+        }
+        return lista;
+    }
 }

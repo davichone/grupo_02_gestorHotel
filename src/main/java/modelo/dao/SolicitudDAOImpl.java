@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package modelo.dao;
 
 import java.sql.PreparedStatement;
@@ -37,7 +34,7 @@ public class SolicitudDAOImpl implements SolicitudDAO {
 
         try (PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            pst.setString(1, "1");
+            pst.setString(1, nuevaSolicitud.getSolicitante());
             pst.setString(2, nuevaSolicitud.getFechaEmision()); // Asumimos "DNI" ya que el form no lo pide
             pst.setString(3, "En revision");
 
@@ -50,30 +47,6 @@ public class SolicitudDAOImpl implements SolicitudDAO {
             } catch (Exception e) {
                 System.out.println("Error" + e.getMessage());
             }
-            
-//                try (ResultSet rs = pst.getGeneratedKeys()) {
-//                    if (rs.next()) {
-//                        int clienteID = rs.getInt(1);
-//                        ClienteDTO nuevoCliente = new ClienteDTO(clienteID, nombreForm, dniForm, telefonoForm);
-//                        this.listaClientes.add(nuevoCliente);
-//                        return nuevoCliente;
-//                    }
-//                }
-//                System.out.println("Error: No se pudo recuperar el ID del cliente guardado.");
-//                 System.out.println(" ");
-//                return null;
-//                
-//            } else {
-//                System.out.println("Error: No se pudo guardar el cliente en la BD.");
-//                 System.out.println(" ");
-//                return null;
-//            }
-            
-//        } catch (SQLException e) {
-//            System.out.println("Error de SQL al registrar cliente: " + e.getMessage());
-//             System.out.println(" ");
-//            // Esto es MUY probable si intentas registrar un DNI duplicado
-//            return null; 
         }
         
     }
@@ -110,51 +83,7 @@ public class SolicitudDAOImpl implements SolicitudDAO {
         } catch (SQLException e) {
             System.out.println("Error fatal al cargar solicitudes: " + e.getMessage());
              System.out.println(" ");
-        }
-        
-//        try (PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-//
-//            pst.setString(1, solicitudID);
-//            pst.setString(2, nuevaSolicitud.getFechaEmision()); // Asumimos "DNI" ya que el form no lo pide
-//            pst.setString(3, "En revision");
-//            pst.setString
-//            int filasAfectadas = pst.executeUpdate();
-//            try {
-//                if (filasAfectadas > 0) {
-//                System.out.println("Solicitud guardada en la BD: " + nuevaSolicitud.getNroSolicitud());
-//                 System.out.println(" ");
-//            }    
-//            } catch (Exception e) {
-//                System.out.println("Error" + e.getMessage());
-//            }
-            
-//                try (ResultSet rs = pst.getGeneratedKeys()) {
-//                    if (rs.next()) {
-//                        int clienteID = rs.getInt(1);
-//                        ClienteDTO nuevoCliente = new ClienteDTO(clienteID, nombreForm, dniForm, telefonoForm);
-//                        this.listaClientes.add(nuevoCliente);
-//                        return nuevoCliente;
-//                    }
-//                }
-//                System.out.println("Error: No se pudo recuperar el ID del cliente guardado.");
-//                 System.out.println(" ");
-//                return null;
-//                
-//            } else {
-//                System.out.println("Error: No se pudo guardar el cliente en la BD.");
-//                 System.out.println(" ");
-//                return null;
-//            }
-            
-//        } catch (SQLException e) {
-//            System.out.println("Error de SQL al registrar cliente: " + e.getMessage());
-//             System.out.println(" ");
-//            // Esto es MUY probable si intentas registrar un DNI duplicado
-//            return null; 
-        
-        
-        
-        
+        } 
     }
 
     @Override
