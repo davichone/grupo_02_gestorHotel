@@ -360,33 +360,53 @@ public class ActivosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnEnviarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarSolicitudActionPerformed
-        LocalDate fechaActual = LocalDate.now();
-        String fecha = fechaActual.toString();
-
-        StringBuilder sb = new StringBuilder();
-        if (!txtLimpiesa.getText().trim().isEmpty()) sb.append("- Limpieza: ").append(txtLimpiesa.getText()).append("\n");
-        if (!txtTextil.getText().trim().isEmpty()) sb.append("- Textil: ").append(txtTextil.getText()).append("\n");
-        if (!txtMobiliario.getText().trim().isEmpty()) sb.append("- Mobiliario: ").append(txtMobiliario.getText()).append("\n");
-        if (!txtElectro.getText().trim().isEmpty()) sb.append("- Electrodomésticos: ").append(txtElectro.getText()).append("\n");
-        if (!txtMantenimiento.getText().trim().isEmpty()) sb.append("- Mantenimiento: ").append(txtMantenimiento.getText()).append("\n");
-
-        String detalle = sb.toString();
-        String justificacion = txtJustificacion.getText();
-
-        SolicitudDTO solicitud = new SolicitudDTO(detalle, justificacion, "001", fecha, "David Rolando", "HE-359", "Medio");
-        solicitudLocal = solicitud;
-
         try {
-            new SolicitudService().agregarSolicitud(solicitud);
-            JOptionPane.showMessageDialog(this, "Solicitud enviada correctamente");
-            this.dispose();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al enviar: " + ex.getMessage());
-            logger.log(Level.SEVERE, "Error al enviar solicitud", ex);
-        } catch (Exception ex) {
-            System.getLogger(ActivosForm.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        StringBuilder detalle = new StringBuilder();
+        if (!txtLimpiesa.getText().trim().isEmpty()) 
+            detalle.append("Limpieza: ").append(txtLimpiesa.getText()).append("\n");
+        if (!txtTextil.getText().trim().isEmpty()) 
+            detalle.append("Textil: ").append(txtTextil.getText()).append("\n");
+        if (!txtMobiliario.getText().trim().isEmpty()) 
+            detalle.append("Mobiliario: ").append(txtMobiliario.getText()).append("\n");
+        if (!txtElectro.getText().trim().isEmpty()) 
+            detalle.append("Electrodomésticos: ").append(txtElectro.getText()).append("\n");
+        if (!txtMantenimiento.getText().trim().isEmpty()) 
+            detalle.append("Mantenimiento: ").append(txtMantenimiento.getText()).append("\n");
+
+        String justificacion = txtJustificacion.getText().trim();
+
+        if (detalle.toString().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar al menos un ítem");
+            return;
         }
-    
+        if (justificacion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La justificación es obligatoria");
+            return;
+        }
+
+        // AQUÍ ESTÁ LA CORRECCIÓN: usar los nombres exactos de tu DTO
+        SolicitudDTO solicitud = new SolicitudDTO();
+        solicitud.setDetalles(detalle.toString());           // ← detalles (con s)
+        solicitud.setJustificacion(justificacion);
+        solicitud.setFechaEmision(LocalDate.now().toString()); // ← fechaEmision
+        solicitud.setSolicitante("David Rolando");             // ← solicitante
+        solicitud.setIdHotel("HE-359");                        // ← tu hotel
+        solicitud.setGradoUrgencia("Medio");                   // ← puedes hacer combo después
+        // nroSolicitud se genera en el DAO o BD (autoincremental)
+
+        new SolicitudService().agregarSolicitud(solicitud);
+
+        JOptionPane.showMessageDialog(this, 
+            "Solicitud enviada correctamente", 
+            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error al enviar solicitud:\n" + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnEnviarSolicitudActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed

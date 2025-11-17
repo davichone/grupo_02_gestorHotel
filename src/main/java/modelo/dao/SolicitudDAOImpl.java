@@ -29,27 +29,19 @@ public class SolicitudDAOImpl implements SolicitudDAO {
     }
 
     @Override
-    public void addSolicitud(SolicitudDTO nuevaSolicitud) throws Exception {
-        String sql = "INSERT INTO Solicitudes (personaID, fechaEmision, status) VALUES (?, ?, ?)";
-
-        try (PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-            pst.setString(1, nuevaSolicitud.getSolicitante());
-            pst.setString(2, nuevaSolicitud.getFechaEmision()); // Asumimos "DNI" ya que el form no lo pide
-            pst.setString(3, "En revision");
-
-            int filasAfectadas = pst.executeUpdate();
-            try {
-                if (filasAfectadas > 0) {
-                System.out.println("Solicitud guardada en la BD: " + nuevaSolicitud.getNroSolicitud());
-                 System.out.println(" ");
-            }    
-            } catch (Exception e) {
-                System.out.println("Error" + e.getMessage());
-            }
-        }
-        
+    public void addSolicitud(SolicitudDTO solicitud) throws SQLException {
+    String sql = "INSERT INTO Solicitudes (detalles, justificacion, fechaEmision, solicitante, idHotel, gradoUrgencia) VALUES (?, ?, ?, ?, ?, ?)";
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, solicitud.getDetalles());
+        ps.setString(2, solicitud.getJustificacion());
+        ps.setString(3, solicitud.getFechaEmision());
+        ps.setString(4, solicitud.getSolicitante());
+        ps.setString(5, solicitud.getIdHotel());
+        ps.setString(6, solicitud.getGradoUrgencia());
+        ps.executeUpdate();
     }
+}
     
     @Override
     public void cargarSolicitudes() throws Exception {
@@ -88,26 +80,21 @@ public class SolicitudDAOImpl implements SolicitudDAO {
 
     @Override
     public List<SolicitudDTO> getSolicitudes() throws SQLException {
-        List<SolicitudDTO> listaSolicitudes = new ArrayList<>();
-        String sql = "SELECT S.solicitudID, P.nombres, S.fechaEmision, S.status FROM Solicitudes AS S INNER JOIN Personas AS P ON S.personaID = P.personaID";
-        
-        try (PreparedStatement pst = con.prepareStatement(sql);
-             ResultSet rs = pst.executeQuery()) {
-            
-                  while (rs.next()) {
-                        SolicitudDTO solicitud = new SolicitudDTO();
-                        
-                        solicitud.setNroSolicitud(String.valueOf(rs.getInt("S.solicitudID")));
-                        solicitud.setSolicitante(rs.getString("P.nombres"));
-                        solicitud.setFechaEmision( rs.getString("S.fechaEmision"));
-                        solicitud.setGradoUrgencia(rs.getString("S.status"));
-                        listaSolicitudes.add(solicitud);
-                  }
-                  System.out.println("Se cargo correctamente");
-        }catch(SQLException e){
-                System.out.println("error en cargar" +e.getMessage());
+    List<SolicitudDTO> lista = new ArrayList<>();
+    String sql = "SELECT * FROM Solicitudes ORDER BY fechaEmision DESC";
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            SolicitudDTO s = new SolicitudDTO();
+            s.setDetalles(rs.getString("detalles"));
+            s.setJustificacion(rs.getString("justificacion"));
+            s.setFechaEmision(rs.getString("fechaEmision"));
+            s.setSolicitante(rs.getString("solicitante"));
+            s.setGradoUrgencia(rs.getString("gradoUrgencia"));
+            lista.add(s);
         }
-
-        return listaSolicitudes;
+    }
+        return lista;
     }
 }
