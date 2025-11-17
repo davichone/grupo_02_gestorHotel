@@ -1,10 +1,11 @@
 package vista.forms;
 
 import java.sql.SQLException;
-import javax.swing.JOptionPane; 
-import modelo.entidades.Empleado; 
-import modelo.logica.*;
-import modelo.servicio.*;
+import javax.swing.JOptionPane;
+import modelo.dto.PersonaDTO;
+import modelo.dto.UsuarioDTO;
+import modelo.dto.EmpleadoDTO;
+import modelo.servicio.EmpleadoService;
 /**
  *
  * @author alexg
@@ -12,12 +13,14 @@ import modelo.servicio.*;
 public class RegistroEmpleados extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroEmpleados.class.getName());
-
-    private GestorHotel gestor;
     
     public RegistroEmpleados() {
         initComponents();
-        gestor = new GestorHotel();
+        this.setTitle("Registrar Empleado");
+        this.setLocationRelativeTo(null);
+        // Limpiar contraseñas por defecto (NetBeans pone texto por defecto)
+        ContraEmpleado.setText("");
+        ConfirmContraEmpleado.setText("");
     }
     
     /**
@@ -119,6 +122,11 @@ public class RegistroEmpleados extends javax.swing.JFrame {
         jPanel2.add(BtnRgtrEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, 131, 40));
 
         BtnAtrasEmpleado.setText("Atras");
+        BtnAtrasEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAtrasEmpleadoActionPerformed(evt);
+            }
+        });
         jPanel2.add(BtnAtrasEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 126, 40));
 
         jLabel9.setText("Email:");
@@ -166,42 +174,93 @@ public class RegistroEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_EmailEmpleadoActionPerformed
 
     private void BtnRgtrEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRgtrEmpleadoActionPerformed
-        String nombreCompleto = NombreEmpleado.getText();
-        String dni = DniEmpleado.getText();
-        String telefono = TelefonoEmpleado.getText();
-        String email = EmailEmpleado.getText();
-        String tipoDocumento = (String) TipoDni.getSelectedItem();
-        String nombreRol = (String) RolEmpleado.getSelectedItem();
-        String contrasena = new String(ContraEmpleado.getPassword());
-        String confirmarContrasena = new String(ConfirmContraEmpleado.getPassword());
+        try {
+        String nombre = NombreEmpleado.getText().trim();
+        String dni = DniEmpleado.getText().trim();
+        String telefono = TelefonoEmpleado.getText().trim();
+        String email = EmailEmpleado.getText().trim();
+        String tipoDoc = (String) TipoDni.getSelectedItem();
+        String rolTexto = (String) RolEmpleado.getSelectedItem();
+        String password = new String(ContraEmpleado.getPassword());
+        String confirmPassword = new String(ConfirmContraEmpleado.getPassword());
 
-        if (nombreCompleto.isEmpty() || dni.isEmpty() || contrasena.isEmpty() || !contrasena.equals(confirmarContrasena)) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos y contraseñas coincidan.");
+        // Validaciones
+        if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+            return;
+        }
+        if (password.length() < 4) {
+            JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 4 caracteres.");
             return;
         }
 
-        // Asume DTOs para Persona, Empleado, Usuario (ajusta si necesario)
-        PersonaDTO persona = new PersonaDTO(nombreCompleto, dni, telefono, email, tipoDocumento);
-        EmpleadoDTO empleado = new EmpleadoDTO(/* campos */);
-        UsuarioDTO usuario = new UsuarioDTO(/* campos, contrasena */);
+        // Mapear rol a ID (ajusta si tus IDs son distintos)
+        int rolId = switch (rolTexto) {
+            case "Administrador" -> 1;
+            case "Empleado" -> 2;
+            case "Limpieza" -> 3;
+            default -> 2;
+        };
 
-        try{
-            EmpleadoService service = new EmpleadoService();
-            int id = service.registrarEmpleadoCompleto(persona, empleado, usuario);
-            JOptionPane.showMessageDialog(this, "Empleado registrado con ID: " + id);
+        // Crear DTOs
+        PersonaDTO persona = new PersonaDTO();
+        persona.setNombre(nombre);
+        persona.setNumeroDocumento(dni);
+        persona.setTelefono(telefono);
+        persona.setEmail(email);
+        persona.setTipoDocumento(tipoDoc);
 
-            // Limpiar campos
-            NombreEmpleado.setText("");
-            DniEmpleado.setText("");
-            TelefonoEmpleado.setText("");
-            EmailEmpleado.setText("");
-            ContraEmpleado.setText("");
-            ConfirmContraEmpleado.setText("");
-            RolEmpleado.setSelectedIndex(0);
-        }catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+        EmpleadoDTO empleado = new EmpleadoDTO(); // Los campos vacíos se llenan después
+
+        UsuarioDTO usuario = new UsuarioDTO();
+        usuario.setUsuario(dni);                    // Usuario = DNI
+        usuario.setPassword_plano(password);        // Contraseña en texto plano (tu DAO la hashea después)
+        usuario.setRolID(rolId);
+        usuario.setActivo(true);
+
+        // Registrar
+        EmpleadoService service = new EmpleadoService();
+        int empleadoId = service.registrarEmpleadoCompleto(persona, empleado, usuario);
+
+        JOptionPane.showMessageDialog(this,
+            "¡Empleado registrado con éxito!\n" +
+            "ID Empleado: " + empleadoId + "\n" +
+            "Usuario: " + dni + "\n" +
+            "Contraseña: " + password,
+            "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+            limpiarCampos();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this,
+                "Error en la base de datos:\n" + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error inesperado: " + e.getMessage());
         }
+        
     }//GEN-LAST:event_BtnRgtrEmpleadoActionPerformed
+
+    private void limpiarCampos() {
+        NombreEmpleado.setText("");
+        DniEmpleado.setText("");
+        TelefonoEmpleado.setText("");
+        EmailEmpleado.setText("");
+        ContraEmpleado.setText("");
+        ConfirmContraEmpleado.setText("");
+        TipoDni.setSelectedIndex(0);
+        RolEmpleado.setSelectedIndex(0);
+    }
+    
+    private void BtnAtrasEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAtrasEmpleadoActionPerformed
+        this.dispose();
+        new RegistroClienteForm().setVisible(true);
+    }//GEN-LAST:event_BtnAtrasEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
