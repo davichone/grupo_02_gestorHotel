@@ -1,23 +1,21 @@
 package vista.forms;
 
-import modelo.logica.GestorHotel;
+import modelo.dao.HabitacionDAO;
 import modelo.dto.HabitacionDTO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HabitacionesForm extends javax.swing.JFrame {
     
-    private GestorHotel gestor;
     private RegistroClienteForm ventanaPrincipal; // Para comunicarnos de vuelta
 
-    public HabitacionesForm(GestorHotel gestor, RegistroClienteForm ventanaPrincipal) {
+    public HabitacionesForm(RegistroClienteForm ventanaPrincipal) {
         initComponents();
-        this.gestor = gestor;
         this.ventanaPrincipal = ventanaPrincipal;
-        
         this.setTitle("Seleccionar Habitación");
         this.setLocationRelativeTo(ventanaPrincipal);
 
@@ -30,50 +28,49 @@ public class HabitacionesForm extends javax.swing.JFrame {
     }
     
     private void configurarYActualizarBotones() {
-        // Obtenemos la lista de todas las habitaciones del gestor
-        ArrayList<HabitacionDTO> habitaciones = gestor.getListaHabitaciones();
+        try {
+            HabitacionDAO dao = new HabitacionDAO();
+            ArrayList<HabitacionDTO> habitaciones = (ArrayList<HabitacionDTO>) dao.listarTodas();
 
-        for (HabitacionDTO habitacion : habitaciones) {
-            JButton botonCorrespondiente = null;
+            for (HabitacionDTO habitacion : habitaciones) {
+                JButton botonCorrespondiente = null;
 
-            // Buscamos el botón que corresponde a la habitación actual
-            switch (habitacion.getNumero()) {
-                case 101: botonCorrespondiente = HbtSimple01; break;
-                case 102: botonCorrespondiente = HbtSimple02; break;
-                case 103: botonCorrespondiente = HbtSimple03; break;
-                case 201: botonCorrespondiente = HbtDoble01; break;
-                case 202: botonCorrespondiente = HbtDoble02; break;
-                case 203: botonCorrespondiente = HbtDoble03; break;
-                case 301: botonCorrespondiente = HbtTriple01; break;
-                case 302: botonCorrespondiente = HbtTriple02; break;
-            }
-
-            if (botonCorrespondiente != null) {
-                // ¡LÓGICA CORREGIDA!
-                if (!habitacion.isOcupada()) { // Si NO está ocupada -> DISPONIBLE
-                    botonCorrespondiente.setBackground(new Color(0, 153, 0)); // Verde
-                    botonCorrespondiente.setEnabled(true); // Se puede hacer clic
-                    
-                    // Añadimos el listener SOLO a los botones disponibles
-                    // Removemos listeners antiguos para evitar duplicados si se llama a este método varias veces
-                    for(ActionListener al : botonCorrespondiente.getActionListeners()) {
-                        botonCorrespondiente.removeActionListener(al);
-                    }
-                    botonCorrespondiente.addActionListener(e -> {
-                        ventanaPrincipal.setHabitacionSeleccionada(habitacion);
-                        dispose(); // Cierra esta ventana
-                    });
-
-                } else { // Si SÍ está ocupada -> NO DISPONIBLE
-                    botonCorrespondiente.setBackground(Color.RED);
-                    botonCorrespondiente.setEnabled(false); // No se puede hacer clic
+                switch (habitacion.getNumero()) {
+                    case 101: botonCorrespondiente = HbtSimple01; break;
+                    case 102: botonCorrespondiente = HbtSimple02; break;
+                    case 103: botonCorrespondiente = HbtSimple03; break;
+                    case 201: botonCorrespondiente = HbtDoble01; break;
+                    case 202: botonCorrespondiente = HbtDoble02; break;
+                    case 203: botonCorrespondiente = HbtDoble03; break;
+                    case 301: botonCorrespondiente = HbtTriple01; break;
+                    case 302: botonCorrespondiente = HbtTriple02; break;
                 }
-                
-                botonCorrespondiente.setText("Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
-                botonCorrespondiente.setForeground(Color.WHITE); // Texto blanco para mejor contraste
-                botonCorrespondiente.setOpaque(true);
-                botonCorrespondiente.setBorderPainted(false);
+
+                if (botonCorrespondiente != null) {
+                    if (!habitacion.isOcupada()) {
+                        botonCorrespondiente.setBackground(new Color(0, 153, 0));
+                        botonCorrespondiente.setEnabled(true);
+
+                        for (ActionListener al : botonCorrespondiente.getActionListeners()) {
+                            botonCorrespondiente.removeActionListener(al);
+                        }
+                        botonCorrespondiente.addActionListener(e -> {
+                            ventanaPrincipal.setHabitacionSeleccionada(habitacion);
+                            dispose();
+                        });
+                    } else {
+                        botonCorrespondiente.setBackground(Color.RED);
+                        botonCorrespondiente.setEnabled(false);
+                    }
+
+                    botonCorrespondiente.setText("Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
+                    botonCorrespondiente.setForeground(Color.WHITE);
+                    botonCorrespondiente.setOpaque(true);
+                    botonCorrespondiente.setBorderPainted(false);
+                }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar habitaciones: " + e.getMessage());
         }
     }
     /**

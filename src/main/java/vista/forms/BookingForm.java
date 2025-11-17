@@ -1,34 +1,31 @@
 package vista.forms;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.logica.GestorHotel;
 import modelo.dto.ReservaDTO;
 import modelo.logica.GenerarBooking;
+import modelo.servicio.ReservaService;
 /**
  *
  * @author drola
  */
 public class BookingForm extends javax.swing.JFrame {
    
-    private GestorHotel gestor;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BookingForm.class.getName());
 
-    /**
-     * Creates new form BookingForm
-     */
-   
     
-    public BookingForm(GestorHotel gestor) {
+    public BookingForm() {
         initComponents();
         this.setTitle("Booking");
-        this.gestor = gestor;
         cargarReservasEnTabla();
         this.setLocationRelativeTo(null);
     }
 
     private BookingForm() {
-          initComponents();
+        initComponents();
         this.setTitle("Booking");
         this.setLocationRelativeTo(null);
        
@@ -38,16 +35,21 @@ public class BookingForm extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = (DefaultTableModel) TablaReserva.getModel();
         modeloTabla.setRowCount(0);
 
-        ArrayList<ReservaDTO> listaDeReservas = gestor.getListaReservas();
+        try {
+            ReservaService service = new ReservaService();
+            List<ReservaDTO> listaDeReservas = service.listarTodas();
 
-        for (ReservaDTO reserva : listaDeReservas) {
-            Object[] fila = new Object[5];
-            fila[0] = reserva.getCliente().getNombre();
-            fila[1] = reserva.getCliente().getDni();
-            fila[2] = reserva.getHabitacion().getNumero();
-            fila[3] = reserva.getDias();
-            fila[4] = reserva.calcularImporteTotal();
-            modeloTabla.addRow(fila);
+            for (ReservaDTO reserva : listaDeReservas) {
+                Object[] fila = new Object[5];
+                fila[0] = reserva.getCliente().getNombre();
+                fila[1] = reserva.getCliente().getDni();
+                fila[2] = reserva.getHabitacion().getNumero();
+                fila[3] = reserva.getDias();
+                fila[4] = reserva.calcularImporteTotal();
+                modeloTabla.addRow(fila);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar reservas: " + e.getMessage());
         }
     }
 
@@ -193,9 +195,13 @@ public class BookingForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GenerarBooking.generarReporte(gestor.getListaReservas());
-        this.dispose();
-        
+        try {
+            ReservaService service = new ReservaService();
+            List<ReservaDTO> reservas = service.listarTodas();
+            GenerarBooking.generarReporte(reservas);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar reporte: " + e.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

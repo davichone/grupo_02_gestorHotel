@@ -18,7 +18,7 @@ import modelo.logica.ConexionBD;
 public class SolicitudDAOImpl implements SolicitudDAO {
      private final Connection con;
 
-    public SolicitudDAOImpl() {
+    public SolicitudDAOImpl() throws SQLException {
          this.con = ConexionBD.conectar();
     }
     

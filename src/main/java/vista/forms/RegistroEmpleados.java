@@ -1,8 +1,10 @@
 package vista.forms;
 
+import java.sql.SQLException;
 import javax.swing.JOptionPane; 
 import modelo.entidades.Empleado; 
 import modelo.logica.*;
+import modelo.servicio.*;
 /**
  *
  * @author alexg
@@ -169,20 +171,25 @@ public class RegistroEmpleados extends javax.swing.JFrame {
         String telefono = TelefonoEmpleado.getText();
         String email = EmailEmpleado.getText();
         String tipoDocumento = (String) TipoDni.getSelectedItem();
-        String nombreRol = (String) RolEmpleado.getSelectedItem(); // Rol en String
+        String nombreRol = (String) RolEmpleado.getSelectedItem();
         String contrasena = new String(ContraEmpleado.getPassword());
         String confirmarContrasena = new String(ConfirmContraEmpleado.getPassword());
+
         if (nombreCompleto.isEmpty() || dni.isEmpty() || contrasena.isEmpty() || !contrasena.equals(confirmarContrasena)) {
-                JOptionPane.showMessageDialog(this, "Debe completar todos los campos y las contraseñas deben coincidir.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Complete todos los campos y contraseñas coincidan.");
             return;
         }
 
-        // 2. Crear entidad Empleado (que hereda de Persona)
-        Empleado nuevoEmpleado = new Empleado(nombreCompleto, dni, telefono, email, tipoDocumento);
+        // Asume DTOs para Persona, Empleado, Usuario (ajusta si necesario)
+        PersonaDTO persona = new PersonaDTO(nombreCompleto, dni, telefono, email, tipoDocumento);
+        EmpleadoDTO empleado = new EmpleadoDTO(/* campos */);
+        UsuarioDTO usuario = new UsuarioDTO(/* campos, contrasena */);
 
-        // 3. Llamar al Gestor de Hotel
-        if (gestor.registrarEmpleado(nuevoEmpleado, contrasena, nombreRol)) {
-            JOptionPane.showMessageDialog(this, "Operario " + nombreCompleto + " registrado con éxito. Su usuario es su DNI.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+        try{
+            EmpleadoService service = new EmpleadoService();
+            int id = service.registrarEmpleadoCompleto(persona, empleado, usuario);
+            JOptionPane.showMessageDialog(this, "Empleado registrado con ID: " + id);
+
             // Limpiar campos
             NombreEmpleado.setText("");
             DniEmpleado.setText("");
@@ -191,8 +198,8 @@ public class RegistroEmpleados extends javax.swing.JFrame {
             ContraEmpleado.setText("");
             ConfirmContraEmpleado.setText("");
             RolEmpleado.setSelectedIndex(0);
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar el operario. Verifique logs (DNI duplicado, rol inexistente, etc.).", "Error de Registro", JOptionPane.ERROR_MESSAGE);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
         }
     }//GEN-LAST:event_BtnRgtrEmpleadoActionPerformed
 

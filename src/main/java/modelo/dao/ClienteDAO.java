@@ -116,4 +116,12 @@ public class ClienteDAO {
         }
         return lista;
     }
+
+    public int insertar(ClienteDTO cliente, Connection conn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    ClienteDTO buscarPorId(int aInt, Connection conn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

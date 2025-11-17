@@ -1,16 +1,13 @@
 package vista.forms;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
-
 import javax.swing.JOptionPane;
-import modelo.dao.SolicitudDAOImpl;
+import modelo.servicio.SolicitudService;
 import modelo.dto.SolicitudDTO;
 import modelo.logica.GenerarSolicitud;
 
-/**
- *
- * @author drola
- */
+
 public class ActivosForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ActivosForm.class.getName());
@@ -20,7 +17,7 @@ public class ActivosForm extends javax.swing.JFrame {
      */
     public ActivosForm() {
         initComponents();
-          this.setTitle("Stock");
+        this.setTitle("Stock");
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -361,38 +358,41 @@ public class ActivosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnEnviarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarSolicitudActionPerformed
-       
         LocalDate fechaActual = LocalDate.now();
-        String fecha= fechaActual.toString();
-       
-        //generar Detalle
-        
-        StringBuilder sb =new StringBuilder();
-      
-        if(txtLimpiesa.getText().length()>5){
-            sb.append("- " + txtLimpiesa.getText() + "<br>");
-        } if(txtTextil.getText().length()>5){
-            sb.append("- "  + txtTextil.getText() + "<br>");
-         } if(txtMobiliario.getText().length()>5){
-             sb.append("- "  + txtMobiliario.getText() + "<br>");
-         } if(txtElectro.getText().length()>5){
-             sb.append("- "  + txtElectro.getText() + "<br>");
-         } if(txtMantenimiento.getText().length()>5){
-             sb.append("- "  + txtMantenimiento.getText() + "<br>");
-         
-       
-        }
-         String detalleReady= sb.toString();
-       
-        SolicitudDTO nuevaSolicitud = new SolicitudDTO(detalleReady,txtJustificacion.getText(),"001", fecha,
-                "David Rolando", "HE-359","Medio");
-        solicitudLocal =nuevaSolicitud;
-        JOptionPane.showMessageDialog(null, "Solicitud enviada");
-        SolicitudDAOImpl object = new SolicitudDAOImpl();
-        try {
-            object.addSolicitud(nuevaSolicitud);
-        } catch (Exception ex) {
-            System.getLogger(ActivosForm.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            String fecha = fechaActual.toString();
+
+            StringBuilder sb = new StringBuilder();
+
+            if (txtLimpiesa.getText().length() > 5) {
+                sb.append("- " + txtLimpiesa.getText() + "<br>");
+            }
+            if (txtTextil.getText().length() > 5) {
+                sb.append("- " + txtTextil.getText() + "<br>");
+            }
+            if (txtMobiliario.getText().length() > 5) {
+                sb.append("- " + txtMobiliario.getText() + "<br>");
+            }
+            if (txtElectro.getText().length() > 5) {
+                sb.append("- " + txtElectro.getText() + "<br>");
+            }
+            if (txtMantenimiento.getText().length() > 5) {
+                sb.append("- " + txtMantenimiento.getText() + "<br>");
+            }
+
+            String detalleReady = sb.toString();
+
+            SolicitudDTO nuevaSolicitud = new SolicitudDTO(detalleReady, txtJustificacion.getText(), "001", fecha, "David Rolando", "HE-359", "Medio");
+            solicitudLocal = nuevaSolicitud;
+            JOptionPane.showMessageDialog(null, "Solicitud enviada");
+
+            try {
+                SolicitudService service = new SolicitudService();
+                service.agregarSolicitud(nuevaSolicitud);
+            } catch (SQLException e) {
+                System.out.log("Error" + e.getMessage());
+            } catch (Exception e) {
+                System.out.log("Error" + e.getMessage());
+            }
         }
     }//GEN-LAST:event_btnEnviarSolicitudActionPerformed
 

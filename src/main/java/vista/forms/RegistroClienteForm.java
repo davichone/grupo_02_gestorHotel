@@ -1,11 +1,10 @@
 package vista.forms;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.dto.BoletaDTO;
-import modelo.dto.ReservaDTO;
-import modelo.dto.ClienteDTO;
-import modelo.logica.GestorHotel;
+import modelo.dto.*;
+import modelo.dao.*;
 import modelo.dto.HabitacionDTO;
 import javax.swing.JOptionPane;
 import modelo.entidades.ServicioAdicional;
@@ -13,10 +12,11 @@ import modelo.entidades.ServicioAguaCaliente;
 import modelo.entidades.ServicioEstacionamiento;
 import modelo.entidades.ServicioSauna;
 import modelo.logica.GenerarBoleta;
+import modelo.servicio.BoletaService;
+import modelo.servicio.ReservaService;
 
 public class RegistroClienteForm extends javax.swing.JFrame {
     
-    private GestorHotel gestor;
     private ClienteDTO clienteActual;
     private ReservaDTO reservaActual;
     private HabitacionDTO habitacionSeleccionada;
@@ -25,30 +25,10 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     public RegistroClienteForm() {
         initComponents();
         this.setTitle("Menu Principal");
-        this.gestor = new GestorHotel();
         lblHabitacionInfo.setText("Ninguna habitación seleccionada");
         this.setLocationRelativeTo(null);
-        
-
     }
     
-    
-    
-    public RegistroClienteForm(GestorHotel gestor) {
-        initComponents();
-          this.setTitle("Menu Principal");
-        this.gestor = gestor;
-        lblHabitacionInfo.setText("Ninguna habitación seleccionada");
-        this.setLocationRelativeTo(null);
-        // escuchar al momento de cerrar la ventana
-//        this.addWindowListener(new java.awt.event.WindowAdapter() {
-//    @Override
-//    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//        // Al cerrarse la Ventana A, se ejecuta esta lógica:
-//        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true)); 
-//    }
-//});
-    }
     
     public void setHabitacionSeleccionada(HabitacionDTO habitacion) {
         this.habitacionSeleccionada = habitacion;
@@ -471,37 +451,39 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     private void BotonBoletasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBoletasActionPerformed
         if (this.reservaActual != null && this.clienteActual != null) {
-            // Generamos la factura y la guardamos en la base de datos
-            BoletaDTO facturaGuardada = gestor.generarFactura(this.reservaActual);
-            GenerarBoleta.generarFactura(facturaGuardada);
-            if (facturaGuardada != null) {
-                JOptionPane.showMessageDialog(this, "Factura generada y guardada en la base de datos con ID: " + facturaGuardada.getFacturaID(), "Factura Generada", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al generar y guardar la factura en la base de datos.", "Error de Facturación", JOptionPane.ERROR_MESSAGE);
+            BoletaDTO boleta = new BoletaDTO(clienteActual, reservaActual);
+            try {
+                BoletaService service = new BoletaService();
+                int id = service.generarFactura(boleta);
+                boleta.setFacturaID(id);
+                GenerarBoleta.generarFactura(boleta);
+                JOptionPane.showMessageDialog(this, "Factura generada con ID: " + id);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error al generar factura: " + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Debe completar una reserva antes de generar una boleta.", "Acción Requerida", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe completar una reserva antes de generar una boleta.");
         }
     }//GEN-LAST:event_BotonBoletasActionPerformed
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
 
-        BookingForm ventanaTabla = new BookingForm(this.gestor);
+        BookingForm ventanaTabla = new BookingForm();
         this.dispose();
         ventanaTabla.setVisible(true);
-
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
         ActivosForm ventanaStock = new ActivosForm();
         ventanaStock.setLocationRelativeTo(null);
         ventanaStock.setVisible(true);
-        
         this.dispose();
     }//GEN-LAST:event_btnStockActionPerformed
 
     private void btnOperariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOperariosActionPerformed
-        // TODO add your handling code here:
+        RegistroEmpleados ventana = new RegistroEmpleados();
+        ventana.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnOperariosActionPerformed
 
     private void btnFinanzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanzasActionPerformed
@@ -524,7 +506,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
-        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this.gestor, this);
+        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this);
         ventanaHabitaciones.setVisible(true);
     }//GEN-LAST:event_BtnHabitacionesActionPerformed
 
@@ -555,56 +537,60 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         String diasEstanciaStr = estancia.getText();
         int diasDeEstancia;
 
-        // validacion; ingreso de datos
         if (nombre.isEmpty() || dni.isEmpty() || telefono.isEmpty() || diasEstanciaStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos de datos personales son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
 
         if (this.habitacionSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una habitación antes de registrar.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione una habitación.");
             return;
         }
 
         try {
             diasDeEstancia = Integer.parseInt(diasEstanciaStr);
             if (diasDeEstancia <= 0) {
-                JOptionPane.showMessageDialog(this, "El número de días debe ser un entero positivo.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Días debe ser positivo.");
                 return;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para los días de estancia.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Días inválido.");
             return;
         }
-        //iniciar nuevo cliente con argumentos ingresados por usuario
-        this.clienteActual = gestor.registrarNuevoCliente(nombre, dni, telefono);
 
-        //add servicios
+        ClienteDTO cliente = new ClienteDTO(0, nombre, dni, telefono);
+
+        try {
+            ClienteDAO clienteDAO = new ClienteDAO();
+            int clienteId = clienteDAO.insertar(cliente);
+            cliente.setClienteID(clienteId);
+            this.clienteActual = cliente;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar cliente: " + e.getMessage());
+            return;
+        }
+
         List<ServicioAdicional> serviciosSeleccionados = new ArrayList<>();
         if (BotonSauna.isSelected()) {
             serviciosSeleccionados.add(new ServicioSauna());
         }
-
         if (BotonEstacionamiento.isSelected()) {
             serviciosSeleccionados.add(new ServicioEstacionamiento());
         }
-
         if (BotonAguaCaliente.isSelected()) {
             serviciosSeleccionados.add(new ServicioAguaCaliente());
         }
 
-        // Creamos la reserva con servicios
-        this.reservaActual = gestor.crearReserva(
-            clienteActual,
-            this.habitacionSeleccionada,
-            diasDeEstancia,
-            serviciosSeleccionados
-        );
+        ReservaDTO reserva = new ReservaDTO(0, clienteActual, habitacionSeleccionada, diasDeEstancia, serviciosSeleccionados);
 
-        if (reservaActual != null) {
+        try {
+            ReservaService reservaService = new ReservaService();
+            int reservaId = reservaService.registrarReserva(reserva);
+            reserva.setReservaID(reservaId);
+            this.reservaActual = reserva;
             JOptionPane.showMessageDialog(this, "Reserva creada con éxito para " + clienteActual.getNombre());
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo crear la reserva. La habitación ya no está disponible.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al crear reserva: " + e.getMessage());
         }
     }//GEN-LAST:event_BotonRegistroActionPerformed
 

@@ -1,5 +1,7 @@
 package vista.forms;
 
+import javax.swing.JOptionPane;
+import modelo.dto.UsuarioDTO;
 import modelo.logica.Login;
 
 public class LoginForm extends javax.swing.JFrame {
@@ -178,23 +180,22 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void BotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLoginActionPerformed
         String user = TextoUsuario.getText();
-        String pass = new String(TextoContraseña.getPassword()); // Para producción se usa JPasswordField
+        String pass = new String(TextoContraseña.getPassword());
+        
+        if (user.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese usuario y contraseña", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        Login gestorLogin = new Login(user, pass); // Creamos el objeto de lógica
-        // La VISTA pregunta a la LOGICA!!!!
-        if(gestorLogin.validarCredenciales()){
+        if (login.validarCredenciales()) {
+            UsuarioDTO usuario = login.getUsuarioLogueado();
+            JOptionPane.showMessageDialog(this, "Bienvenido, " + usuario.getNombrePersona() + " (" + usuario.getNombreRol() + ")");
 
-            modelo.logica.GestorHotel gestorPrincipal = new modelo.logica.GestorHotel();
-            RegistroClienteForm formPrincipal = new RegistroClienteForm(gestorPrincipal);
-            formPrincipal.setVisible(true);
+            RegistroClienteForm form = new RegistroClienteForm();
+            form.setVisible(true);
             this.dispose();
-            // java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true));
-        }else{
-            // Si no es válido, la VISTA muestra un error.
-            javax.swing.JOptionPane.showMessageDialog(this,
-                "Usuario o contraseña incorrectos",
-                "Error de Acceso",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotonLoginActionPerformed
 

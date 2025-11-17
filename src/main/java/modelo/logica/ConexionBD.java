@@ -5,28 +5,53 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-    private static final String URL = "jdbc:mysql://localhost:3306/db_hotel_eclipse";
-    private static final String USER = "";
-    private static final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/db_hotel_eclipse?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "tu_password";
 
-    public static Connection conectar() {
-        Connection con = null;
+    // Obtener conexión (sin auto-commit por defecto si se usará en transacción)
+    public static Connection conectar() throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        conn.setAutoCommit(false); // ¡Importante para transacciones!
+        return conn;
+    }
+
+    // Commit manual
+    public static void commit(Connection conn) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println(" Conexion exitosa con la base de datos");
-            System.out.println(" ");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(" Error al conectar: " + e.getMessage());
-            System.out.println(" ");
+            if (conn != null && !conn.isClosed()) {
+                conn.commit();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return con;
+    }
+
+    // Rollback manual
+    public static void rollback(Connection conn) {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.rollback();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cerrar conexión
+    public static void cerrar(Connection conn) {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Connection getConnection() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-    
 
  

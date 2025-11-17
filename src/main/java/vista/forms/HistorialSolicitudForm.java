@@ -2,14 +2,11 @@ package vista.forms;
 
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.dao.SolicitudDAOImpl;
+import modelo.servicio.SolicitudService;
 import modelo.dto.SolicitudDTO;
 
-/**
- *
- * @author drola
- */
 public class HistorialSolicitudForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HistorialSolicitudForm.class.getName());
@@ -18,47 +15,34 @@ public class HistorialSolicitudForm extends javax.swing.JFrame {
      * Creates new form HistorialSolicitudForm
      */
     public HistorialSolicitudForm() {
-         
         initComponents();
         this.cargarTabla();
     }
     
     private void cargarTabla(){
-        // 1. Definir el Modelo (Tabla de datos en memoria)
-    DefaultTableModel modelo = new DefaultTableModel();
-    
-    // 2. Definir las Columnas (Estas deben coincidir con tu JTable y DTO)
-    modelo.addColumn("Nº Solicitud");
-    modelo.addColumn("Operador");
-    modelo.addColumn("Fecha de Emision");
-    modelo.addColumn("Estado");
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Nº Solicitud");
+        modelo.addColumn("Operador");
+        modelo.addColumn("Fecha de Emision");
+        modelo.addColumn("Estado");
 
-    // 3. Llamar al Modelo (Capa de Servicio/DAO)
-         // Instancia de tu capa de lógica
-        SolicitudDAOImpl servicio = new SolicitudDAOImpl();
-    try {
-        List<SolicitudDTO> listaSolicitudes = servicio.getSolicitudes();
+        try {
+            SolicitudService service = new SolicitudService();
+            List<SolicitudDTO> listaSolicitudes = service.obtenerSolicitudes();
 
-        // 4. Iterar sobre la lista de DTOs para llenar las Filas
-        for (SolicitudDTO solicitud : listaSolicitudes) {
-            
-            // Crear un array de objetos con los datos del DTO
-            Object[] fila = new Object[4];
-            fila[0] = solicitud.getNroSolicitud();
-            fila[1] = solicitud.getSolicitante();
-            fila[2] = solicitud.getFechaEmision();
-            fila[3] = solicitud.getGradoUrgencia();
+            for (SolicitudDTO solicitud : listaSolicitudes) {
+                Object[] fila = new Object[4];
+                fila[0] = solicitud.getNroSolicitud();
+                fila[1] = solicitud.getSolicitante();
+                fila[2] = solicitud.getFechaEmision();
+                fila[3] = solicitud.getGradoUrgencia();
+                modelo.addRow(fila);
+            }
 
-            // Añadir la fila al modelo
-            modelo.addRow(fila);
+            TablaReserva.setModel(modelo);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
         }
-
-        // 5. Asignar el Modelo de vuelta al JTable de tu formulario
-        TablaReserva.setModel(modelo); // Asumiendo que tu tabla se llama jTableClientes
-
-    } catch (SQLException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
-    }
     }
 
     /**
