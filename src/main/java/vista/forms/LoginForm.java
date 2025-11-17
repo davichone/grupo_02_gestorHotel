@@ -9,10 +9,9 @@ public class LoginForm extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
 
     public LoginForm() {
-        
-        this.getRootPane().setDefaultButton(BotonLogin);
         initComponents();
-        this.setTitle("iniciar Sesion - Admin or User");
+        this.getRootPane().setDefaultButton(BotonLogin);
+        this.setTitle("Iniciar Sesion - Admin or User");
         this.setLocationRelativeTo(null);
     }
      public  void goLogin(){
@@ -179,13 +178,15 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonExitActionPerformed
 
     private void BotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLoginActionPerformed
-        String user = TextoUsuario.getText();
+        String user = TextoUsuario.getText().trim();
         String pass = new String(TextoContraseña.getPassword());
         
         if (user.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese usuario y contraseña", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        Login login = new Login(user, pass);
 
         if (login.validarCredenciales()) {
             UsuarioDTO usuario = login.getUsuarioLogueado();

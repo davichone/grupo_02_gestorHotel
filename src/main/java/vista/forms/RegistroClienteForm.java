@@ -3,10 +3,10 @@ package vista.forms;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+
 import modelo.dto.*;
 import modelo.dao.*;
-import modelo.dto.HabitacionDTO;
-import javax.swing.JOptionPane;
 import modelo.entidades.ServicioAdicional;
 import modelo.entidades.ServicioAguaCaliente;
 import modelo.entidades.ServicioEstacionamiento;
@@ -20,6 +20,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private ClienteDTO clienteActual;
     private ReservaDTO reservaActual;
     private HabitacionDTO habitacionSeleccionada;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroClienteForm.class.getName());
 
     public RegistroClienteForm() {

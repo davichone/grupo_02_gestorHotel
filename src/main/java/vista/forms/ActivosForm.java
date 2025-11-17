@@ -1,11 +1,12 @@
-
 package vista.forms;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import modelo.servicio.SolicitudService;
 import modelo.dto.SolicitudDTO;
+import modelo.servicio.SolicitudService;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.logica.GenerarSolicitud;
 
 
@@ -18,8 +19,8 @@ public class ActivosForm extends javax.swing.JFrame {
      */
     public ActivosForm() {
         initComponents();
-        this.setTitle("Stock");
-        setLocationRelativeTo(null);
+        this.setTitle("Stock - Activos");
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
@@ -360,52 +361,45 @@ public class ActivosForm extends javax.swing.JFrame {
 
     private void btnEnviarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarSolicitudActionPerformed
         LocalDate fechaActual = LocalDate.now();
-            String fecha = fechaActual.toString();
+        String fecha = fechaActual.toString();
 
-            StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        if (!txtLimpiesa.getText().trim().isEmpty()) sb.append("- Limpieza: ").append(txtLimpiesa.getText()).append("\n");
+        if (!txtTextil.getText().trim().isEmpty()) sb.append("- Textil: ").append(txtTextil.getText()).append("\n");
+        if (!txtMobiliario.getText().trim().isEmpty()) sb.append("- Mobiliario: ").append(txtMobiliario.getText()).append("\n");
+        if (!txtElectro.getText().trim().isEmpty()) sb.append("- Electrodomésticos: ").append(txtElectro.getText()).append("\n");
+        if (!txtMantenimiento.getText().trim().isEmpty()) sb.append("- Mantenimiento: ").append(txtMantenimiento.getText()).append("\n");
 
-            if (txtLimpiesa.getText().length() > 5) {
-                sb.append("- " + txtLimpiesa.getText() + "<br>");
-            }
-            if (txtTextil.getText().length() > 5) {
-                sb.append("- " + txtTextil.getText() + "<br>");
-            }
-            if (txtMobiliario.getText().length() > 5) {
-                sb.append("- " + txtMobiliario.getText() + "<br>");
-            }
-            if (txtElectro.getText().length() > 5) {
-                sb.append("- " + txtElectro.getText() + "<br>");
-            }
-            if (txtMantenimiento.getText().length() > 5) {
-                sb.append("- " + txtMantenimiento.getText() + "<br>");
-            }
+        String detalle = sb.toString();
+        String justificacion = txtJustificacion.getText();
 
-            String detalleReady = sb.toString();
+        SolicitudDTO solicitud = new SolicitudDTO(detalle, justificacion, "001", fecha, "David Rolando", "HE-359", "Medio");
+        solicitudLocal = solicitud;
 
-            SolicitudDTO nuevaSolicitud = new SolicitudDTO(detalleReady, txtJustificacion.getText(), "001", fecha, "David Rolando", "HE-359", "Medio");
-            solicitudLocal = nuevaSolicitud;
-            JOptionPane.showMessageDialog(null, "Solicitud enviada");
-
-            try {
-                SolicitudService service = new SolicitudService();
-                service.agregarSolicitud(nuevaSolicitud);
-            } catch (SQLException e) {
-                System.out.log("Error" + e.getMessage());
-            } catch (Exception e) {
-                System.out.log("Error" + e.getMessage());
-            }
+        try {
+            new SolicitudService().agregarSolicitud(solicitud);
+            JOptionPane.showMessageDialog(this, "Solicitud enviada correctamente");
+            this.dispose();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al enviar: " + ex.getMessage());
+            logger.log(Level.SEVERE, "Error al enviar solicitud", ex);
+        } catch (Exception ex) {
+            System.getLogger(ActivosForm.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+    
     }//GEN-LAST:event_btnEnviarSolicitudActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-         GenerarSolicitud.generarSolicitud(solicitudLocal);
+        if (solicitudLocal != null) { 
+            GenerarSolicitud.generarSolicitud(solicitudLocal);
+            JOptionPane.showMessageDialog(this, "PDF generado (funcionalidad pendiente)");
+        }
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         HistorialSolicitudForm ventanaTabla = new HistorialSolicitudForm();
         this.dispose();
         ventanaTabla.setLocationRelativeTo(null);
-       
         ventanaTabla.setVisible(true);
     }//GEN-LAST:event_btnHistorialActionPerformed
 
