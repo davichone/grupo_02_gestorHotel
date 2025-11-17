@@ -129,7 +129,7 @@ public class RegistroEmpleados extends javax.swing.JFrame {
         });
         jPanel2.add(EmailEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 410, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         jLabel1.setText("Registrar Nuevos Empleados");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 250, 31));
 
