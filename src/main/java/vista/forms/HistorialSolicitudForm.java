@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.servicio.SolicitudService;
 import modelo.dto.SolicitudDTO;
+import modelo.servicio.SolicitudDAOImpl;
 
 public class HistorialSolicitudForm extends javax.swing.JFrame {
     
@@ -22,20 +22,23 @@ public class HistorialSolicitudForm extends javax.swing.JFrame {
     private void cargarTabla(){
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Nº Solicitud");
-        modelo.addColumn("Operador");
+        modelo.addColumn("Sucursal");
+        modelo.addColumn("Solicitante");
         modelo.addColumn("Fecha de Emision");
+        modelo.addColumn("Grado de urgencia");
         modelo.addColumn("Estado");
 
         try {
-            SolicitudService service = new SolicitudService();
-            List<SolicitudDTO> listaSolicitudes = service.obtenerSolicitudes();
-
+            SolicitudDAOImpl service = new SolicitudDAOImpl();
+            List<SolicitudDTO> listaSolicitudes = service.getListaDeSolicitudesParaTabla();
             for (SolicitudDTO solicitud : listaSolicitudes) {
-                Object[] fila = new Object[4];
+                Object[] fila = new Object[6];
                 fila[0] = solicitud.getNroSolicitud();
-                fila[1] = solicitud.getSolicitante();
-                fila[2] = solicitud.getFechaEmision();
-                fila[3] = solicitud.getGradoUrgencia();
+                fila[1] = solicitud.getIdHotel();
+                fila[2] = solicitud.getSolicitante();
+                fila[3] = solicitud.getFechaEmision();
+                fila[4] = solicitud.getGradoUrgencia();
+                fila[5] = solicitud.getEstado();
                 modelo.addRow(fila);
             }
 
@@ -67,14 +70,14 @@ public class HistorialSolicitudForm extends javax.swing.JFrame {
 
         TablaReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nº Solicitud", "Operador", "Fecha de Emision", "Estado"
+                "Nº Solicitud", "Sucursal", "Solicitante", "Fecha de Emision", "Grado de urgencia", "Estado"
             }
         ));
         jScrollPane1.setViewportView(TablaReserva);
@@ -171,7 +174,7 @@ public class HistorialSolicitudForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        ActivosForm ventana = new ActivosForm();
+        GoSolicitudForm ventana = new GoSolicitudForm();
         this.dispose();
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);

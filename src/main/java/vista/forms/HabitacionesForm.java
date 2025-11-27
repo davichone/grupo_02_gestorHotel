@@ -36,14 +36,22 @@ public class HabitacionesForm extends javax.swing.JFrame {
                 JButton botonCorrespondiente = null;
 
                 switch (habitacion.getNumero()) {
-                    case 101: botonCorrespondiente = HbtSimple01; break;
-                    case 102: botonCorrespondiente = HbtSimple02; break;
-                    case 103: botonCorrespondiente = HbtSimple03; break;
-                    case 201: botonCorrespondiente = HbtDoble01; break;
-                    case 202: botonCorrespondiente = HbtDoble02; break;
-                    case 203: botonCorrespondiente = HbtDoble03; break;
-                    case 301: botonCorrespondiente = HbtTriple01; break;
-                    case 302: botonCorrespondiente = HbtTriple02; break;
+                    case 101: botonCorrespondiente = HbtSimple01; 
+                    break;
+                    case 102: botonCorrespondiente = HbtSimple02;
+                    break;
+                    case 103: botonCorrespondiente = HbtSimple03;
+                    break;
+                    case 201: botonCorrespondiente = HbtDoble01; 
+                    break;
+                    case 202: botonCorrespondiente = HbtDoble02; 
+                    break;
+                    case 203: botonCorrespondiente = HbtDoble03; 
+                    break;
+                    case 301: botonCorrespondiente = HbtTriple01;
+                    break;
+                    case 302: botonCorrespondiente = HbtTriple02;
+                    break;
                 }
 
                 if (botonCorrespondiente != null) {

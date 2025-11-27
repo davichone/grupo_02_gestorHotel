@@ -12,6 +12,7 @@ public class SolicitudDTO {
     private String solicitante;
     private String idHotel;
     private String gradoUrgencia;
+    private String estado;
 
     public SolicitudDTO() {
         this.fechaEmision = LocalDate.now().toString();
@@ -20,7 +21,7 @@ public class SolicitudDTO {
 
     // Constructor completo
     public SolicitudDTO(String detalles, String justificacion, String nroSolicitud, 
-                        String fechaEmision, String solicitante, String idHotel, String gradoUrgencia) {
+                        String fechaEmision, String solicitante, String idHotel, String gradoUrgencia, String estado) {
         this.detalles = detalles;
         this.justificacion = justificacion;
         this.nroSolicitud = nroSolicitud;
@@ -28,9 +29,18 @@ public class SolicitudDTO {
         this.solicitante = solicitante;
         this.idHotel = idHotel;
         this.gradoUrgencia = gradoUrgencia;
+        this.estado=estado;
     }
 
-    // Getters y Setters (todos los que ya tienes + id si lo usas)
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

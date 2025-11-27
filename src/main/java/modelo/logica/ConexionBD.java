@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBD {
-    private static final String URL = "jdbc:mysql://localhost:3306/db_hotel_eclipse?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/hoteleclipse_db?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "tu_password";
+    private static final String PASSWORD = "root";
 
     // Obtener conexión (sin auto-commit por defecto si se usará en transacción)
     public static Connection conectar() throws SQLException {

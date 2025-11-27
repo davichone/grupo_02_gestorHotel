@@ -17,7 +17,7 @@ public class EmpleadoService {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     /**
-     * Registra un empleado completo: Persona + Empleado + Usuario (con login)
+      Registra un empleado completo: Persona + Empleado + Usuario (con login)
      */
     public int registrarEmpleadoCompleto(PersonaDTO persona, EmpleadoDTO empleado, UsuarioDTO usuario) throws SQLException {
         Connection conn = null;

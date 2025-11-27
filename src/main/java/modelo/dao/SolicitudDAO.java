@@ -13,7 +13,7 @@ public interface SolicitudDAO {
     
     void generarSolicitud(SolicitudDTO nuevaSolicitud) throws Exception;
     void addSolicitud(SolicitudDTO nuevaSolicitud) throws Exception;
-    void cargarSolicitudes() throws Exception;
-    List<SolicitudDTO> getSolicitudes() throws SQLException;
+    List<SolicitudDTO> getListaDeSolicitudesParaTabla() throws SQLException;
+    String getNroSolicitud() throws SQLException;
     
 }
