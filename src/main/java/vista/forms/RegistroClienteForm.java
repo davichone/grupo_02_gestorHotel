@@ -508,7 +508,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
         HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this);
+        
         ventanaHabitaciones.setVisible(true);
+        ventanaHabitaciones.setLocationRelativeTo(null);
+        this.dispose();
+        
     }//GEN-LAST:event_BtnHabitacionesActionPerformed
 
     private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
