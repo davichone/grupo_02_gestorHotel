@@ -59,6 +59,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         btnFinanzas = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnLimpieza = new javax.swing.JButton();
+        btnOperarios1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -166,6 +167,16 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             }
         });
 
+        btnOperarios1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        btnOperarios1.setForeground(new java.awt.Color(51, 51, 51));
+        btnOperarios1.setText("Graficos");
+        btnOperarios1.setBorder(null);
+        btnOperarios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOperarios1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -178,6 +189,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnOperarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotonBoletas, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnStock, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +206,9 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(btnOperarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOperarios, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFinanzas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -607,6 +621,13 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ingresoDNIActionPerformed
 
+    private void btnOperarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOperarios1ActionPerformed
+        ChartForm ventana = new ChartForm();
+         ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnOperarios1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -644,6 +665,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JButton btnFinanzas;
     private javax.swing.JButton btnLimpieza;
     private javax.swing.JButton btnOperarios;
+    private javax.swing.JButton btnOperarios1;
     private javax.swing.JButton btnStock;
     private javax.swing.JTextField estancia;
     private javax.swing.JTextField ingresoDNI;
