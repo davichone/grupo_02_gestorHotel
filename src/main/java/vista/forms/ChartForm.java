@@ -86,14 +86,14 @@ renderer.setSeriesPaint(2, Color.PINK);
 renderer.setSeriesPaint(3, Color.YELLOW); 
 
 //plot.setBackgroundPaint(Color.WHITE);
-// ----------------------------------------------------
 
 
-        // 4. Mostrar el gráfico en un panel Swing
+
+      
         ChartPanel chartPanel = new ChartPanel(chart);
         panelPrueba.add(chartPanel);
-        panelPrueba.revalidate(); // Le dice al layout manager que recalcule las dimensiones.
-        panelPrueba.repaint();    // Le dice a Swing que pinte el panel de nuevo.
+        panelPrueba.revalidate(); // Le dice al layout manager que recalcule las dimension
+        panelPrueba.repaint();    // Le dice a Swing que pinte el panel de nuev
             System.out.println("generacion exitosa");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al generar grafico"+e.getMessage());
@@ -102,70 +102,62 @@ renderer.setSeriesPaint(3, Color.YELLOW);
     }
     
 
-// Asegúrate de tener las clases DataGraficDTO y DataGraficService disponibles
-// ... (otras importaciones y el resto de la clase)
+
 
 private void generarChartPastelDias() {
     try {
-        // 1. Inicializar el DataSet para el gráfico de pastel
+        
         DefaultPieDataset dataSet = new DefaultPieDataset();
         
         DataGraficService servicio = new DataGraficService();
         List<List<DataGraficDTO>> listas = servicio.getListaDataGrafic();
         
-        // Nombres de los rangos para las etiquetas del pastel
+      
         String[] rangos = {"1 a 5 días", "6 a 10 días", "11 a 15 días", "Más de 15 días"};
         
-        // ----------------------------------------------------------------------
-        // 2. AGREGACIÓN DE DATOS: Sumar los días por cada rango
-        // ----------------------------------------------------------------------
+ 
         for (int i = 0; i < listas.size() && i < rangos.length; i++) {
             List<DataGraficDTO> listaActual = listas.get(i);
             String rangoEtiqueta = rangos[i];
             
-            // Calcular el total de días para este RANGO
+            
             int totalDiasEnRango = 0;
             for (DataGraficDTO datos : listaActual) {
-                // Asumiendo que getDias() devuelve la cantidad de días para cada registro
+                
                 totalDiasEnRango += datos.getDias(); 
             }
             
-            // Añadir el valor y la etiqueta al DataSet del Pastel
-            // Formato: (Etiqueta, Valor)
+          
             dataSet.setValue(rangoEtiqueta, totalDiasEnRango);
         }
 
-        // ----------------------------------------------------------------------
-        // 3. Creación del Gráfico de Pastel
-        // ----------------------------------------------------------------------
+      
         JFreeChart chart = ChartFactory.createPieChart(
                 "Distribución de los dias de estancia", // Título del gráfico
                 dataSet,                               // Los datos
-                true,                                  // Mostrar leyenda (Show Legend)
+                true,                                  // Mostrar leyenda 
                 true,                                  // Mostrar tooltips
                 false                                  // No generar URLs
         );
         
-        // Opcional: Personalizar la trama (plot) para los colores o efectos 3D
+        
         PiePlot plot = (PiePlot) chart.getPlot();
         
-        // Ejemplo de personalización de color (opcional, JFreeChart usa colores por defecto)
+       
         Color colorAzulMate = new Color(90, 115, 139);
         Color colorNegro = Color.BLACK;
         Color colorRosa = Color.PINK;
         Color colorAmarillo = Color.YELLOW;
 
-        // Asignar colores a las secciones (claves) específicas
+       
         plot.setSectionPaint(rangos[0], colorAzulMate);
         plot.setSectionPaint(rangos[1], colorNegro);
         plot.setSectionPaint(rangos[2], colorRosa);
         plot.setSectionPaint(rangos[3], colorAmarillo);
 
-        // ----------------------------------------------------------------------
-        // 4. Mostrar el gráfico en un panel Swing
-        // ----------------------------------------------------------------------
+  
         ChartPanel chartPanel = new ChartPanel(chart);
-        panelPrueba.removeAll(); // Limpia el panel si había un gráfico anterior
+        panelPrueba.removeAll(); 
         panelPrueba.add(chartPanel);
         panelPrueba.revalidate(); 
         panelPrueba.repaint(); 
