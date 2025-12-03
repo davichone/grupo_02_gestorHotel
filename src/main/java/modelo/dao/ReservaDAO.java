@@ -136,7 +136,4 @@ public class ReservaDAO {
         return lista;
     }
 
-    public List<ReservaDTO> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

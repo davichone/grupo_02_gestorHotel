@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Boleta de Venta</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .boleta-container { width: 400px; margin: 0 auto; border: 1px solid #ccc; padding: 20px; }
+        h1, h2, p { text-align: center; margin: 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total-row td { font-weight: bold; background-color: #e0e0e0; }
+        .right-align { text-align: right; }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 75px;
+            color: rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="boleta-container">
+        <div class="watermark">Hoteles Eclipse</div>
+        
+        <h1>Hoteles Eclipse S.A.C.</h1>
+        <p>RUC: 20567890123</p>
+        <p>Dirección: Av. Los Girasoles N° 456, Lima</p>
+        <hr>
+        <h2>BOLETA DE VENTA ELECTRÓNICA</h2>
+        <p>N° B001 - 00012345</p>
+        <hr>
+
+        <p class="right-align">Fecha de Emisión: 03/12/2025</p>
+        <p>Cliente: <strong>juanita</strong></p>
+        <p>DNI/RUC: <strong>7687687</strong></p>
+        <hr>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Cant.</th>
+                    <th>Descripción</th>
+                    <th class="right-align">P. Unit.</th>
+                    <th class="right-align">Importe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr> 
+                    <td>3</td>
+                    <td>Simple - 101</td>
+                    <td class="right-align">120.00</td>
+                    <td class="right-align">120.00</td>
+                </tr>
+                <tr><td>Servicio de Agua Caliente</td><td>S/ 10,00</td></tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="right-align">SUBTOTAL:</td>
+                    <td class="right-align">250,00</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="right-align">IGV (18%):</td>
+                    <td class="right-align">45,00</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3" class="right-align">TOTAL A PAGAR (S/.):</td>
+                    <td class="right-align">295,00</td> 
+                </tr>
+            </tfoot>
+        </table>
+
+        <p style="margin-top: 20px;">GRACIAS POR SU PREFERENCIA</p>
+
+        <div class="legal-notes">
+            <hr>
+            <h4>Terminos y condiciones</h4>
+            <p style="font-size: 10px; text-align: justify;">
+                1. El cliente se compromete a cuidar las instalaciones y el mobiliario de la habitación. Cualquier daño, rotura o pérdida causada por el cliente o sus acompañantes deberá ser cubierta por el cliente, valorizada según el inventario del hotel.<br>
+                2. El hotel no se hace responsable por la pérdida de objetos de valor no declarados y dejados en la habitación.<br>
+                3. El horario de check-out es a las 12:00 p.m. Cualquier salida posterior a esta hora puede estar sujeta a cargos adicionales.<br>
+                4. Esta boleta es un comprobante de pago. Consérvela para cualquier consulta o reclamo.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

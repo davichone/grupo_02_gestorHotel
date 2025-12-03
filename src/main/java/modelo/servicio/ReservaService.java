@@ -6,6 +6,7 @@ import modelo.dto.ReservaDTO;
 import modelo.logica.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.dto.HabitacionDTO;
 
@@ -70,6 +71,21 @@ public class ReservaService {
     }
 
     public List<ReservaDTO> listarTodas() {
-        return reservaDAO.listarTodas();
+        Connection conn = null;
+        List<ReservaDTO> lista = new ArrayList<>();
+        try {
+            // 1. Abrimos la conexión
+            conn = ConexionBD.conectar();
+            
+            // 2. Llamamos al método del DAO que SÍ tiene lógica (el que pide 'conn')
+            lista = reservaDAO.listarTodas(conn); 
+            
+        } catch (SQLException e) {
+            System.err.println("Error al listar reservas: " + e.getMessage());
+        } finally {
+            // 3. Cerramos la conexión para no saturar la base de datos
+            ConexionBD.cerrar(conn);
+        }
+        return lista;
     }
 }

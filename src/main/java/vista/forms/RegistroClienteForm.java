@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.servicio.ClienteService;
 
 import modelo.dto.*;
 import modelo.dao.*;
@@ -492,9 +493,14 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     private void btnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingActionPerformed
 
-        BookingForm ventanaTabla = new BookingForm();
-        this.dispose();
-        ventanaTabla.setVisible(true);
+        try {
+            BookingForm ventanaTabla = new BookingForm();
+            ventanaTabla.setVisible(true);
+            this.dispose(); // Cierra la ventana actual
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al abrir Booking: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnBookingActionPerformed
 
     private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
@@ -511,7 +517,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOperariosActionPerformed
 
     private void btnFinanzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanzasActionPerformed
-        // TODO add your handling code here:
+        //chetumare david
     }//GEN-LAST:event_btnFinanzasActionPerformed
 
     private void BtnHabitaciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitaciones1ActionPerformed
@@ -523,6 +529,9 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     private void btnLimpiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiezaActionPerformed
         // TODO add your handling code here:
+        GoSolicitudForm ventanaLimpieza = new GoSolicitudForm(); 
+        ventanaLimpieza.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLimpiezaActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -589,15 +598,25 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         }
 
         ClienteDTO cliente = new ClienteDTO(0, nombre, dni, telefono);
-
+        
         try {
-            ClienteDAO clienteDAO = new ClienteDAO();
-            int clienteId = clienteDAO.insertar(cliente);
+            // CAMBIO CLAVE: Usamos ClienteService en vez de ClienteDAO
+            ClienteService clienteService = new ClienteService(); 
+            
+            // Este método SÍ hace el COMMIT (Guardado real en BD)
+            int clienteId = clienteService.registrarCliente(cliente);
+
+            if (clienteId <= 0) {
+                JOptionPane.showMessageDialog(this, "Error crítico: El cliente no se pudo registrar.");
+                return; 
+            }
+
             cliente.setClienteID(clienteId);
             this.clienteActual = cliente;
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar cliente: " + e.getMessage());
-            return;
+            return; 
         }
 
         List<ServicioAdicional> serviciosSeleccionados = new ArrayList<>();

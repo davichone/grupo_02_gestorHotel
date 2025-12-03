@@ -35,7 +35,8 @@ public class ClienteDAO {
         // IMPORTANTE: que estos getters existan y NO devuelvan null
         ps.setString(1, cliente.getNombre());        // nombres
         ps.setString(2, cliente.getDni());           // numeroDocumento
-        ps.setString(3, cliente.getTipoDocumento()); // puede ser null si no lo usas
+        ps.setString(3, cliente.getTipoDocumento() != null ? cliente.getTipoDocumento() : "DNI"); 
+        ps.setString(4, cliente.getTelefono());
         ps.setString(4, cliente.getTelefono());      // telefono
         ps.setString(5, cliente.getEmail());         // email, también puede ser null
 
