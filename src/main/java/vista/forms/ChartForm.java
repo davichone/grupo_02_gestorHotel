@@ -284,7 +284,7 @@ private void generarChartPastelEdad() {
         List<List<DataGraficDTO>> listas = servicio.getListaDataGraficEdad();
         
       
-        String[] rangos = {"1 a 5 días", "6 a 10 días", "11 a 15 días", "Más de 15 días"};
+        String[] rangos = {"18 a 25 años", "26 a 35 años", "36 a 45 días", "mas de 45 años"};
         
  
         for (int i = 0; i < listas.size() && i < rangos.length; i++) {
