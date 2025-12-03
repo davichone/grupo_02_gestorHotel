@@ -35,8 +35,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         this.habitacionSeleccionada = habitacion;
         if (habitacion != null) {
             lblHabitacionInfo.setText("Seleccionada: Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
+             double precio = habitacion.getPrecio(); 
+            lblPrecioHabitacion.setText("Precio por noche: S/ " + precio);
         } else {
             lblHabitacionInfo.setText("Ninguna habitación seleccionada");
+            lblPrecioHabitacion.setText("Precio por noche: S/ 0.00");
         }
     }
 
@@ -81,6 +84,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
         BotonRegistro = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        lblPrecioHabitacion = new javax.swing.JLabel();
         BtnHabitaciones1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
@@ -340,6 +344,8 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
         jLabel10.setText("Numero DNI:");
 
+        lblPrecioHabitacion.setText("Precio: ");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -375,10 +381,11 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                                 .addGap(276, 276, 276))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(BtnHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHabitacionInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblHabitacionInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                                    .addComponent(lblPrecioHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,10 +427,12 @@ public class RegistroClienteForm extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(BotonSauna)
                                 .addComponent(BotonAguaCaliente)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHabitacionInfo)
-                            .addComponent(BotonEstacionamiento)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BotonEstacionamiento)
+                            .addComponent(lblHabitacionInfo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPrecioHabitacion))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -521,12 +530,14 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void BtnHabitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHabitacionesActionPerformed
-        HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this);
-        
-        ventanaHabitaciones.setVisible(true);
-        ventanaHabitaciones.setLocationRelativeTo(null);
-        this.dispose();
-        
+             // Creamos la ventana de habitaciones y le pasamos ESTA ventana como referencia
+    HabitacionesForm ventanaHabitaciones = new HabitacionesForm(this);
+
+    ventanaHabitaciones.setLocationRelativeTo(this);
+    ventanaHabitaciones.setVisible(true);
+
+    // Solo la ocultamos, no la cerramos
+    this.setVisible(false);
     }//GEN-LAST:event_BtnHabitacionesActionPerformed
 
     private void estanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estanciaActionPerformed
@@ -623,9 +634,9 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
     private void btnOperarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOperarios1ActionPerformed
         ChartForm ventana = new ChartForm();
-         ventana.setLocationRelativeTo(null);
+        ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_btnOperarios1ActionPerformed
 
     /**
@@ -687,6 +698,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblHabitacionInfo;
+    private javax.swing.JLabel lblPrecioHabitacion;
     private javax.swing.JPanel wp;
     // End of variables declaration//GEN-END:variables
 }

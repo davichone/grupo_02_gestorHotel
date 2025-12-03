@@ -11,7 +11,9 @@ import java.util.ArrayList;
 
 public class HabitacionesForm extends javax.swing.JFrame {
     
-    private RegistroClienteForm ventanaPrincipal; // Para comunicarnos de vuelta
+    private RegistroClienteForm ventanaPrincipal; 
+    private HabitacionDTO habitacionSeleccionada;
+
 
     public HabitacionesForm(RegistroClienteForm ventanaPrincipal) {
         initComponents();
@@ -25,62 +27,63 @@ public class HabitacionesForm extends javax.swing.JFrame {
     
     private HabitacionesForm() {
         initComponents();
+        this.ventanaPrincipal = ventanaPrincipal;
     }
     
     private void configurarYActualizarBotones() {
-        try {
-            HabitacionDAO dao = new HabitacionDAO();
-            ArrayList<HabitacionDTO> habitaciones = (ArrayList<HabitacionDTO>) dao.listarTodas();
+    try {
+        HabitacionDAO dao = new HabitacionDAO();
+        ArrayList<HabitacionDTO> habitaciones = (ArrayList<HabitacionDTO>) dao.listarTodas();
 
-            for (HabitacionDTO habitacion : habitaciones) {
-                JButton botonCorrespondiente = null;
+        for (HabitacionDTO habitacion : habitaciones) {
+            JButton botonCorrespondiente = null;
 
-                switch (habitacion.getNumero()) {
-                    case 101: botonCorrespondiente = HbtSimple01; 
-                    break;
-                    case 102: botonCorrespondiente = HbtSimple02;
-                    break;
-                    case 103: botonCorrespondiente = HbtSimple03;
-                    break;
-                    case 201: botonCorrespondiente = HbtDoble01; 
-                    break;
-                    case 202: botonCorrespondiente = HbtDoble02; 
-                    break;
-                    case 203: botonCorrespondiente = HbtDoble03; 
-                    break;
-                    case 301: botonCorrespondiente = HbtTriple01;
-                    break;
-                    case 302: botonCorrespondiente = HbtTriple02;
-                    break;
-                }
+            switch (habitacion.getNumero()) {
+                case 101: botonCorrespondiente = HbtSimple01; break;
+                case 102: botonCorrespondiente = HbtSimple02; break;
+                case 103: botonCorrespondiente = HbtSimple03; break;
+                case 201: botonCorrespondiente = HbtDoble01; break;
+                case 202: botonCorrespondiente = HbtDoble02; break;
+                case 203: botonCorrespondiente = HbtDoble03; break;
+                case 301: botonCorrespondiente = HbtTriple01; break;
+                case 302: botonCorrespondiente = HbtTriple02; break;
+            }
 
-                if (botonCorrespondiente != null) {
-                    if (!habitacion.isOcupada()) {
-                        botonCorrespondiente.setBackground(new Color(0, 153, 0));
-                        botonCorrespondiente.setEnabled(true);
+            if (botonCorrespondiente != null) {
+                if (!habitacion.isOcupada()) {
+                    botonCorrespondiente.setBackground(new Color(0, 153, 0));
+                    botonCorrespondiente.setEnabled(true);
 
-                        for (ActionListener al : botonCorrespondiente.getActionListeners()) {
-                            botonCorrespondiente.removeActionListener(al);
-                        }
-                        botonCorrespondiente.addActionListener(e -> {
-                            ventanaPrincipal.setHabitacionSeleccionada(habitacion);
-                            dispose();
-                        });
-                    } else {
-                        botonCorrespondiente.setBackground(Color.RED);
-                        botonCorrespondiente.setEnabled(false);
+                    // Quita listeners anteriores
+                    for (ActionListener al : botonCorrespondiente.getActionListeners()) {
+                        botonCorrespondiente.removeActionListener(al);
                     }
 
-                    botonCorrespondiente.setText("Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
-                    botonCorrespondiente.setForeground(Color.WHITE);
-                    botonCorrespondiente.setOpaque(true);
-                    botonCorrespondiente.setBorderPainted(false);
+                    // NUEVA LÓGICA: solo seleccionar, no cerrar ventana
+                    HabitacionDTO h = habitacion; // para usar en lambda
+                    botonCorrespondiente.addActionListener(e -> {
+                        // guardamos la habitación seleccionada en esta ventana
+                        habitacionSeleccionada = h;
+                        // feedback visual (opcional)
+                        JOptionPane.showMessageDialog(this,
+                            "Has seleccionado la habitación " + h.getNumero() + " (" + h.getTipo() + ")");
+                    });
+                } else {
+                    botonCorrespondiente.setBackground(Color.RED);
+                    botonCorrespondiente.setEnabled(false);
                 }
+
+                botonCorrespondiente.setText("Hab. " + habitacion.getNumero() + " (" + habitacion.getTipo() + ")");
+                botonCorrespondiente.setForeground(Color.WHITE);
+                botonCorrespondiente.setOpaque(true);
+                botonCorrespondiente.setBorderPainted(false);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar habitaciones: " + e.getMessage());
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar habitaciones: " + e.getMessage());
     }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,6 +168,11 @@ public class HabitacionesForm extends javax.swing.JFrame {
         HbtSimple02.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         HbtSimple02.setText("Habitacion Simple - 102");
         HbtSimple02.setBorder(null);
+        HbtSimple02.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtSimple02ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -188,6 +196,11 @@ public class HabitacionesForm extends javax.swing.JFrame {
         HbtDoble01.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         HbtDoble01.setText("Habitacion Doble - 201");
         HbtDoble01.setBorder(null);
+        HbtDoble01.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtDoble01ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -237,6 +250,11 @@ public class HabitacionesForm extends javax.swing.JFrame {
         HbtTriple01.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         HbtTriple01.setText("Habitacion Triple - 301");
         HbtTriple01.setBorder(null);
+        HbtTriple01.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtTriple01ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -259,21 +277,27 @@ public class HabitacionesForm extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         HbtSimple03.setBackground(new java.awt.Color(0, 102, 0));
+        HbtSimple03.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         HbtSimple03.setText("Habitacion Simple -103");
         HbtSimple03.setBorder(null);
+        HbtSimple03.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HbtSimple03ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HbtSimple03, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addComponent(HbtSimple03, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HbtSimple03, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+            .addComponent(HbtSimple03, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 190, -1));
 
         jPanel7.setBackground(new java.awt.Color(255, 102, 0));
         jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -352,10 +376,23 @@ public class HabitacionesForm extends javax.swing.JFrame {
 
     private void HbtSimple01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtSimple01ActionPerformed
         // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(() -> new RegistroClienteForm().setVisible(true));
     }//GEN-LAST:event_HbtSimple01ActionPerformed
 
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
         // TODO add your handling code here:
+        if (habitacionSeleccionada == null) {
+        JOptionPane.showMessageDialog(this,
+            "Primero seleccione una habitación haciendo clic en uno de los botones.");
+        return;
+    }
+    if (ventanaPrincipal != null) {
+        ventanaPrincipal.setHabitacionSeleccionada(habitacionSeleccionada);
+        ventanaPrincipal.setVisible(true);
+    }
+
+    this.dispose();
+        
     }//GEN-LAST:event_BtnAceptarActionPerformed
 
     private void HbtDoble02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtDoble02ActionPerformed
@@ -368,15 +405,37 @@ public class HabitacionesForm extends javax.swing.JFrame {
 
     private void HbtDoble03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtDoble03ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_HbtDoble03ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        RegistroClienteForm ventana = new RegistroClienteForm();
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-        this.dispose();
+        if (ventanaPrincipal != null) {
+        ventanaPrincipal.setVisible(true);
+    }
+         this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void HbtSimple02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtSimple02ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_HbtSimple02ActionPerformed
+
+    private void HbtSimple03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtSimple03ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_HbtSimple03ActionPerformed
+
+    private void HbtDoble01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtDoble01ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_HbtDoble01ActionPerformed
+
+    private void HbtTriple01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HbtTriple01ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_HbtTriple01ActionPerformed
 
     /**
      * @param args the command line arguments

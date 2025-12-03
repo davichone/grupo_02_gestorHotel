@@ -18,23 +18,30 @@ public class ClienteDAO {
      * @throws SQLException Si ocurre un error en la BD.
      */
     public int insertar(ClienteDTO cliente) throws SQLException {
-        String sql = "INSERT INTO clientes (nombres, tipoDocumento, numeroDocumento, telefono) VALUES (?, ?, ?, ?)";
-        try (Connection conn = ConexionBD.conectar();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, cliente.getNombre());
-            ps.setString(2, "DNI"); // Asumir por defecto, o agregar campo en DTO
-            ps.setString(3, cliente.getDni());
-            ps.setString(4, cliente.getTelefono());
-            int filasAfectadas = ps.executeUpdate();
-            if (filasAfectadas > 0) {
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        return rs.getInt(1);
-                    }
+        String sql = "INSERT INTO clientes (nombres, numeroDocumento, tipoDocumento, telefono, email) "
+               + "VALUES (?, ?, ?, ?, ?)";
+
+    try (Connection conn = ConexionBD.conectar();
+         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        // IMPORTANTE: que estos getters existan y NO devuelvan null
+        ps.setString(1, cliente.getNombre());        // nombres
+        ps.setString(2, cliente.getDni());           // numeroDocumento
+        ps.setString(3, cliente.getTipoDocumento()); // puede ser null si no lo usas
+        ps.setString(4, cliente.getTelefono());      // telefono
+        ps.setString(5, cliente.getEmail());         // email, también puede ser null
+
+        int filas = ps.executeUpdate();
+
+        if (filas > 0) {
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1); // clienteID generado
                 }
             }
-            return -1;
         }
+        return -1;
+    }
     }
 
     /**
