@@ -173,7 +173,7 @@ public class RegistroClienteForm extends javax.swing.JFrame {
 
         btnOperarios1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnOperarios1.setForeground(new java.awt.Color(51, 51, 51));
-        btnOperarios1.setText("Graficos");
+        btnOperarios1.setText("Estadisticas");
         btnOperarios1.setBorder(null);
         btnOperarios1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

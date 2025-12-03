@@ -83,5 +83,12 @@
             <version>1.0.19.JAKARTA-LIFERAY-PATCHED-1</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.13.4</version>
+</dependency>
     </dependencies>
 </project>

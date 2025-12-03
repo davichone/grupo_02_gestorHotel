@@ -129,7 +129,7 @@
                                               <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="btnGenerarChart" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnGenerarChart2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnGenerarPDF" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="btnGenerarChart1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -167,7 +167,7 @@
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnGenerarChart" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="35" max="32767" attributes="0"/>
-                      <Component id="btnGenerarChart2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGenerarPDF" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="btnGenerarChart1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
@@ -331,12 +331,12 @@
                 <Property name="text" type="java.lang.String" value="Operador : David Rolando"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGenerarChart2">
+            <Component class="javax.swing.JButton" name="btnGenerarPDF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Generar PDF"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarChart2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarPDFActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

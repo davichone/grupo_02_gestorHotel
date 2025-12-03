@@ -5,12 +5,15 @@
 package vista.forms;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jfree.data.category.DefaultCategoryDataset;
 import modelo.dto.DataGraficDTO;
 import modelo.servicio.DataGraficService;
+import modelo.servicio.GeneradorChartPDF;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,7 +21,9 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
+
 
 /**
  *
@@ -27,7 +32,8 @@ import org.jfree.data.general.DefaultPieDataset;
 public class ChartForm extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ChartForm.class.getName());
-
+    private JFreeChart chartLocalBarras;
+    private JFreeChart chartLocalPastel;
     /**
      * Creates new form ChartForm
      */
@@ -72,6 +78,15 @@ public class ChartForm extends javax.swing.JFrame {
                 PlotOrientation.VERTICAL,
                 true, true, false
         );
+        TextTitle titulo = chart.getTitle();      
+        if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);                //local a atributo
+            
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalBarras=chart;
         CategoryPlot plot = chart.getCategoryPlot();
 
 
@@ -139,6 +154,16 @@ private void generarChartPastelDias() {
                 true,                                  // Mostrar tooltips
                 false                                  // No generar URLs
         );
+        TextTitle titulo = chart.getTitle();                                                                                        //local a atributo
+
+if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);
+    
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalPastel = chart;
         
         
         PiePlot plot = (PiePlot) chart.getPlot();
@@ -196,7 +221,7 @@ private void generarChartPastelDias() {
         jLabel7 = new javax.swing.JLabel();
         btnGenerarChart1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        btnGenerarChart2 = new javax.swing.JButton();
+        btnGenerarPDF = new javax.swing.JButton();
         panelPrueba = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -269,10 +294,10 @@ private void generarChartPastelDias() {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Operador : David Rolando");
 
-        btnGenerarChart2.setText("Generar PDF");
-        btnGenerarChart2.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarPDF.setText("Generar PDF");
+        btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarChart2ActionPerformed(evt);
+                btnGenerarPDFActionPerformed(evt);
             }
         });
 
@@ -307,7 +332,7 @@ private void generarChartPastelDias() {
                                         .addComponent(jLabel5)
                                         .addComponent(jLabel7))
                                     .addComponent(btnGenerarChart)
-                                    .addComponent(btnGenerarChart2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGenerarPDF, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnGenerarChart1, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addContainerGap(29, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -337,7 +362,7 @@ private void generarChartPastelDias() {
                 .addGap(43, 43, 43)
                 .addComponent(btnGenerarChart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(btnGenerarChart2)
+                .addComponent(btnGenerarPDF)
                 .addGap(38, 38, 38)
                 .addComponent(btnGenerarChart1)
                 .addGap(45, 45, 45)
@@ -409,9 +434,22 @@ private void generarChartPastelDias() {
         this.dispose();
     }//GEN-LAST:event_btnGenerarChart1ActionPerformed
 
-    private void btnGenerarChart2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarChart2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGenerarChart2ActionPerformed
+    private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
+        
+        String rutaBase = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "ReportesGenerados" + File.separator + "mi_grafico.pdf";
+        if(raBtnBarras.isSelected()){
+           
+        
+
+// Llama a tu método
+// GeneradorPDF.guardarGraficoComoPDF(miGrafico, rutaBase, 600, 400);
+            GeneradorChartPDF.guardarGraficoComoPDF(chartLocalBarras, rutaBase, 430, 280);
+        }else if (raBtnPastel.isSelected()) {
+                        GeneradorChartPDF.guardarGraficoComoPDF(chartLocalPastel, rutaBase,430, 280);
+
+            
+        }
+    }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,7 +480,7 @@ private void generarChartPastelDias() {
     private javax.swing.JPanel bgpanel;
     private javax.swing.JButton btnGenerarChart;
     private javax.swing.JButton btnGenerarChart1;
-    private javax.swing.JButton btnGenerarChart2;
+    private javax.swing.JButton btnGenerarPDF;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupDatos;
     private javax.swing.JLabel jLabel2;
