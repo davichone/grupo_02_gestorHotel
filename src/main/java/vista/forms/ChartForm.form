@@ -130,7 +130,7 @@
                                           </Group>
                                           <Component id="btnGenerarChart" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="btnGenerarPDF" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnGenerarChart1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAtras" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -169,7 +169,7 @@
                       <EmptySpace pref="35" max="32767" attributes="0"/>
                       <Component id="btnGenerarPDF" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="btnGenerarChart1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAtras" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -312,12 +312,12 @@
                 <Property name="text" type="java.lang.String" value="respecto al negocio."/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnGenerarChart1">
+            <Component class="javax.swing.JButton" name="btnAtras">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atras"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarChart1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtrasActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
@@ -351,6 +351,18 @@
           </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Porfavor seleccione los parametros nesesarios para generar su grafico."/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Center"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

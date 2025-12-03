@@ -47,7 +47,7 @@ public class ChartForm extends javax.swing.JFrame {
              DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         //DataGraficDTO objetito = new DataGraficDTO();
         DataGraficService servicio = new DataGraficService();
-        List<List<DataGraficDTO>> listas = servicio.getListaDataGrafic();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficDias();
         if(listas.isEmpty()) {
                 } else {
                     System.out.println("objeto guardado");
@@ -106,9 +106,13 @@ renderer.setSeriesPaint(3, Color.YELLOW);
 
       
         ChartPanel chartPanel = new ChartPanel(chart);
+        
+         panelPrueba.removeAll(); 
         panelPrueba.add(chartPanel);
-        panelPrueba.revalidate(); // Le dice al layout manager que recalcule las dimension
-        panelPrueba.repaint();    // Le dice a Swing que pinte el panel de nuev
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+        
+        
             System.out.println("generacion exitosa");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al generar grafico"+e.getMessage());
@@ -125,7 +129,7 @@ private void generarChartPastelDias() {
         DefaultPieDataset dataSet = new DefaultPieDataset();
         
         DataGraficService servicio = new DataGraficService();
-        List<List<DataGraficDTO>> listas = servicio.getListaDataGrafic();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficDias();
         
       
         String[] rangos = {"1 a 5 días", "6 a 10 días", "11 a 15 días", "Más de 15 días"};
@@ -193,6 +197,462 @@ if (titulo != null) {
         JOptionPane.showMessageDialog(this, "Error al generar gráfico: " + e.getMessage());
     }
 }
+
+
+private void generarChartBarrasEdad() {
+        try {
+             DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        //DataGraficDTO objetito = new DataGraficDTO();
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficEdad();
+        if(listas.isEmpty()) {
+                } else {
+                    System.out.println("objeto guardado");
+                }
+        for (DataGraficDTO datos : listas.get(0)) {
+             
+                dataSet.addValue(datos.getDias(), "18 a 25 años", "");
+                
+        }
+        for (DataGraficDTO datos : listas.get(1)) {
+             
+                dataSet.addValue(datos.getDias(), "26 a 35 años", "");
+        }
+        for (DataGraficDTO datos : listas.get(2)) {
+             
+                dataSet.addValue(datos.getDias(), "36 a 45 años", "");
+        }
+        for (DataGraficDTO datos : listas.get(3)) {
+             
+                dataSet.addValue(datos.getDias(), "Mas de 45 años", "");
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Distribución de la Edad de los clientes", // Título del gráfico
+                null, // Etiqueta del eje X
+                "Cantidad", // Etiqueta del eje Y
+                dataSet, // Los datos
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+        TextTitle titulo = chart.getTitle();      
+        if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);                //local a atributo
+            
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalBarras=chart;
+        CategoryPlot plot = chart.getCategoryPlot();
+
+
+BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+
+Color colorAzulMate = new Color(90, 115, 139);
+
+renderer.setSeriesPaint(0, colorAzulMate); 
+renderer.setSeriesPaint(1, Color.BLACK); 
+renderer.setSeriesPaint(2, Color.PINK);
+renderer.setSeriesPaint(3, Color.YELLOW); 
+
+//plot.setBackgroundPaint(Color.WHITE);
+
+
+
+      
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+            System.out.println("generacion exitosa");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar grafico"+e.getMessage());
+        }
+       
+    }
+
+
+private void generarChartPastelEdad() {
+    try {
+        
+        DefaultPieDataset dataSet = new DefaultPieDataset();
+        
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficEdad();
+        
+      
+        String[] rangos = {"1 a 5 días", "6 a 10 días", "11 a 15 días", "Más de 15 días"};
+        
+ 
+        for (int i = 0; i < listas.size() && i < rangos.length; i++) {
+            List<DataGraficDTO> listaActual = listas.get(i);
+            String rangoEtiqueta = rangos[i];
+            
+            
+            int totalDiasEnRango = 0;
+            for (DataGraficDTO datos : listaActual) {
+                
+                totalDiasEnRango += datos.getDias(); 
+            }
+            
+          
+            dataSet.setValue(rangoEtiqueta, totalDiasEnRango);
+        }
+
+      
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Distribución de la Edad de los clientes", // Título del gráfico
+                dataSet,                               // Los datos
+                true,                                  // Mostrar leyenda 
+                true,                                  // Mostrar tooltips
+                false                                  // No generar URLs
+        );
+        TextTitle titulo = chart.getTitle();                                                                                        //local a atributo
+
+if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);
+    
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalPastel = chart;
+        
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        
+       
+        Color colorAzulMate = new Color(90, 115, 139);
+        Color colorNegro = Color.BLACK;
+        Color colorRosa = Color.PINK;
+        Color colorAmarillo = Color.YELLOW;
+
+       
+        plot.setSectionPaint(rangos[0], colorAzulMate);
+        plot.setSectionPaint(rangos[1], colorNegro);
+        plot.setSectionPaint(rangos[2], colorRosa);
+        plot.setSectionPaint(rangos[3], colorAmarillo);
+
+  
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+        
+        System.out.println("Generación de gráfico de pastel exitosa");
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al generar gráfico: " + e.getMessage());
+    }
+}
+
+
+private void generarChartBarrasSatisfaccion() {
+        try {
+             DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        //DataGraficDTO objetito = new DataGraficDTO();
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficSatisfacccion();
+        if(listas.isEmpty()) {
+                } else {
+                    System.out.println("objeto guardado");
+                }
+        for (DataGraficDTO datos : listas.get(0)) {
+             
+                dataSet.addValue(datos.getDias(), "Decepcioanado", "");
+                
+        }
+        for (DataGraficDTO datos : listas.get(1)) {
+             
+                dataSet.addValue(datos.getDias(), "3 estrellas", "");
+        }
+        for (DataGraficDTO datos : listas.get(2)) {
+             
+                dataSet.addValue(datos.getDias(), "4 estrellas", "");
+        }
+        for (DataGraficDTO datos : listas.get(3)) {
+             
+                dataSet.addValue(datos.getDias(), "Muy satisfecho", "");
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Distribución de Satisfaccion del los clientes", // Título del gráfico
+                null, // Etiqueta del eje X
+                "Cantidad", // Etiqueta del eje Y
+                dataSet, // Los datos
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+        TextTitle titulo = chart.getTitle();      
+        if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);                //local a atributo
+            
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalBarras=chart;
+        CategoryPlot plot = chart.getCategoryPlot();
+
+
+BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+
+Color colorAzulMate = new Color(90, 115, 139);
+
+renderer.setSeriesPaint(0, colorAzulMate); 
+renderer.setSeriesPaint(1, Color.BLACK); 
+renderer.setSeriesPaint(2, Color.PINK);
+renderer.setSeriesPaint(3, Color.YELLOW); 
+
+//plot.setBackgroundPaint(Color.WHITE);
+
+
+
+      
+        ChartPanel chartPanel = new ChartPanel(chart);
+     panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+            System.out.println("generacion exitosa");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar grafico"+e.getMessage());
+        }
+       
+    }
+
+private void generarChartPastelSatisfaccion() {
+    try {
+        
+        DefaultPieDataset dataSet = new DefaultPieDataset();
+        
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficSatisfacccion();
+        
+      
+        String[] rangos = {"Decepcionado", "3 estrellas", "4 estrellas", "Muy satisfecho"};
+        
+ 
+        for (int i = 0; i < listas.size() && i < rangos.length; i++) {
+            List<DataGraficDTO> listaActual = listas.get(i);
+            String rangoEtiqueta = rangos[i];
+            
+            
+            int totalDiasEnRango = 0;
+            for (DataGraficDTO datos : listaActual) {
+                
+                totalDiasEnRango += datos.getDias(); 
+            }
+            
+          
+            dataSet.setValue(rangoEtiqueta, totalDiasEnRango);
+        }
+
+      
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Distribución de la Satisfaccion de los clientes", // Título del gráfico
+                dataSet,                               // Los datos
+                true,                                  // Mostrar leyenda 
+                true,                                  // Mostrar tooltips
+                false                                  // No generar URLs
+        );
+        TextTitle titulo = chart.getTitle();                                                                                        //local a atributo
+
+if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);
+    
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalPastel = chart;
+        
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        
+       
+        Color colorAzulMate = new Color(90, 115, 139);
+        Color colorNegro = Color.BLACK;
+        Color colorRosa = Color.PINK;
+        Color colorAmarillo = Color.YELLOW;
+
+       
+        plot.setSectionPaint(rangos[0], colorAzulMate);
+        plot.setSectionPaint(rangos[1], colorNegro);
+        plot.setSectionPaint(rangos[2], colorRosa);
+        plot.setSectionPaint(rangos[3], colorAmarillo);
+
+  
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+        
+        System.out.println("Generación de gráfico de pastel exitosa");
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al generar gráfico: " + e.getMessage());
+    }
+}
+
+
+private void generarChartBarrasServicios() {
+        try {
+             DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        //DataGraficDTO objetito = new DataGraficDTO();
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficServiciosExtra();
+        if(listas.isEmpty()) {
+                } else {
+                    System.out.println("objeto guardado");
+                }
+        for (DataGraficDTO datos : listas.get(0)) {
+             
+                dataSet.addValue(datos.getDias(), "Sauna", "");
+                
+        }
+        for (DataGraficDTO datos : listas.get(1)) {
+             
+                dataSet.addValue(datos.getDias(), "Agua caliente", "");
+        }
+        for (DataGraficDTO datos : listas.get(2)) {
+             
+                dataSet.addValue(datos.getDias(), "Estacionamiento", "");
+        }
+        for (DataGraficDTO datos : listas.get(3)) {
+             
+                dataSet.addValue(datos.getDias(), "Ninguno", "");
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Distribución de Servicios extra adquiridos", // Título del gráfico
+                null, // Etiqueta del eje X
+                "Cantidad", // Etiqueta del eje Y
+                dataSet, // Los datos
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+        TextTitle titulo = chart.getTitle();      
+        if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);                //local a atributo
+            
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalBarras=chart;
+        CategoryPlot plot = chart.getCategoryPlot();
+
+
+BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+
+Color colorAzulMate = new Color(90, 115, 139);
+
+renderer.setSeriesPaint(0, colorAzulMate); 
+renderer.setSeriesPaint(1, Color.BLACK); 
+renderer.setSeriesPaint(2, Color.PINK);
+renderer.setSeriesPaint(3, Color.YELLOW); 
+
+//plot.setBackgroundPaint(Color.WHITE);
+
+
+
+      
+        ChartPanel chartPanel = new ChartPanel(chart);
+         panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+            System.out.println("generacion exitosa");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar grafico"+e.getMessage());
+        }
+       
+    }
+
+private void generarChartPastelServicios() {
+    try {
+        
+        DefaultPieDataset dataSet = new DefaultPieDataset();
+        
+        DataGraficService servicio = new DataGraficService();
+        List<List<DataGraficDTO>> listas = servicio.getListaDataGraficServiciosExtra();
+        
+      
+        String[] rangos = {"Sauna", "Agua caliente", "Estacionamiento", "Ninguno"};
+        
+ 
+        for (int i = 0; i < listas.size() && i < rangos.length; i++) {
+            List<DataGraficDTO> listaActual = listas.get(i);
+            String rangoEtiqueta = rangos[i];
+            
+            
+            int totalDiasEnRango = 0;
+            for (DataGraficDTO datos : listaActual) {
+                
+                totalDiasEnRango += datos.getDias(); 
+            }
+            
+          
+            dataSet.setValue(rangoEtiqueta, totalDiasEnRango);
+        }
+
+      
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Distribución de la Satisfaccion de los clientes", // Título del gráfico
+                dataSet,                               // Los datos
+                true,                                  // Mostrar leyenda 
+                true,                                  // Mostrar tooltips
+                false                                  // No generar URLs
+        );
+        TextTitle titulo = chart.getTitle();                                                                                        //local a atributo
+
+if (titulo != null) {
+    
+    Font nuevaFuente = new Font("SansSerif", Font.BOLD, 14);
+    
+   
+    titulo.setFont(nuevaFuente);
+}
+        chartLocalPastel = chart;
+        
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        
+       
+        Color colorAzulMate = new Color(90, 115, 139);
+        Color colorNegro = Color.BLACK;
+        Color colorRosa = Color.PINK;
+        Color colorAmarillo = Color.YELLOW;
+
+       
+        plot.setSectionPaint(rangos[0], colorAzulMate);
+        plot.setSectionPaint(rangos[1], colorNegro);
+        plot.setSectionPaint(rangos[2], colorRosa);
+        plot.setSectionPaint(rangos[3], colorAmarillo);
+
+  
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panelPrueba.removeAll(); 
+        panelPrueba.add(chartPanel);
+        panelPrueba.revalidate(); 
+        panelPrueba.repaint(); 
+        
+        System.out.println("Generación de gráfico de pastel exitosa");
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al generar gráfico: " + e.getMessage());
+    }
+}
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,10 +679,11 @@ if (titulo != null) {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnGenerarChart1 = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnGenerarPDF = new javax.swing.JButton();
         panelPrueba = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -283,10 +744,10 @@ if (titulo != null) {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("respecto al negocio.");
 
-        btnGenerarChart1.setText("Atras");
-        btnGenerarChart1.addActionListener(new java.awt.event.ActionListener() {
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarChart1ActionPerformed(evt);
+                btnAtrasActionPerformed(evt);
             }
         });
 
@@ -333,7 +794,7 @@ if (titulo != null) {
                                         .addComponent(jLabel7))
                                     .addComponent(btnGenerarChart)
                                     .addComponent(btnGenerarPDF, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnGenerarChart1, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addComponent(btnAtras, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addContainerGap(29, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -364,7 +825,7 @@ if (titulo != null) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btnGenerarPDF)
                 .addGap(38, 38, 38)
-                .addComponent(btnGenerarChart1)
+                .addComponent(btnAtras)
                 .addGap(45, 45, 45)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -378,6 +839,9 @@ if (titulo != null) {
 
         panelPrueba.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelPrueba.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setText("Porfavor seleccione los parametros nesesarios para generar su grafico.");
+        panelPrueba.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout bgpanelLayout = new javax.swing.GroupLayout(bgpanel);
         bgpanel.setLayout(bgpanelLayout);
@@ -416,23 +880,100 @@ if (titulo != null) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarChartActionPerformed
-        if(raBtnBarras.isSelected()){
-            if (raBtnDias.isSelected()) {
-                generarChartBarrasDias();             
-            }
-        }else if(raBtnPastel.isSelected()){
-            if (raBtnDias.isSelected()) {
-                generarChartPastelDias();
-            }
-        }
+     
+        
+        
+//            //dias
+//        if(raBtnBarras.isSelected()){
+//            if (raBtnDias.isSelected()) {
+//                generarChartBarrasDias();             
+//            }
+//        }else if(raBtnPastel.isSelected()){
+//            if (raBtnDias.isSelected()) {
+//                generarChartPastelDias();
+//            }
+//        }
+//        
+//        //edad
+//       else if(raBtnBarras.isSelected()){
+//            if (raBtnEdad.isSelected()) {
+//                generarChartBarrasEdad();             
+//            }
+//        }else if(raBtnPastel.isSelected()){
+//            if (raBtnEdad.isSelected()) {
+//                generarChartPastelEdad();
+//            }
+//        }
+//        
+//        //satisffacion
+//       else if(raBtnBarras.isSelected()){
+//            if (raBtnSatisfaccion.isSelected()) {
+//                generarChartBarrasSatisfaccion();             
+//            }
+//        }else if(raBtnPastel.isSelected()){
+//            if (raBtnSatisfaccion.isSelected()) {
+//                generarChartPastelSatisfaccion();
+//            }
+//        }
+//        
+//        //servicios
+//        
+//        else if(raBtnBarras.isSelected()){
+//            if (raBtnServicioPick.isSelected()) {
+//                generarChartBarrasServicios();             
+//            }
+//        }else if(raBtnPastel.isSelected()){
+//            if (raBtnServicioPick.isSelected()) {
+//                generarChartPastelServicios();
+//            }
+//        }
+
+    // =========================================================
+// EVALUACIÓN POR CATEGORÍA DE DATOS
+// =========================================================
+
+// 1. Días
+if (raBtnDias.isSelected()) {
+    if (raBtnBarras.isSelected()) {
+        generarChartBarrasDias();
+    } else if (raBtnPastel.isSelected()) { // Asume que solo puede ser Barras o Pastel
+        generarChartPastelDias();
+    }
+} 
+// 2. Edad
+else if (raBtnEdad.isSelected()) {
+    if (raBtnBarras.isSelected()) {
+        generarChartBarrasEdad();
+    } else if (raBtnPastel.isSelected()) {
+        generarChartPastelEdad();
+    }
+} 
+// 3. Satisfacción
+else if (raBtnSatisfaccion.isSelected()) {
+    if (raBtnBarras.isSelected()) {
+        generarChartBarrasSatisfaccion();
+    } else if (raBtnPastel.isSelected()) {
+        generarChartPastelSatisfaccion();
+    }
+} 
+// 4. Servicios
+else if (raBtnServicioPick.isSelected()) {
+    if (raBtnBarras.isSelected()) {
+        generarChartBarrasServicios();
+    } else if (raBtnPastel.isSelected()) {
+        generarChartPastelServicios();
+    }
+}
+// Opcional: else { mostrar mensaje de error si ninguna categoría fue seleccionada }
+        
     }//GEN-LAST:event_btnGenerarChartActionPerformed
 
-    private void btnGenerarChart1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarChart1ActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         RegistroClienteForm ventana = new RegistroClienteForm();
         ventana.setLocationRelativeTo(null);
         ventana.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnGenerarChart1ActionPerformed
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
         
@@ -449,6 +990,9 @@ if (titulo != null) {
 
             
         }
+        
+        
+        
     }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
     /**
@@ -478,11 +1022,12 @@ if (titulo != null) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bgpanel;
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnGenerarChart;
-    private javax.swing.JButton btnGenerarChart1;
     private javax.swing.JButton btnGenerarPDF;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupDatos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

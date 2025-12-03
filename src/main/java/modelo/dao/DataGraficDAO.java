@@ -13,9 +13,13 @@ import modelo.dto.DataGraficDTO;
  * @author drola
  */
 public interface DataGraficDAO {
-    
-    List<List<DataGraficDTO>> getListaDataGrafic() throws SQLException;
-    
-    
-    
+
+    List<List<DataGraficDTO>> getListaDataGraficDias() throws SQLException;
+
+    List<List<DataGraficDTO>> getListaDataGraficEdad() throws SQLException;
+
+    List<List<DataGraficDTO>> getListaDataGraficSatisfacccion() throws SQLException;
+
+    List<List<DataGraficDTO>> getListaDataGraficServiciosExtra() throws SQLException;
+
 }
