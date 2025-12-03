@@ -1,6 +1,7 @@
 package modelo.dto;
 
 public class HabitacionDTO {
+    private int habitacionID;
     private int numero;
     private String tipo;
     private double precio; 
@@ -20,6 +21,13 @@ public class HabitacionDTO {
         this.precio = precio; 
         this.estaOcupada = ocupadaInicial;
         this.idTipoHabitacion = idTipoHabitacion;
+    }
+    
+    public int getHabitacionID() {
+        return habitacionID;
+    }
+    public void setHabitacionID(int habitacionID) {
+        this.habitacionID = habitacionID;
     }
 
     public int getNumero() { 

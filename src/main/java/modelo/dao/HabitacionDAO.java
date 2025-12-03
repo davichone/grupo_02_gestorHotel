@@ -81,25 +81,30 @@ public class HabitacionDAO {
     /**
      * Busca una habitación por número.
      */
-    public HabitacionDTO buscarPorNumero(int numero) throws SQLException {
-        String sql = "SELECT numero, tipo, precioPorNoche, estado "
-                   + "FROM Habitaciones WHERE numero = ?";
+    public HabitacionDTO buscarPorNumero(int numeroBusqueda) throws SQLException {
+        String sql = "SELECT habitacionID, numero, tipo, precioPorNoche, estado FROM Habitaciones WHERE numero = ?";
 
         try (Connection conn = ConexionBD.conectar();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, numero);
+            ps.setInt(1, numeroBusqueda);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int num = rs.getInt("numero");
+                    int idInterno = rs.getInt("habitacionID"); // Recuperamos el ID (ej: 1)
+                    int num = rs.getInt("numero");             // Recuperamos el numero (ej: 101)
                     String tipo = rs.getString("tipo");
                     double precio = rs.getDouble("precioPorNoche");
                     String estado = rs.getString("estado");
                     boolean ocupada = "OCUPADA".equalsIgnoreCase(estado);
 
-                    // Usamos el constructor sin idTipoHabitacion
-                    return new HabitacionDTO(num, tipo, precio, ocupada);
+                    // Creamos el objeto
+                    HabitacionDTO habitacion = new HabitacionDTO(num, tipo, precio, ocupada);
+
+                    // CORRECCIÓN B: ¡Guardamos el ID interno en el objeto!
+                    habitacion.setHabitacionID(idInterno);
+
+                    return habitacion;
                 }
             }
             return null;
@@ -112,23 +117,30 @@ public class HabitacionDAO {
     public List<HabitacionDTO> listarTodas() throws SQLException {
         List<HabitacionDTO> lista = new ArrayList<>();
 
-        String sql = "SELECT numero, tipo, precioPorNoche, estado FROM Habitaciones";
+        // 1. IMPORTANTE: Agregamos 'habitacionID' a la consulta
+        String sql = "SELECT habitacionID, numero, tipo, precioPorNoche, estado FROM Habitaciones";
 
         try (Connection conn = ConexionBD.conectar();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+                int idInterno = rs.getInt("habitacionID"); // Recuperamos el ID real (1, 2, 3...)
                 int num = rs.getInt("numero");
                 String tipo = rs.getString("tipo");
                 double precio = rs.getDouble("precioPorNoche");
                 String estado = rs.getString("estado");
                 boolean ocupada = "OCUPADA".equalsIgnoreCase(estado);
 
-                lista.add(new HabitacionDTO(num, tipo, precio, ocupada));
+                // Creamos el DTO
+                HabitacionDTO hab = new HabitacionDTO(num, tipo, precio, ocupada);
+
+                // 2. IMPORTANTE: Inyectamos el ID al objeto
+                hab.setHabitacionID(idInterno);
+
+                lista.add(hab);
             }
         }
-
         return lista;
     }
 
@@ -154,8 +166,7 @@ public class HabitacionDAO {
      */
     public void marcarDisponible(int numero, Connection conn) throws SQLException {
         String sql = "UPDATE Habitaciones SET estado = 'DISPONIBLE' WHERE numero = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, numero);
             ps.executeUpdate();
         }

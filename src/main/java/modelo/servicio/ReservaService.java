@@ -7,6 +7,7 @@ import modelo.logica.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import modelo.dto.HabitacionDTO;
 
 public class ReservaService {
 
@@ -17,23 +18,39 @@ public class ReservaService {
         Connection conn = null;
         try {
             conn = ConexionBD.conectar();
+            conn.setAutoCommit(false); // IMPORTANTE: Control manual de transacción
 
-            // 1. Verificar habitación disponible
-            if (habitacionDAO.buscarPorNumero(reserva.getHabitacion().getNumero()).isOcupada()) {
-                throw new SQLException("Habitación ya ocupada");
+            // --- FASE DE BLINDAJE ---
+            // Ignoramos el objeto habitacion que viene de la ventana y buscamos el REAL en la BD
+            int numeroPuerta = reserva.getHabitacion().getNumero();
+            HabitacionDTO habitacionReal = habitacionDAO.buscarPorNumero(numeroPuerta);
+
+            if (habitacionReal == null) {
+                throw new SQLException("La habitación " + numeroPuerta + " no existe en la base de datos.");
             }
+            if (habitacionReal.isOcupada()) {
+                throw new SQLException("La habitación " + numeroPuerta + " ya está ocupada.");
+            }
+            
+            // Reemplazamos en la reserva el objeto incompleto por el real (que tiene el ID correcto)
+            reserva.setHabitacion(habitacionReal); 
+            // ------------------------
 
-            // 2. Insertar reserva + marcar ocupada (transacción)
+            // Ahora insertamos con seguridad
             int reservaId = reservaDAO.insertarConTransaccion(reserva, conn);
-
-            ConexionBD.commit(conn);
+            
+            conn.commit(); // Confirmamos cambios
             return reservaId;
 
         } catch (SQLException e) {
-            ConexionBD.rollback(conn);
+            if (conn != null) {
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
             throw e;
         } finally {
-            ConexionBD.cerrar(conn);
+            if (conn != null) {
+                try { conn.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
         }
     }
 
@@ -53,6 +70,6 @@ public class ReservaService {
     }
 
     public List<ReservaDTO> listarTodas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return reservaDAO.listarTodas();
     }
 }

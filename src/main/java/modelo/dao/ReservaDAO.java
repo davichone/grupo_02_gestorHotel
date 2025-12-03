@@ -4,6 +4,7 @@ import modelo.dto.ReservaDTO;
 import modelo.dto.HabitacionDTO;
 import modelo.dto.ClienteDTO;
 import java.sql.*;
+import modelo.logica.ConexionBD;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,27 +12,32 @@ public class ReservaDAO {
 
     // === INSERTAR RESERVA + MARCAR HABITACIÓN COMO OCUPADA (TRANSACCIÓN) ===
     public int insertarConTransaccion(ReservaDTO reserva, Connection conn) throws SQLException {
-        String sqlReserva = "INSERT INTO Reservas (clienteID, habitacionNumero, dias, total) VALUES (?, ?, ?, ?)";
-        String sqlUpdateHab = "UPDATE Habitaciones SET estaOcupada = TRUE WHERE numero = ? AND estaOcupada = FALSE";
+        // CORRECCIÓN: Usamos 'estado' en lugar de 'estaOcupada'
+        // CORRECCIÓN: Agregamos CURDATE() para las fechas obligatorias si no las tienes en el DTO
+        String sqlReserva = "INSERT INTO reservas (clienteID, habitacionID, fechaEntrada, fechaSalida, dias, importeTotal, estado) " +
+                            "VALUES (?, ?, CURDATE(), CURDATE(), ?, ?, 'Confirmada')";
+        
+        String sqlUpdateHab = "UPDATE habitaciones SET estado = 'Ocupada' WHERE habitacionID = ? AND estado = 'Disponible'";
 
         PreparedStatement psReserva = null;
         PreparedStatement psUpdate = null;
         ResultSet rs = null;
 
         try {
-            // 1. Actualizar habitación
+            // 1. Actualizar habitación (Marcar como Ocupada) usando el ID Interno
             psUpdate = conn.prepareStatement(sqlUpdateHab);
-            psUpdate.setInt(1, reserva.getHabitacion().getNumero());
+            psUpdate.setInt(1, reserva.getHabitacion().getHabitacionID()); 
+            
             int updated = psUpdate.executeUpdate();
 
             if (updated == 0) {
-                throw new SQLException("Habitación no disponible o ya ocupada: " + reserva.getHabitacion().getNumero());
+                throw new SQLException("La habitación (ID: " + reserva.getHabitacion().getHabitacionID() + ") ya está ocupada o no existe.");
             }
 
             // 2. Insertar reserva
             psReserva = conn.prepareStatement(sqlReserva, Statement.RETURN_GENERATED_KEYS);
             psReserva.setInt(1, reserva.getCliente().getClienteID());
-            psReserva.setInt(2, reserva.getHabitacion().getNumero());
+            psReserva.setInt(2, reserva.getHabitacion().getHabitacionID()); // Usamos ID, no numero
             psReserva.setInt(3, reserva.getDias());
             psReserva.setDouble(4, reserva.calcularImporteTotal());
 
@@ -39,7 +45,7 @@ public class ReservaDAO {
             if (filas > 0 && (rs = psReserva.getGeneratedKeys()).next()) {
                 return rs.getInt(1);
             }
-            throw new SQLException("No se pudo insertar la reserva");
+            throw new SQLException("No se pudo insertar la reserva, no se generó ID.");
 
         } finally {
             if (rs != null) rs.close();
@@ -128,5 +134,9 @@ public class ReservaDAO {
             }
         }
         return lista;
+    }
+
+    public List<ReservaDTO> listarTodas() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

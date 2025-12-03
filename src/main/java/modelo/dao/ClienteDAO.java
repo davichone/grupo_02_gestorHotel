@@ -18,6 +18,14 @@ public class ClienteDAO {
      * @throws SQLException Si ocurre un error en la BD.
      */
     public int insertar(ClienteDTO cliente) throws SQLException {
+        
+        if (cliente.getNombre() == null || cliente.getNombre().trim().isEmpty()) {
+            throw new SQLException("El nombre del cliente no puede estar vacío.");
+        }
+        if (cliente.getDni() == null || cliente.getDni().trim().isEmpty()) {
+            throw new SQLException("El documento (DNI) es obligatorio.");
+        }
+        
         String sql = "INSERT INTO clientes (nombres, numeroDocumento, tipoDocumento, telefono, email) "
                + "VALUES (?, ?, ?, ?, ?)";
 
@@ -124,9 +132,30 @@ public class ClienteDAO {
         return lista;
     }
 
-    public int insertar(ClienteDTO cliente, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public int insertar(ClienteDTO cliente, Connection conn) throws SQLException {
+     String sql = "INSERT INTO clientes (nombres, numeroDocumento, tipoDocumento, telefono, email) VALUES (?, ?, ?, ?, ?)";
+
+     // IMPORTANTE: NO uses try-with-resources en 'conn' aquí, porque la conexión viene de fuera
+     try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+         ps.setString(1, cliente.getNombre());
+         ps.setString(2, cliente.getDni());
+         ps.setString(3, cliente.getTipoDocumento() != null ? cliente.getTipoDocumento() : "DNI");
+         ps.setString(4, cliente.getTelefono());
+         ps.setString(5, cliente.getEmail());
+
+         int filas = ps.executeUpdate();
+         if (filas > 0) {
+             try (ResultSet rs = ps.getGeneratedKeys()) {
+                 if (rs.next()) {
+                     return rs.getInt(1); // Retorna el ID nuevo
+                 }
+             }
+         }
+         // Si llegamos aquí, falló
+         throw new SQLException("No se pudo registrar el cliente (ID no generado)."); 
+     }                                                                                                                                                                                                                  
+}
 
     ClienteDTO buscarPorId(int aInt, Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

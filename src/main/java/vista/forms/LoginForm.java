@@ -8,6 +8,9 @@ public class LoginForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
 
+    private int intentosFallidos = 0;
+    private static final int LIMITE_INTENTOS = 3;
+    
     public LoginForm() {
         initComponents();
         this.getRootPane().setDefaultButton(BotonLogin);
@@ -178,28 +181,63 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonExitActionPerformed
 
     private void BotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLoginActionPerformed
+        if (intentosFallidos >= LIMITE_INTENTOS) {
+            JOptionPane.showMessageDialog(this,
+                    "El inicio de sesión está bloqueado. Ha superado el máximo de intentos.",
+                    "Bloqueado", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String user = TextoUsuario.getText().trim();
         String pass = new String(TextoContraseña.getPassword());
         
         if (user.isEmpty() || pass.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese usuario y contraseña", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(this,
+                    "Ingrese usuario y contraseña",
+                    "Campos vacíos",
+                    JOptionPane.WARNING_MESSAGE);
+            return; // NO cuenta como intento fallido
         }
         
         Login login = new Login(user, pass);
 
         if (login.validarCredenciales()) {
+            // ✅ Login correcto → reiniciamos contador
+            intentosFallidos = 0;
+
             UsuarioDTO usuario = login.getUsuarioLogueado();
-            JOptionPane.showMessageDialog(this, "Bienvenido, " + usuario.getNombrePersona() + " (" + usuario.getNombreRol() + ")");
+            JOptionPane.showMessageDialog(this,
+                    "Bienvenido, " + usuario.getNombrePersona() + " (" + usuario.getNombreRol() + ")");
 
             RegistroClienteForm form = new RegistroClienteForm();
             form.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            // ❌ Login incorrecto → sumamos intento
+            intentosFallidos++;
+
+            int restantes = LIMITE_INTENTOS - intentosFallidos;
+
+            if (restantes > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario o contraseña incorrectos.\nIntentos restantes: " + restantes,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Llegó al límite
+                JOptionPane.showMessageDialog(this,
+                        "Ha superado el número máximo de intentos.\nEl inicio de sesión ha sido bloqueado.",
+                        "Bloqueado", JOptionPane.ERROR_MESSAGE);
+                bloquearLogin();
+            }
         }
     }//GEN-LAST:event_BotonLoginActionPerformed
 
+    private void bloquearLogin() {
+        TextoUsuario.setEnabled(false);
+        TextoContraseña.setEnabled(false);
+        BotonLogin.setEnabled(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
